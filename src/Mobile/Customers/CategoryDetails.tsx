@@ -68,17 +68,7 @@ export const CategoryDetails = () => {
       ? menuItems
       : menuItems.filter((menu) => menu.menu_group_name === selectedGroup);
 
-  // const groupedMenuItems: GroupedMenuItems = filteredMenuItems.reduce(
-  //   (acc: GroupedMenuItems, item: MenuItem) => {
-  //     const { menu_group_name } = item;
-  //     if (!acc[menu_group_name]) {
-  //       acc[menu_group_name] = [];
-  //     }
-  //     acc[menu_group_name].push(item);
-  //     return acc;
-  //   },
-  //   {}
-  // );
+
 
   const groupedMenuItems: GroupedMenuItems = filteredMenuItems.reduce(
     (acc: GroupedMenuItems, item: MenuItem) => {

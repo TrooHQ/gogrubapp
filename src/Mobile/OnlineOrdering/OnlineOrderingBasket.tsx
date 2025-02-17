@@ -21,11 +21,6 @@ import { HiMinusSm, HiPlusSm } from "react-icons/hi";
 import CustomSelect3 from "../inputFields/CustomSelect3";
 import RadioInput from "../inputFields/RadioInput";
 
-// interface Option {
-//   value: string;
-//   label: string;
-// }
-
 export const OnlineOrderingBasket = () => {
   const navigate = useNavigate();
   const basketDetails = useSelector((state: RootState) => state.basket);
@@ -35,12 +30,10 @@ export const OnlineOrderingBasket = () => {
   const [cancelModal, setCancelModal] = useState(false);
 
   const [selectedOption, setSelectedOption] = useState("");
-  // const [selectedAddress, setSelectedAddress] = useState("");
 
   const [userName, setUserName] = useState("");
   const [phone, setPhone] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
-  // const [town, setTown] = useState("");
   const [addressvalue, setAddressvalue] = useState("");
 
   const DELIVERY_PRICE = 500;
