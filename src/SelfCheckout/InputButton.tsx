@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import KantaLogo from "../../../../img/trooLogo1.svg";
-// import backspacesvg from "../../../../img/backspace.svg";
-// import { Link } from "react-router-dom";
 
 const InputButton: React.FC = () => {
   const [pin, setPin] = useState("");

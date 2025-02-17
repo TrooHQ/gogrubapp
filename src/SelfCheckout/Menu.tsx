@@ -53,11 +53,7 @@ const Menu = () => {
   const color = businessDetails?.colour_scheme || "#FF0000";
   return (
     <div>
-      <Header2
-        // bgColor={`${color || "#ff0000"}`}
-        textColor="#ffffff"
-        borderColor="#ffffff"
-      />
+      <Header2 textColor="#ffffff" borderColor="#ffffff" />
 
       <div className=" mt-[53px]">
         <div className=" px-[21px]">
