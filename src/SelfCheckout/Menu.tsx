@@ -27,7 +27,6 @@ const Menu = () => {
   );
 
   const business_identifier = businessDetails?._id;
-  // const business_name = businessDetails?.business_name;
 
   const getCategories = async () => {
     const headers = {
