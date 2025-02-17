@@ -1,0 +1,137 @@
+.headerH1 {
+  color: var(--Kanta-Neutral-500, #858497);
+
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 200;
+  line-height: 29px; /* 145% */
+}
+
+.headerSpan {
+  color: var(--Texts-Color-Primary-Text, #121212);
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 39px;
+}
+
+.balance {
+  display: flex;
+  padding: 24px 32px 32px 32px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  background: linear-gradient(
+      0deg,
+      rgba(11, 10, 23, 0.95) 0%,
+      rgba(11, 10, 23, 0.95) 100%
+    ),
+    lightgray 50% / cover no-repeat;
+  color: #ffffff;
+}
+
+.amount {
+  color: var(--Border-Line-Indicator, #eeeef7);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 27px; /* 150% */
+}
+
+.figure {
+  color: var(--Texts-Color-Button-Text, #fff);
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 54px; /* 135% */
+}
+
+.manage {
+  color: var(--Kanta-200, #b2b1dc);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22px; /* 157.143% */
+}
+
+/* No activity */
+.noActivity {
+  border-radius: 16px;
+  border: 1px solid var(--Border-Disabled, #c7c6cf);
+}
+
+.noActivity h3 {
+  color: var(--Texts-Color-Primary-Text, #121212);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 29px; /* 145% */
+}
+
+.noActivityText {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.noActivityText h5 {
+  color: var(--Texts-Color-Primary-Text, #121212);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 29px; /* 145% */
+}
+
+.noActivityText p {
+  color: var(--Texts-Color-Default-Text, #858497);
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 26px; /* 162.5% */
+}
+
+/* Sales Activities  */
+.salesActivitiesH4 {
+  color: #121212;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 29px;
+}
+
+.activityDiv h5 {
+  color: #121212;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px;
+}
+
+.activityDiv span {
+  color: #121212;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 45px;
+}
+
+.activityDiv p {
+  color: #858497;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 22px;
+}
+
+/* salesRevenue */
+.salesRevenue {
+  color: #343a40;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 26px;
+}

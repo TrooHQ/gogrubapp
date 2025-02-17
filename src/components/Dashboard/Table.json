@@ -1,0 +1,23 @@
+{
+  "tables": {
+    "Akate": [
+      {
+        "name": "Table 1",
+        "id": "T001",
+        "qrCode": "qr-code-url-1"
+      },
+      {
+        "name": "Table 1",
+        "id": "T001",
+        "qrCode": "qr-code-url-1"
+      }
+    ],
+    "OtherOwner": [
+      {
+        "name": "Table 2",
+        "id": "T002",
+        "qrCode": "qr-code-url-2"
+      }
+    ]
+  }
+}
