@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
 import MobileLayout from "./MobileLayout";
 import "./index.css";
 
@@ -13,16 +12,16 @@ function Root() {
   const [isMobileScreen, setIsMobileScreen] = useState(
     window.matchMedia("(max-width: 768px)").matches
   );
-  const [isLargeScreen, setIsLargeScreen] = useState(
-    window.matchMedia("(min-width: 769px) and (max-width: 1090px)").matches
-  );
+  // const [isLargeScreen, setIsLargeScreen] = useState(
+  //   window.matchMedia("(min-width: 769px) and (max-width: 1090px)").matches
+  // );
 
   useEffect(() => {
     function handleResize() {
       setIsMobileScreen(window.matchMedia("(max-width: 768px)").matches);
-      setIsLargeScreen(
-        window.matchMedia("(min-width: 769px) and (max-width: 1090px)").matches
-      );
+      // setIsLargeScreen(
+      //   window.matchMedia("(min-width: 769px) and (max-width: 1090px)").matches
+      // );
     }
 
     window.addEventListener("resize", handleResize);
@@ -37,7 +36,7 @@ function Root() {
   if (isMobileScreen) {
     rootComponent = <MobileLayout />;
   } else {
-    rootComponent = <App />;
+    window.location.href = "https://gogrub.co";
   }
 
   let persistor = persistStore(store);
