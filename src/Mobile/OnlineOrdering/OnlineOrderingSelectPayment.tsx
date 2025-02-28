@@ -1,8 +1,6 @@
 import TopMenuNav from "./OnlineOrderingTopMenuNav";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import System from "../../SelfCheckout/assets/system.png";
-import QRCode from "../../SelfCheckout/assets//qrcodeScan.png";
 import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 // import { clearBasket } from "../../slices/BasketSlice";
@@ -13,13 +11,18 @@ import { toast } from "react-toastify";
 import Loader from "../../components/Loader";
 import Customer from "../assets/streamline_customer-support-1-solid.svg";
 import { TiArrowRight } from "react-icons/ti";
+import { usePaystackPayment } from "react-paystack";
 
 export const OnlineOrderingSelectPayment = () => {
+  const storedOrderID = sessionStorage.getItem("OrderDetails");
+  const storedOrderDetails = storedOrderID ? JSON.parse(storedOrderID) : null;
+
+  storedOrderID && console.log(storedOrderDetails._id);
+
   const [loading, setLoading] = useState<boolean>(false);
-  const [selectedOption, setSelectedOption] = useState("");
   // const [paymentResponse, setPaymentResponse] = useState<any>(null);
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   // const dispatch = useDispatch();
 
   const basketDetails = useSelector((state: RootState) => state.basket);
@@ -31,6 +34,15 @@ export const OnlineOrderingSelectPayment = () => {
   const totalPrice = basketDetails?.totalPrice ?? 0;
   const deliveryFee = basketDetails?.deliveryFee ?? 0;
   // const finalTotal = totalPrice;
+
+  const config = {
+    reference: new Date().getTime().toString(),
+    email: "trooemail@gmail.com",
+    publicKey: "pk_test_55e93b1ed22dbcc8b11fcafa99638414975a6b49",
+    amount: basketDetails.totalPrice > 0 ? basketDetails.totalPrice * 100 : 100,
+  };
+
+  const initializePayment = usePaystackPayment(config);
 
   const items = basketDetails.items.map((item) => ({
     id: item.id,
@@ -65,103 +77,76 @@ export const OnlineOrderingSelectPayment = () => {
     totalPrice: basketDetails.totalPrice,
     totalQuantity: basketDetails.totalQuantity,
   };
-  const payment_payload = {
-    platform: "onlineOrdering",
-    amount: basketDetails.totalPrice,
-    email: "trooemail@gmail.com",
-    business_id: business?.businessIdentifier,
-    name: basketDetails.customerName || "User",
-    menu_items: items,
-  };
 
   const colorScheme = useSelector(
     (state: RootState) => state.business?.businessDetails?.colour_scheme
   );
 
+  const onSuccess = async (reference: { reference: string }) => {
+    console.log("onSuccess function called");
+    try {
+      setLoading(true);
+      console.log("Payment Reference:", reference);
+
+      const response = await axios.post(
+        `${PAYMENT_DOMAIN}/transaction/confirm_paystack_transaction/`,
+        { reference: reference.reference }
+      );
+
+      console.log(response);
+
+      if (response.data.success) {
+        toast.success("Payment Successful!");
+        sessionStorage.setItem(
+          "OrderDetails1",
+          JSON.stringify(response.data.data)
+        );
+
+        // navigate(`/payment-success?reference=${reference.reference}`);
+        navigate(`/demo/receipt/online_ordering/${storedOrderDetails._id}`);
+      } else {
+        toast.error("Payment verification failed. Contact support.");
+        navigate(`/demo/receipt/online_ordering/${storedOrderDetails._id}`);
+      }
+    } catch (error) {
+      console.error("Error confirming payment:", error);
+      toast.error("An error occurred. Please try again.");
+      navigate(`/demo/receipt/online_ordering/${storedOrderDetails._id}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onClose = () => {
+    toast.info("Payment process was cancelled.");
+    console.log("close");
+  };
+
   const handlePayment = async () => {
     try {
       setLoading(true);
+      console.log("Initiating payment...");
+
       const response = await axios.post(
         `${SERVER_DOMAIN}/order/uploadBranchUserOrder`,
         payload
       );
+
       sessionStorage.setItem(
         "OrderDetails",
         JSON.stringify(response.data.data)
       );
-      await initiatePayment();
 
-      toast.success("Order has been Made successfully");
+      console.log("Order uploaded, calling Paystack...");
+
+      initializePayment({ onSuccess, onClose });
     } catch (error) {
       console.error("Error occurred:", error);
-      if (axios.isAxiosError(error)) {
-        if (error.response) {
-          toast.error(error.response.data.message);
-        } else {
-          toast.error("An error occurred. Please try again later.");
-        }
-      } else {
-        toast.error("An error occurred. Please try again later.");
-      }
     } finally {
       setLoading(false);
     }
   };
 
-  const initiatePayment = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.post(
-        `${PAYMENT_DOMAIN}/transaction/initiate_paystack_transaction/`,
-        payment_payload
-      );
-      if (response.data?.paystack_data?.data?.authorization_url) {
-        window.location.href =
-          response.data.paystack_data.data.authorization_url;
-      } else {
-        toast.error("Payment initiation failed. Please try again.");
-      }
-      console.log(response);
-    } catch (error) {
-      console.error("Error occurred:", error);
-      if (axios.isAxiosError(error)) {
-        if (error.response) {
-          toast.error(error.response.data.message);
-        } else {
-          toast.error("An error occurred. Please try again later.");
-        }
-      } else {
-        toast.error("An error occurred. Please try again later.");
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // const confirmPayment = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const response = await axios.post(
-  //       `${PAYMENT_DOMAIN}/transaction/initiate_paystack_transaction/`,
-  //       payment_payload
-  //     );
-  //     setLoading(false);
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.error("Error occurred:", error);
-  //     if (axios.isAxiosError(error)) {
-  //       if (error.response) {
-  //         toast.error(error.response.data.message);
-  //       } else {
-  //         toast.error("An error occurred. Please try again later.");
-  //       }
-  //     } else {
-  //       toast.error("An error occurred. Please try again later.");
-  //     }
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
   return (
     <div className="  relative mb-[20px]">
       <TopMenuNav exploreMenuText="Select Payment" />
@@ -207,140 +192,6 @@ export const OnlineOrderingSelectPayment = () => {
         </p>
       </div>
 
-      <div className=" mt-[30px] border border-grey40 px-[12px] py-[32px] rounded-[10px] flex items-center gap-[8px] mx-[8px] overflow-x-auto hidden">
-        <p
-          className={`text-[14px] font-[500] min-w-[120px] w-full cursor-pointer text-center py-[16px] px-[8px] bg-white rounded-[10px] ${
-            selectedOption === "Bank Transfer"
-              ? "border-4 border-grey20 text-grey20"
-              : "border-4 border-grey100 text-[#414141]"
-          }`}
-          onClick={() => setSelectedOption("Bank Transfer")}
-        >
-          Bank Transfer
-        </p>
-        <p
-          className={`min-w-[120px] w-full text-[14px] font-[500] cursor-pointer text-center py-[16px] px-[8px] bg-white rounded-[10px] ${
-            selectedOption === "WebPay"
-              ? "border-4 border-grey20 text-grey20"
-              : "border-4 border-grey100 text-[#414141]"
-          }`}
-          onClick={() => setSelectedOption("WebPay")}
-        >
-          WebPay
-        </p>
-        <p
-          className={`min-w-[120px] w-full text-[14px] font-[500] cursor-pointer text-center py-[16px] px-[8px] bg-white rounded-[10px] ${
-            selectedOption === "Terminals"
-              ? "border-4 border-grey20 text-grey20"
-              : "border-4 border-grey100 text-[#414141]"
-          }`}
-          onClick={() => setSelectedOption("Terminals")}
-        >
-          Terminals
-        </p>
-      </div>
-
-      {selectedOption && (
-        <div className=" mx-[42px] mt-[20px]">
-          {selectedOption === "Bank Transfer" && (
-            <div className="">
-              <p className=" hidden text-[18px] font-[500] text-[#414141] px-[28px] py-[15px]">
-                Bank Transfer
-              </p>
-              <hr className="hidden border-[#929292] border" />
-
-              <div className=" my-[10px] max-w-[566px] mx-auto text-center hidden">
-                <p className=" text-[14px]  font-[400] text-grey500">
-                  Scan QR Code below in your bank app to complete this payment
-                </p>
-                <div className="hidden">
-                  <div className=" flex justify-center">
-                    <img src={QRCode} alt="" className=" mt-[40px]" />
-                  </div>
-                </div>
-              </div>
-
-              <div className=" flex items-center  justify-center">
-                <p
-                  className=" cursor-pointer inline-flex items-center gap-[5px] font-[500] text-[18px] rounded-[5px] border   text-white py-[11px] px-[20px]"
-                  onClick={handlePayment}
-                  style={{
-                    backgroundColor: colorScheme || "#606060",
-                    borderColor: colorScheme || "#606060",
-                  }}
-                >
-                  Proceed to Pay
-                  <TiArrowRight />
-                </p>
-              </div>
-            </div>
-          )}
-          {selectedOption === "WebPay" && (
-            <div className="">
-              <p className=" hidden text-[18px] font-[500] text-[#414141] px-[28px] py-[15px]">
-                WebPay
-              </p>
-              <hr className="hidden border-[#929292] border" />
-
-              <div className="hidden my-[10px] max-w-[566px] mx-auto text-center">
-                <p className=" text-[14px]  font-[400] text-grey500">
-                  Scan QR Code with your phone camera
-                </p>
-
-                <div className=" flex justify-center">
-                  <img src={QRCode} alt="" className=" mt-[40px]" />
-                </div>
-              </div>
-
-              <div className=" flex items-center  justify-center">
-                <p
-                  className=" cursor-pointer inline-flex items-center gap-[5px] font-[500] text-[18px] rounded-[5px] border   text-white py-[11px] px-[20px]"
-                  onClick={handlePayment}
-                  style={{
-                    backgroundColor: colorScheme || "#606060",
-                    borderColor: colorScheme || "#606060",
-                  }}
-                >
-                  Proceed to Pay
-                  <TiArrowRight />
-                </p>
-              </div>
-            </div>
-          )}
-          {selectedOption === "Terminals" && (
-            <div className="">
-              <p className=" hidden text-[18px] font-[500] text-[#414141] px-[28px] py-[15px]">
-                Terminals
-              </p>
-              <hr className="hidden border-[#929292] border" />
-
-              <div className="hidden my-[10px] max-w-[566px] mx-auto text-center">
-                <p className=" text-[14px]  font-[400] text-grey500">
-                  Tap attached NFC device
-                </p>
-
-                <div className=" flex justify-center">
-                  <img src={System} alt="" className=" mt-[40px]" />
-                </div>
-              </div>
-
-              <div className=" flex items-center  justify-center">
-                <p
-                  className=" cursor-pointer inline-flex items-center gap-[5px] font-[500] text-[18px] rounded-[5px] border   text-white py-[11px] px-[20px]"
-                  onClick={handlePayment}
-                  style={{
-                    backgroundColor: colorScheme || "#606060",
-                    borderColor: colorScheme || "#606060",
-                  }}
-                >
-                  Proceed to Pay
-                  <TiArrowRight />
-                </p>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
       <div className="fixed bottom-[30px] left-1/2 -translate-x-1/2 flex justify-center">
         <div className="flex flex-wrap items-center gap-[2px]">
           <img src={Customer} alt="Customer" />
