@@ -61,7 +61,9 @@ const ManageThemes = ({ userDetails }: any) => {
 
       const colorScheme = response.data.data.colour_scheme;
 
-      const defaultColor = colors.find((color) => color.colorCode === colorScheme);
+      const defaultColor = colors.find(
+        (color) => color.colorCode === colorScheme
+      );
 
       if (defaultColor) {
         setSelectedColor(defaultColor);
@@ -88,7 +90,7 @@ const ManageThemes = ({ userDetails }: any) => {
         {colors.map((color) => (
           <div
             key={color.name}
-            className={`py-[16px] border-b border-b-[#E7E7E7] flex gap-[8px] cursor-pointer ${
+            className={`py-[16px] border-b border-b-grey40 flex gap-[8px] cursor-pointer ${
               loading ? "opacity-50 cursor-not-allowed" : ""
             }`}
             onClick={() => handleColorSelect(color)}
@@ -97,9 +99,15 @@ const ManageThemes = ({ userDetails }: any) => {
               className="h-[24px] w-[24px] rounded-full"
               style={{ backgroundColor: color.colorCode }}
             ></div>
-            <p className="text-[16px] font-[500] text-[#000000] flex-1">{color.name}</p>
+            <p className="text-[16px] font-[500] text-[#000000] flex-1">
+              {color.name}
+            </p>
             <div className="text-[24px]">
-              {selectedColor?.name === color.name ? <FaRegCircleCheck /> : <FaRegCircle />}
+              {selectedColor?.name === color.name ? (
+                <FaRegCircleCheck />
+              ) : (
+                <FaRegCircle />
+              )}
             </div>
           </div>
         ))}

@@ -72,7 +72,7 @@ const CreatePassword = () => {
   };
 
   return (
-    <div className="bg-[#EFEFEF] h-screen">
+    <div className="bg-grey50 h-screen">
       <div className="flex flex-col items-center justify-center h-screen my-auto">
         <div className="">
           <img src={Logo} alt="" />
@@ -126,7 +126,7 @@ const CreatePassword = () => {
             </p>
             <Link to="/login">
               <div className=" flex items-end gap-[4px]">
-                <p className=" text-[#5855B3]">Proceed to Login</p>
+                <p className=" text-grey20">Proceed to Login</p>
                 <img src={ArrowRight} alt="" />
               </div>
             </Link>

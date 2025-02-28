@@ -25,7 +25,9 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
           <p className="text-[24px] font-[500] text-purple500">Are You Sure?</p>
         </DialogTitle>
         <DialogContent>
-          <p className="text-[16px] font-[400] text-center text-grey500">{message}</p>
+          <p className="text-[16px] font-[400] text-center text-grey500">
+            {message}
+          </p>
         </DialogContent>
         <DialogActions className="flex items-center justify-center gap-4 mt-0 !pb-[32px]">
           <button
@@ -36,7 +38,7 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
           </button>
           <button
             onClick={onConfirm}
-            className="border border-purple500 bg-purple500 rounded px-[24px] py-[10px] font-[500] text-[#ffffff]"
+            className="border border-purple500 bg-purple500 rounded px-[24px] py-[10px] font-[500] text-white"
             disabled={isLoading}
           >
             {isLoading ? "Loading..." : "Yes"}

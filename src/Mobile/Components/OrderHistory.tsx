@@ -118,7 +118,7 @@ const OrderHistory = () => {
       <Modal isOpen={ticketModal}>
         <div className=" w-[328px] h-[500px]">
           <div className=" flex items-center justify-between">
-            <div className=" py-[16px] border-b border-b-[#E7E7E7] w-full">
+            <div className=" py-[16px] border-b border-b-grey40 w-full">
               <p className=" text-[16px] font-[500] text-grey500 ">Name</p>
               <div className=" text-[16px] font-[400] text-grey500 flex items-center justify-between capitalize">
                 <p>
@@ -141,14 +141,14 @@ const OrderHistory = () => {
               className=" cursor-pointer"
             />
           </div>
-          <div className="  py-[16px] border-b border-b-[#E7E7E7]">
+          <div className="  py-[16px] border-b border-b-grey40">
             <p className=" text-[16px] font-[500] text-grey500  pb-[16px]">
               Orders
             </p>
             <div className="text-[16px] font-[400] text-grey500">
               {selectedTicket?.menu_items.map((order, index) => (
                 <div key={index} className="flex items-center justify-between">
-                  <p className=" text-[16px] font-[400] text-[#121212]">
+                  <p className=" text-[16px] font-[400] text-grey500">
                     {order.quantity || 2}x{" "}
                     <span className=" p-[5px]">{order.name}</span>
                   </p>
@@ -157,7 +157,7 @@ const OrderHistory = () => {
               ))}
             </div>
           </div>
-          <div className=" flex items-center justify-between border-b border-b-[#E7E7E7]">
+          <div className=" flex items-center justify-between border-b border-b-grey40">
             <div className="  py-[16px]  grid gap-[8px]">
               <p className="text-[16px] font-[500] text-grey500 ">
                 Order Number
@@ -174,7 +174,7 @@ const OrderHistory = () => {
               </p>
             </div>
           </div>
-          <div className="  py-[16px] border-b border-b-[#E7E7E7] grid gap-[8px]">
+          <div className="  py-[16px] border-b border-b-grey40 grid gap-[8px]">
             <p className=" text-[16px] font-[500] text-grey500">Time</p>
             <p className=" text-[16px] font-[400] text-grey500">
               {" "}
@@ -182,7 +182,7 @@ const OrderHistory = () => {
             </p>
           </div>
 
-          <div className="  py-[16px] border-b border-b-[#E7E7E7] grid gap-[8px]">
+          <div className="  py-[16px] border-b border-b-grey40 grid gap-[8px]">
             <p className=" text-[16px] font-[500] text-grey500">
               Delivery Details
             </p>

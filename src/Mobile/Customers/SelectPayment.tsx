@@ -106,7 +106,7 @@ export const SelectPayment = () => {
       <div className=" text-center mt-[7px] w-full mx-[10px]">
         <p className=" text-[#000000] text-[18px] font-[400] mt-[36px]">
           Balance Due:{" "}
-          <span className=" text-[#121212]">
+          <span className=" text-grey500">
             ₦ {totalPrice ? totalPrice.toLocaleString() : "0"}
           </span>
         </p>
@@ -121,13 +121,13 @@ export const SelectPayment = () => {
         />
         <p className="text-[#000000] text-[18px] font-[600]">
           Pay:{" "}
-          <span className="text-[#121212]">
+          <span className="text-grey500">
             ₦{(totalPrice + (tip ?? 0)).toLocaleString()}
           </span>
         </p>
       </div>
 
-      <div className=" mt-[30px] border border-[#E7E7E7] px-[12px] py-[32px] rounded-[10px] flex items-center gap-[8px] mx-[8px] overflow-x-auto">
+      <div className=" mt-[30px] border border-grey40 px-[12px] py-[32px] rounded-[10px] flex items-center gap-[8px] mx-[8px] overflow-x-auto">
         <p
           className={`text-[14px] font-[500] border-4 min-w-[120px] w-full cursor-pointer text-center py-[16px] px-[8px] bg-white rounded-[10px] `}
           onClick={() => setSelectedOption("Bank Transfer")}
@@ -193,7 +193,7 @@ export const SelectPayment = () => {
               />
 
               <div className=" my-[10px] max-w-[566px] mx-auto text-center">
-                <p className=" text-[14px]  font-[400] text-[#121212]">
+                <p className=" text-[14px]  font-[400] text-grey500">
                   Scan QR Code below in your bank app to complete this payment
                 </p>
 
@@ -229,7 +229,7 @@ export const SelectPayment = () => {
               />
 
               <div className=" my-[10px] max-w-[566px] mx-auto text-center">
-                <p className=" text-[14px]  font-[400] text-[#121212]">
+                <p className=" text-[14px]  font-[400] text-grey500">
                   Scan QR Code with your phone camera
                 </p>
 
@@ -265,7 +265,7 @@ export const SelectPayment = () => {
               />
 
               <div className=" my-[10px] max-w-[566px] mx-auto text-center">
-                <p className=" text-[14px]  font-[400] text-[#121212]">
+                <p className=" text-[14px]  font-[400] text-grey500">
                   Tap attached NFC device
                 </p>
 

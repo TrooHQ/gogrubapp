@@ -57,14 +57,14 @@ const FAQSetting: React.FC<FAQProps> = ({
       {faqData.map((faq, index) => (
         <div
           key={index}
-          className={`bg-purple500 border  border-purple500 focus:outline-[#5955B3] w-full rounded `}
+          className={`bg-purple500 border  border-purple500 focus:outline-purple500 w-full rounded `}
         >
           <div
             className="flex items-center justify-between cursor-pointer font-bold py-[12px] px-[12px]"
             onClick={() => toggleAnswer(index)}
           >
             <div className="mb-2 cursor-pointer">
-              <p className="text-[#ffffff] font-[500] text-[14px] lg:text-[16px] ">{` ${faq.question}`}</p>
+              <p className="text-white font-[500] text-[14px] lg:text-[16px] ">{` ${faq.question}`}</p>
             </div>
             <div className="">
               <img
@@ -79,7 +79,7 @@ const FAQSetting: React.FC<FAQProps> = ({
 
           <div className=" bg-white">
             {openIndex === index && (
-              <div className="text-[#757575] text-[12px] lg:text-[18px] font-[300] py-[24px] px-[24px]">
+              <div className="text-grey30 text-[12px] lg:text-[18px] font-[300] py-[24px] px-[24px]">
                 {openIndex === 0 && (
                   <div className="">
                     <div className=" grid gap-[24px]">
@@ -172,7 +172,7 @@ const FAQSetting: React.FC<FAQProps> = ({
                     {faqDataInner.map((innerFaq, innerIndex) => (
                       <div
                         key={innerIndex}
-                        className="bg-[#EEEEF7] border mt-4   focus:outline-[#5955B3] w-full rounded my-2"
+                        className="bg-[#EEEEF7] border mt-4   focus:outline-purple500 w-full rounded my-2"
                       >
                         <div
                           className="flex items-center justify-between cursor-pointer py-[12px] px-[12px] font-bold"
@@ -539,7 +539,7 @@ const FAQSetting: React.FC<FAQProps> = ({
           </div>
         </div>
 
-        <div className="border border-purple500 bg-purple500 rounded px-[24px] py-[13px] font-[500] text-[#ffffff]">
+        <div className="border border-purple500 bg-purple500 rounded px-[24px] py-[13px] font-[500] text-white">
           <Link to="/">
             <button className=" text-[16px]">Save and continue</button>
           </Link>

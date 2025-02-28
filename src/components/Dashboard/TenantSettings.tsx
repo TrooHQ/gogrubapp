@@ -8,7 +8,9 @@ const TenantSettings = () => {
       {" "}
       <TopMenuNav pathName="Tenant settings" />
       <div className="mt-[40px] mb-[100px] md:p-[5%]">
-        <h3 className="text-xl font-normal text-[#121212]">Customer Apps Settings</h3>
+        <h3 className="text-xl font-normal text-grey500">
+          Customer Apps Settings
+        </h3>
 
         <TenantAccordion />
       </div>

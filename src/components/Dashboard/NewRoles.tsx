@@ -103,7 +103,7 @@ const NewRoles = () => {
               <div className="flex items-start">
                 <label
                   htmlFor=""
-                  className="flex-shrink-0 mr-4  text-[16px] text-[#606060] font-[400]"
+                  className="flex-shrink-0 mr-4  text-[16px] text-grey300 font-[400]"
                 >
                   Role Name
                 </label>
@@ -120,7 +120,7 @@ const NewRoles = () => {
               <div className="flex items-start">
                 <label
                   htmlFor=""
-                  className="flex-shrink-0 mr-4  text-[16px] text-[#606060] font-[400]"
+                  className="flex-shrink-0 mr-4  text-[16px] text-grey300 font-[400]"
                 >
                   Description
                 </label>
@@ -139,7 +139,9 @@ const NewRoles = () => {
 
         <div className="my-10 ">
           <div className="flex items-center justify-between">
-            <p className="text-[24px] font-[500] text-purple500">Permissions Setting</p>
+            <p className="text-[24px] font-[500] text-purple500">
+              Permissions Setting
+            </p>
           </div>
           <div className="my-8 w-full">
             <div className=" grid gap-[48px]">
@@ -166,7 +168,7 @@ const NewRoles = () => {
             Cancel
           </div>
           <div
-            className="border border-purple500 bg-purple500 rounded px-[24px] py-[13px] font-[500] text-[#ffffff] cursor-pointer"
+            className="border border-purple500 bg-purple500 rounded px-[24px] py-[13px] font-[500] text-white cursor-pointer"
             onClick={handleSaveAndContinue}
           >
             {saveLoading ? "Saving..." : "Save"}

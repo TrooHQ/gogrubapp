@@ -30,7 +30,7 @@ const InputButton: React.FC = () => {
       </div> */}
 
       <div className="w-[40%] sm:w-[60%] pt-8 rounded-[10px] border border-[#e7e7e7] bg-white ">
-        <p className="text-[#121212] text-center text-lg font-light mb-[25px]">
+        <p className="text-grey500 text-center text-lg font-light mb-[25px]">
           Enter your phone number
         </p>
 
@@ -79,8 +79,8 @@ const InputButton: React.FC = () => {
             <button
               onClick={handleOkClick}
               className={`py-4 rounded-[4px] ${
-                pin.length === 11 ? "bg-[#5855B3]" : "bg-[#F3F3F5]"
-              } text-[#fff]`}
+                pin.length === 11 ? "bg-grey20" : "bg-[#F3F3F5]"
+              } text-white`}
             >
               <p className="text-[22px] font-normal text-center">OK</p>
             </button>
@@ -89,13 +89,13 @@ const InputButton: React.FC = () => {
       </div>
 
       <div className="flex items-center justify-center gap-0 mt-10 mb-20">
-        <p className="border-r-[2px] border-r-[#5855B3] py-1.5 pr-6 pl-2 text-[#5955B3] text-sm font-normal cursor-pointer">
+        <p className="border-r-[2px] border-r-grey20 py-1.5 pr-6 pl-2 text-purple500 text-sm font-normal cursor-pointer">
           Create new PIN
         </p>
-        <p className="border-r-[2px] border-r-[#5855B3] py-1.5 pr-6 pl-2 text-[#5955B3] text-sm font-normal cursor-pointer">
+        <p className="border-r-[2px] border-r-grey20 py-1.5 pr-6 pl-2 text-purple500 text-sm font-normal cursor-pointer">
           Forgot PIN
         </p>
-        <p className="py-2 pr-6 pl-2 text-[#5955B3] text-sm font-normal cursor-pointer">
+        <p className="py-2 pr-6 pl-2 text-purple500 text-sm font-normal cursor-pointer">
           Change PIN
         </p>
       </div>

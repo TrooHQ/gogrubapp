@@ -119,13 +119,13 @@ export const OnlineOrderingBasket = () => {
           basketDetails.items.map((item, index) => (
             <>
               <div key={index}>
-                <div className="mx-[24px]  border-b pb-[16px] border-[#E7E7E7] mt-[16px]">
+                <div className="mx-[24px]  border-b pb-[16px] border-grey40 mt-[16px]">
                   <div className="grid gap-[8px]">
                     <div className="  flex items-start justify-between gap-[20px] place-items-center">
                       <Link
                         to={`/demo/menu-details/${item.id}/online_ordering`}
                       >
-                        <p className="text-[16px] text-[#121212] font-[500] max-w-[100px] ">
+                        <p className="text-[16px] text-grey500 font-[500] max-w-[100px] ">
                           <span className="pr-2">{item.quantity}x</span>
                           {item?.name?.length > 12
                             ? `${item.name.slice(0, 8)}...`
@@ -162,7 +162,7 @@ export const OnlineOrderingBasket = () => {
                         </div>
                       </div>
                       {item.menuItem && (
-                        <p className="text-[#121212]">
+                        <p className="text-grey500">
                           &#x20A6;
                           {(
                             item.menuItem.menu_item_price * item.quantity
@@ -190,11 +190,11 @@ export const OnlineOrderingBasket = () => {
                               key={optionIndex}
                               className="flex items-start justify-between"
                             >
-                              <p className="text-[14px] text-[#121212] font-[400]">
+                              <p className="text-[14px] text-grey500 font-[400]">
                                 {option.name}
                               </p>
 
-                              <p className="text-[14px] text-[#121212] font-[400]  text-start w-[100px]">
+                              <p className="text-[14px] text-grey500 font-[400]  text-start w-[100px]">
                                 &#x20A6;
                                 {(
                                   option.price * item.quantity
@@ -210,7 +210,7 @@ export const OnlineOrderingBasket = () => {
             </>
           ))
         ) : (
-          <div className="py-[20px] mx-[24px] text-center text-[16px] text-[#121212] font-[500] grid place-items-center items-center">
+          <div className="py-[20px] mx-[24px] text-center text-[16px] text-grey500 font-[500] grid place-items-center items-center">
             <p>Your cart is empty.</p>
             <p
               className=" px-[16px] py-[9px]  text-white rounded-[8px] cursor-pointer"
@@ -226,7 +226,7 @@ export const OnlineOrderingBasket = () => {
         {basketDetails?.items.length > 0 && (
           <div className="py-[16px] mx-[24px]">
             <div className="flex items-start justify-between gap-[20px]">
-              <p className="text-[16px] text-[#121212] font-[500]">Total:</p>
+              <p className="text-[16px] text-grey500 font-[500]">Total:</p>
               <p
                 className="text-[16px] font-[500] w-[100px]"
                 style={{
@@ -243,7 +243,7 @@ export const OnlineOrderingBasket = () => {
       {basketDetails?.items.length > 0 && (
         <>
           <div className="mt-[40px]">
-            <div className="py-[20px] mx-[24px] grid gap-[10px] border-t-[#E7E7E7] border-t">
+            <div className="py-[20px] mx-[24px] grid gap-[10px] border-t-grey40 border-t">
               <p
                 className="font-[400] text-[14px]"
                 style={{
@@ -315,12 +315,12 @@ export const OnlineOrderingBasket = () => {
                 }
               }}
               className={` w-full text-center font-[500] text-[16px]   rounded-[5px]  text-white py-[10px] px-[24px] ${
-                selectedOption === "" ? " bg-[#B6B6B6]" : "border"
+                selectedOption === "" ? " bg-grey100" : "border"
               }`}
               style={{
                 backgroundColor:
                   selectedOption == ""
-                    ? "bg-[#B6B6B6]"
+                    ? "bg-grey100"
                     : colorScheme || "#11AE16",
                 borderColor: colorScheme || "#11AE16",
               }}
@@ -472,7 +472,7 @@ export const OnlineOrderingBasket = () => {
 
               <div className=" grid gap-[20px] mt-[20px]">
                 <RadioInput
-                  className="grid gap-[20px] text-[18px] font-[400] text-[#121212]"
+                  className="grid gap-[20px] text-[18px] font-[400] text-grey500"
                   options={options}
                   onChange={handleAddress}
                   selectedOption={addressvalue}

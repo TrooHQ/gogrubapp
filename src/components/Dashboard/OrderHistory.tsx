@@ -123,7 +123,7 @@ const OrderHistory = () => {
                 <div className="relative">
                   <input
                     type="text"
-                    className="bg-[#F8F8F8] rounded p-2 pl-14 outline-none border border-[#5855B3]"
+                    className="bg-[#F8F8F8] rounded p-2 pl-14 outline-none border border-grey20"
                     placeholder="Search"
                   />
                   <img
@@ -135,30 +135,30 @@ const OrderHistory = () => {
               </div> */}
               <div className="flex items-center gap-[32px]">
                 <div className="">
-                  <p className="font-[500] text-[16px] text-[#121212]">
+                  <p className="font-[500] text-[16px] text-grey500">
                     Filter by:
                   </p>
                 </div>
                 <div className="flex items-center gap-[8px]">
-                  <div className="border border-purple500 bg-purple500 rounded-[5px] px-[16px] py-[8px] font-[400] text-[#ffffff]">
+                  <div className="border border-purple500 bg-purple500 rounded-[5px] px-[16px] py-[8px] font-[400] text-white">
                     <button className="text-[12px]">Today</button>
                   </div>
-                  <div className="border border-[#B6B6B6] rounded-[5px] px-[16px] py-[8px] font-[400] text-[121212]">
+                  <div className="border border-grey100 rounded-[5px] px-[16px] py-[8px] font-[400] text-[121212]">
                     <button className="text-[12px]">7 Days</button>
                   </div>
-                  <div className="border border-[#B6B6B6] rounded-[5px] px-[16px] py-[8px] font-[400] text-[#121212]">
+                  <div className="border border-grey100 rounded-[5px] px-[16px] py-[8px] font-[400] text-grey500">
                     <button className="text-[12px]">1 Month</button>
                   </div>
-                  <div className="border border-[#B6B6B6] rounded-[5px] px-[16px] py-[8px] font-[400] text-[#121212]">
+                  <div className="border border-grey100 rounded-[5px] px-[16px] py-[8px] font-[400] text-grey500">
                     <button className="text-[12px]">3 Months</button>
                   </div>
-                  <div className="border border-[#B6B6B6] rounded-[5px] px-[16px] py-[8px] font-[400] text-[#121212]">
+                  <div className="border border-grey100 rounded-[5px] px-[16px] py-[8px] font-[400] text-grey500">
                     <button className="text-[12px]">6 Months</button>
                   </div>
-                  <div className="border border-[#B6B6B6] rounded-[5px] px-[16px] py-[8px] font-[400] text-[#121212]">
+                  <div className="border border-grey100 rounded-[5px] px-[16px] py-[8px] font-[400] text-grey500">
                     <button className="text-[12px]">1 Year</button>
                   </div>
-                  <div className="border border-[#B6B6B6] rounded-[5px] px-[16px] py-[8px] font-[400] text-[#121212]">
+                  <div className="border border-grey100 rounded-[5px] px-[16px] py-[8px] font-[400] text-grey500">
                     <button className="text-[12px] flex items-center gap-1">
                       <CalendarMonth className="w-4 h-4" />
                       <span>Custom</span>
@@ -171,12 +171,12 @@ const OrderHistory = () => {
                 <div className="relative">
                   <button
                     onClick={toggleDropdown}
-                    className="border border-[#B6B6B6] rounded-[5px] px-[16px] py-[8px] font-[400] text-[#121212]"
+                    className="border border-grey100 rounded-[5px] px-[16px] py-[8px] font-[400] text-grey500"
                   >
                     Download
                   </button>
                   {dropdownVisible && (
-                    <div className="absolute mt-2 w-[150px] bg-white border border-[#B6B6B6] rounded-[5px] shadow-lg">
+                    <div className="absolute mt-2 w-[150px] bg-white border border-grey100 rounded-[5px] shadow-lg">
                       <button
                         onClick={handleDownloadCSV}
                         className="block w-full text-left px-[16px] py-[8px] hover:bg-gray-200"
@@ -197,25 +197,25 @@ const OrderHistory = () => {
 
             <div className="">
               <div className="py-[32px] border rounded-[10px] border-grey100 mt-[24px]">
-                <p className=" px-[32px]  font-[400] text-[24px] text-[#121212]">
+                <p className=" px-[32px]  font-[400] text-[24px] text-grey500">
                   Orders
                 </p>
 
                 <div className=" text-center pb-[16px] mb-[16px] pt-[24px] px-[32px] grid grid-cols-6 border-b">
-                  <p className="text-start text-[14px] text-[#121212]">
+                  <p className="text-start text-[14px] text-grey500">
                     Order No
                   </p>
-                  <p className=" text-[14px] text-[#121212]">Date</p>
-                  <p className=" text-[14px] text-[#121212]">Time</p>
-                  <p className=" text-[14px] text-[#121212]">Customer </p>
-                  <p className=" text-[14px] text-[#121212]">Channel </p>
-                  <p className=" text-[14px] text-[#121212]">Bill </p>
-                  {/* <p className=" text-[14px] text-[#121212]">Actions </p> */}
+                  <p className=" text-[14px] text-grey500">Date</p>
+                  <p className=" text-[14px] text-grey500">Time</p>
+                  <p className=" text-[14px] text-grey500">Customer </p>
+                  <p className=" text-[14px] text-grey500">Channel </p>
+                  <p className=" text-[14px] text-grey500">Bill </p>
+                  {/* <p className=" text-[14px] text-grey500">Actions </p> */}
                 </div>
                 {data.map((item, index) => (
                   <div
                     className={`cursor-pointer text-center py-[14px] px-[32px] grid grid-cols-6 items-center  font-base text-[14px] text-[#414141] ${
-                      index % 2 === 0 ? "bg-[#ffffff]" : "bg-[#F8F8F8]"
+                      index % 2 === 0 ? "bg-white" : "bg-[#F8F8F8]"
                     }`}
                     key={index}
                   >

@@ -109,7 +109,7 @@ const ManageQrCode = () => {
           tablesGroup.map((group, index) => (
             <div
               key={group._id}
-              className="pt-[9px] pb-[16px] border-b border-b-[#E7E7E7]"
+              className="pt-[9px] pb-[16px] border-b border-b-grey40"
             >
               <div
                 className="flex items-center justify-between"
@@ -159,7 +159,7 @@ const ManageQrCode = () => {
                       </div>
 
                       {openMenuId === qr._id && (
-                        <div className="absolute right-[15px] top-0 bg-[#ffffff] p-[24px] shadow-lg w-[150px] z-50">
+                        <div className="absolute right-[15px] top-0 bg-white p-[24px] shadow-lg w-[150px] z-50">
                           <div className="grid gap-[16px]">
                             <p
                               className="text-[14px] font-[400] cursor-pointer"

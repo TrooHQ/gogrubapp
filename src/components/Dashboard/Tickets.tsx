@@ -198,7 +198,7 @@ const Tickets = () => {
                 <div className="relative">
                   <input
                     type="text"
-                    className="bg-[#F8F8F8] rounded p-2 pl-14 outline-none border border-[#5855B3]"
+                    className="bg-[#F8F8F8] rounded p-2 pl-14 outline-none border border-grey20"
                     placeholder="Search"
                   />
                   <img
@@ -208,8 +208,11 @@ const Tickets = () => {
                   />
                 </div>
               </div>
-              <div className="border border-purple500 bg-white w-[196px] rounded-[5px] px-[16px] py-[10px] font-[500] text-[#5955B3]">
-                <button onClick={handleRefresh} className="text-[16px] flex items-center gap-[8px]">
+              <div className="border border-purple500 bg-white w-[196px] rounded-[5px] px-[16px] py-[10px] font-[500] text-purple500">
+                <button
+                  onClick={handleRefresh}
+                  className="text-[16px] flex items-center gap-[8px]"
+                >
                   <img src={Refresh} alt="" />
                   {isLoading ? "Fetching..." : "Refresh Tickets"}
                 </button>
@@ -218,19 +221,21 @@ const Tickets = () => {
 
             <div className="">
               <div className="py-[32px] border rounded-[10px] border-grey100 mt-[24px]">
-                <p className=" px-[32px]  font-[400] text-[24px] text-[#121212]">Open tickets</p>
+                <p className=" px-[32px]  font-[400] text-[24px] text-grey500">
+                  Open tickets
+                </p>
 
                 <div className=" text-center pb-[16px] mb-[16px] pt-[24px] px-[32px] grid grid-cols-10 border-b">
-                  <p className=" text-[14px] text-[#121212]">Date</p>
-                  <p className=" text-[14px] text-[#121212]">Time</p>
-                  <p className=" text-[14px] text-[#121212]">Table No</p>
-                  <p className=" text-[14px] text-[#121212]">Order No</p>
-                  <p className=" text-[14px] text-[#121212]">Customer </p>
-                  <p className=" text-[14px] text-[#121212]">Waiter </p>
-                  <p className=" text-[14px] text-[#121212]">Channel </p>
-                  <p className=" text-[14px] text-[#121212]">Status </p>
-                  <p className=" text-[14px] text-[#121212]">Bill </p>
-                  <p className=" text-[14px] text-[#121212]">Actions </p>
+                  <p className=" text-[14px] text-grey500">Date</p>
+                  <p className=" text-[14px] text-grey500">Time</p>
+                  <p className=" text-[14px] text-grey500">Table No</p>
+                  <p className=" text-[14px] text-grey500">Order No</p>
+                  <p className=" text-[14px] text-grey500">Customer </p>
+                  <p className=" text-[14px] text-grey500">Waiter </p>
+                  <p className=" text-[14px] text-grey500">Channel </p>
+                  <p className=" text-[14px] text-grey500">Status </p>
+                  <p className=" text-[14px] text-grey500">Bill </p>
+                  <p className=" text-[14px] text-grey500">Actions </p>
                 </div>
                 {isLoading ? (
                   <p className="px-8">Loading...</p>
@@ -240,7 +245,7 @@ const Tickets = () => {
                   data.map((item, index) => (
                     <div
                       className={`cursor-pointer text-center py-[14px] px-[32px] grid grid-cols-10 items-center  font-base text-[14px] text-[#414141] ${
-                        index % 2 === 0 ? "bg-[#ffffff]" : "bg-[#F8F8F8]"
+                        index % 2 === 0 ? "bg-white" : "bg-[#F8F8F8]"
                       }`}
                       key={index}
                     >
@@ -250,8 +255,12 @@ const Tickets = () => {
                       <p className=" " onClick={handleTicketMenu}>
                         {item.createdAt.slice(11, 16)}
                       </p>
-                      <p onClick={handleTicketMenu}>{item.table_number || "-"}</p>
-                      <p onClick={handleTicketMenu}>{item.order_number || "-"}</p>
+                      <p onClick={handleTicketMenu}>
+                        {item.table_number || "-"}
+                      </p>
+                      <p onClick={handleTicketMenu}>
+                        {item.order_number || "-"}
+                      </p>
 
                       {/* <p onClick={handleTicketMenu}>{item.date}</p> */}
 
@@ -274,13 +283,25 @@ const Tickets = () => {
                           <img src={red} alt="" className="w-[12px] h-[12px]" />
                         )}
                         {item.status === "Served" && (
-                          <img src={green} alt="" className="w-[12px] h-[12px]" />
+                          <img
+                            src={green}
+                            alt=""
+                            className="w-[12px] h-[12px]"
+                          />
                         )}
                         {item.status === "Ready" && (
-                          <img src={orange} alt="" className="w-[12px] h-[12px]" />
+                          <img
+                            src={orange}
+                            alt=""
+                            className="w-[12px] h-[12px]"
+                          />
                         )}
                         {item.status === "Pending" && (
-                          <img src={orange} alt="" className="w-[12px] h-[12px]" />
+                          <img
+                            src={orange}
+                            alt=""
+                            className="w-[12px] h-[12px]"
+                          />
                         )}
                         <p className="capitalize">{item.status}</p>
                       </div>
@@ -290,10 +311,16 @@ const Tickets = () => {
                           className="w-[30px] h-[30px] flex items-center justify-center cursor-pointer"
                           onClick={() => toggleMenu(index)}
                         >
-                          <img src={More} alt="More Options" className="w-[5px]" />
+                          <img
+                            src={More}
+                            alt="More Options"
+                            className="w-[5px]"
+                          />
                         </div>
                         {activeMenuIndex === index && (
-                          <DropdownMenu handleVoidOrderMenu={() => handleVoidOrderMenu()} />
+                          <DropdownMenu
+                            handleVoidOrderMenu={() => handleVoidOrderMenu()}
+                          />
                         )}
                       </div>
                     </div>
@@ -318,19 +345,21 @@ const Tickets = () => {
               )}
 
               <div className="py-[32px] border rounded-[10px] border-grey100 mt-[24px]">
-                <p className=" px-[32px]  font-[400] text-[24px] text-[#121212]">Closed tickets</p>
+                <p className=" px-[32px]  font-[400] text-[24px] text-grey500">
+                  Closed tickets
+                </p>
 
                 <div className=" text-center pb-[16px] mb-[16px] pt-[24px] px-[32px] grid grid-cols-10 border-b">
-                  <p className=" text-[14px] text-[#121212]">Date</p>
-                  <p className=" text-[14px] text-[#121212]">Time</p>
-                  <p className=" text-[14px] text-[#121212]">Table No</p>
-                  <p className=" text-[14px] text-[#121212]">Order No</p>
-                  <p className=" text-[14px] text-[#121212]">Customer </p>
-                  <p className=" text-[14px] text-[#121212]">Waiter </p>
-                  <p className=" text-[14px] text-[#121212]">Channel </p>
-                  <p className=" text-[14px] text-[#121212]">Status </p>
-                  <p className=" text-[14px] text-[#121212]">Bill</p>
-                  <p className=" text-[14px] text-[#121212]">Actions </p>
+                  <p className=" text-[14px] text-grey500">Date</p>
+                  <p className=" text-[14px] text-grey500">Time</p>
+                  <p className=" text-[14px] text-grey500">Table No</p>
+                  <p className=" text-[14px] text-grey500">Order No</p>
+                  <p className=" text-[14px] text-grey500">Customer </p>
+                  <p className=" text-[14px] text-grey500">Waiter </p>
+                  <p className=" text-[14px] text-grey500">Channel </p>
+                  <p className=" text-[14px] text-grey500">Status </p>
+                  <p className=" text-[14px] text-grey500">Bill</p>
+                  <p className=" text-[14px] text-grey500">Actions </p>
                 </div>
                 {isLoading ? (
                   <p className="px-8">Loading...</p>
@@ -340,7 +369,7 @@ const Tickets = () => {
                   closedData.map((item, index) => (
                     <div
                       className={`text-center py-[14px] px-[32px] grid grid-cols-10 items-center font-base text-normal text-[#414141] ${
-                        index % 2 === 0 ? "bg-[#ffffff]" : "bg-[#F8F8F8]"
+                        index % 2 === 0 ? "bg-white" : "bg-[#F8F8F8]"
                       }`}
                       key={index}
                     >
@@ -350,8 +379,12 @@ const Tickets = () => {
                       <p className=" " onClick={handleTicketMenu}>
                         {item.createdAt.slice(11, 16)}
                       </p>
-                      <p onClick={handleTicketMenu}>{item.table_number || "-"}</p>
-                      <p onClick={handleTicketMenu}>{item.order_number || "-"}</p>
+                      <p onClick={handleTicketMenu}>
+                        {item.table_number || "-"}
+                      </p>
+                      <p onClick={handleTicketMenu}>
+                        {item.order_number || "-"}
+                      </p>
                       <p onClick={handleTicketMenu}>
                         {item.customer_name
                           ? truncateText(
@@ -378,7 +411,9 @@ const Tickets = () => {
                         {activeMenuIndex2 === index && (
                           <DropdownMenuClosedTickets
                             handleVoidOrderMenu={() => handleVoidOrderMenu()}
-                            handleVacateTableMenu={() => handleVacateTableMenu()}
+                            handleVacateTableMenu={() =>
+                              handleVacateTableMenu()
+                            }
                             handleRefundMenu={() => handleRefundMenu()}
                           />
                         )}

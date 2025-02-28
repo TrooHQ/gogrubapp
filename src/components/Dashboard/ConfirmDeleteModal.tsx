@@ -5,7 +5,10 @@ const ConfirmDeleteModal = ({ isOpen, onClose, onConfirm }: any) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="py-[28px] 2xl:py-[36px] px-[28px] 2xl:px-[51px] bg-white relative rounded-[20px] w-[539px]">
-        <div className="flex items-center justify-end cursor-pointer" onClick={onClose}>
+        <div
+          className="flex items-center justify-end cursor-pointer"
+          onClick={onClose}
+        >
           <img src={Close} alt="Close" />
         </div>
         <div className="flex flex-col justify-center items-center gap-6">
@@ -19,10 +22,12 @@ const ConfirmDeleteModal = ({ isOpen, onClose, onConfirm }: any) => {
                 className="border cursor-pointer border-purple500 rounded px-[24px] py-[10px] font-[600] text-purple500"
                 onClick={onClose}
               >
-                <p className="font-[500] text-[16px] text-purple500 cursor-pointer">No</p>
+                <p className="font-[500] text-[16px] text-purple500 cursor-pointer">
+                  No
+                </p>
               </div>
               <div
-                className="border border-purple500 bg-purple500 rounded px-[24px] py-[10px] font-[500] text-[#ffffff]"
+                className="border border-purple500 bg-purple500 rounded px-[24px] py-[10px] font-[500] text-white"
                 onClick={onConfirm}
               >
                 <p className="text-[16px]">Yes</p>

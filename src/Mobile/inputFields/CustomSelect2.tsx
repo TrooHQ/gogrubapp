@@ -38,7 +38,7 @@ const CustomSelect2: React.FC<CustomSelect2Props> = ({
   return (
     <div className="relative z-[999]">
       <div
-        className={`border border-gray-300 p-2 focus:outline-[#5955B3] w-full rounded flex justify-between items-center ${bgColor}`}
+        className={`border border-gray-300 p-2 focus:outline-purple500 w-full rounded flex justify-between items-center ${bgColor}`}
         onClick={toggleDropdown}
       >
         <span className="selected-option">{selectedOption}</span>

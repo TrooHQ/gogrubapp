@@ -53,7 +53,7 @@ const Header: React.FC<HeaderProps> = ({ storeData }) => {
             />
           )}
         </div>
-        <div className="text-[#B2B1DC] flex items-center justify-start gap-2">
+        <div className="text-purple200 flex items-center justify-start gap-2">
           <h6 className={clsx(styles.manage)}>Manage Account</h6>
           <ArrowForwardIos className="text-[16px]" />
         </div>

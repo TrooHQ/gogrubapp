@@ -24,7 +24,7 @@ const Register = () => {
   };
 
   return (
-    <div className="bg-[#EFEFEF] ">
+    <div className="bg-grey50 ">
       <div className="flex flex-col items-center justify-center h-screen  my-auto">
         <div className="">
           <img src={Logo} alt="" />

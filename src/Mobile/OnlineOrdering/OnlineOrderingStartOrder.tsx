@@ -101,7 +101,7 @@ const OnlineOrderingStartOrder = () => {
             to={`/demo/${businessDetails?.business_name}/items/online_ordering`}
           >
             <p
-              className="cursor-pointer text-[#ffffff] px-[40px] py-[10px] rounded-[5px] font-[500] inline"
+              className="cursor-pointer text-white px-[40px] py-[10px] rounded-[5px] font-[500] inline"
               style={{ backgroundColor: color || "#606060" }}
             >
               Start Your Order
@@ -113,7 +113,7 @@ const OnlineOrderingStartOrder = () => {
             <a href="">
               <span
                 className={`underline ${
-                  color ? `text-[${color}]` : "text-[#606060]"
+                  color ? `text-[${color}]` : "text-grey300"
                 }`}
               >
                 Terms & Conditions

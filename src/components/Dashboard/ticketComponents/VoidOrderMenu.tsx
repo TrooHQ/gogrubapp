@@ -30,11 +30,16 @@ const VoidOrderMenu = ({
                   className="border cursor-pointer border-purple500 rounded px-[24px]  py-[10px] font-[600] text-purple500"
                   onClick={() => setVoidOrderMenu(false)}
                 >
-                  <p className="font-[500] text-[16px] text-purple500 cursor-pointer">No</p>
+                  <p className="font-[500] text-[16px] text-purple500 cursor-pointer">
+                    No
+                  </p>
                 </div>
 
-                <div className="border border-purple500 bg-purple500 rounded px-[24px]  py-[10px] font-[500] text-[#ffffff]">
-                  <button onClick={() => handleVoidOrder()} className=" text-[16px]">
+                <div className="border border-purple500 bg-purple500 rounded px-[24px]  py-[10px] font-[500] text-white">
+                  <button
+                    onClick={() => handleVoidOrder()}
+                    className=" text-[16px]"
+                  >
                     Yes
                   </button>
                 </div>

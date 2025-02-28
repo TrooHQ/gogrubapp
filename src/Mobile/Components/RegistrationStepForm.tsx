@@ -419,7 +419,7 @@ const RegistrationStepForm = () => {
   }, []);
 
   return (
-    <div className=" bg-[#EFEFEF] h-screen overflow-auto">
+    <div className=" bg-grey50 h-screen overflow-auto">
       <div className=" mx-10">
         <div className=" py-[48px] flex items-center justify-center">
           <img src={Logo} alt="" />
@@ -593,7 +593,7 @@ const RegistrationStepForm = () => {
               <div className="flex items-center gap-[16px]">
                 <label
                   htmlFor="fileInput"
-                  className="w-[72px] border border-dashed p-[20px] border-[#5855B3] cursor-pointer"
+                  className="w-[72px] border border-dashed p-[20px] border-grey20 cursor-pointer"
                 >
                   <input
                     type="file"
@@ -607,7 +607,7 @@ const RegistrationStepForm = () => {
                 <div className="">
                   <label
                     htmlFor="fileInput"
-                    className="text-[#5855B3] font-[500] text-[16px] cursor-pointer"
+                    className="text-grey20 font-[500] text-[16px] cursor-pointer"
                   >
                     Add Business Logo{" "}
                   </label>
@@ -699,7 +699,7 @@ const RegistrationStepForm = () => {
                   value={country}
                   onChange={(newValue) => setCountry(newValue)}
                   disabledOption="Country"
-                  bgColor="bg-[#EFEFEF]"
+                  bgColor="bg-grey50"
                 />
               </div>
 
@@ -777,7 +777,7 @@ const RegistrationStepForm = () => {
                     }
                   }}
                   disabledOption="Select Bank"
-                  bgColor="bg-[#EFEFEF]"
+                  bgColor="bg-grey50"
                 /> */}
               </div>
 

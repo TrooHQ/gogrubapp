@@ -33,7 +33,7 @@ const AddMenuGroup: React.FC<Props> = ({
         <p className="text-[24px] pb-[24px] font-[500] leading-[36px] text-purple500">
           Add menu group
         </p>
-        <hr className="border border-[#E7E7E7] mb-[24px]" />
+        <hr className="border border-grey40 mb-[24px]" />
 
         <div className=" lg:mb-[24px]">
           <div className=" grid gap-[32px] lg:gap-[32px] text-[16px] font-[400] text-grey200">
@@ -51,9 +51,12 @@ const AddMenuGroup: React.FC<Props> = ({
                     /> */}
 
             <div className="">
-              <p className=" text-[18px] mb-[8px] font-[500] text-grey500">Pricing</p>
+              <p className=" text-[18px] mb-[8px] font-[500] text-grey500">
+                Pricing
+              </p>
               <p className=" text-[14px] font-[400] text-grey500">
-                Do you want this price to apply to all the items in this menu group?
+                Do you want this price to apply to all the items in this menu
+                group?
               </p>
               <div className="flex items-center mt-[8px]">
                 <input
@@ -63,9 +66,14 @@ const AddMenuGroup: React.FC<Props> = ({
                   value="yes"
                   checked={applyPriceToAll === true}
                   onChange={handleOptionChange}
-                  className={`mr-2 ${applyPriceToAll === true ? "bg-purple500" : ""}`}
+                  className={`mr-2 ${
+                    applyPriceToAll === true ? "bg-purple500" : ""
+                  }`}
                 />
-                <label htmlFor="yes" className="mr-4  text-grey500 text-[16px] font-[400]">
+                <label
+                  htmlFor="yes"
+                  className="mr-4  text-grey500 text-[16px] font-[400]"
+                >
                   Yes
                 </label>
 
@@ -76,9 +84,14 @@ const AddMenuGroup: React.FC<Props> = ({
                   value="no"
                   checked={applyPriceToAll === false}
                   onChange={handleOptionChange}
-                  className={`mr-2 ${applyPriceToAll === false ? "bg-purple500" : ""}`}
+                  className={`mr-2 ${
+                    applyPriceToAll === false ? "bg-purple500" : ""
+                  }`}
                 />
-                <label htmlFor="no" className=" text-grey500 text-[16px] font-[400]">
+                <label
+                  htmlFor="no"
+                  className=" text-grey500 text-[16px] font-[400]"
+                >
                   No
                 </label>
               </div>
@@ -101,15 +114,19 @@ const AddMenuGroup: React.FC<Props> = ({
             className="border cursor-pointer border-purple500 rounded px-[24px]  py-[10px] font-[600] text-purple500"
             onClick={() => setAddMenuGroup(false)}
           >
-            <p className="font-[500] text-[16px] text-purple500 cursor-pointer">Cancel</p>
+            <p className="font-[500] text-[16px] text-purple500 cursor-pointer">
+              Cancel
+            </p>
             {/* <CancelButton text="Cancel" /> */}
           </div>
 
           <div
-            className="border border-purple500 bg-purple500 rounded px-[24px]  py-[10px] font-[500] text-[#ffffff]"
+            className="border border-purple500 bg-purple500 rounded px-[24px]  py-[10px] font-[500] text-white"
             onClick={handleSaveMenuGroup}
           >
-            <button className=" text-[16px]">{menuGroupLoading ? "Saving..." : "Save Menu"}</button>
+            <button className=" text-[16px]">
+              {menuGroupLoading ? "Saving..." : "Save Menu"}
+            </button>
           </div>
         </div>
       </div>

@@ -19,7 +19,7 @@ const TopMenuNav: React.FC<TopMenuNavProps> = ({ title }) => {
       <div className=" flex items-center justify-between">
         <div className="inline-flex items-center gap-[20px] cursor-pointer">
           <img src={Arrow} alt="Back" onClick={() => navigate(-1)} />
-          <p className="font-[400] text-[20px] text-[#121212] cursor-pointer">
+          <p className="font-[400] text-[20px] text-grey500 cursor-pointer">
             {title}
           </p>
         </div>

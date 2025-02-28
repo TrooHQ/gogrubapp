@@ -108,7 +108,7 @@ const BalanceComp = () => {
             />
           )}
         </div>
-        <div className="text-[#B2B1DC] flex items-center justify-start gap-5">
+        <div className="text-purple200 flex items-center justify-start gap-5">
           <div className="flex items-center justify-start gap-1">
             <img src={restaurant_menu} alt="confirmation_number" />
             <h6 className={clsx(styles.manage)}>

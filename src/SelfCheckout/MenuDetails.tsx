@@ -360,7 +360,7 @@ const MenuDetailsModal: React.FC<MenuDetailsModalProps> = ({
 
                   {/* {menuModifiers.length > 0 && (
                     <div>
-                      <p className="text-[#121212] mx-[49px] font-[500] text-[24px] pb-[16px] pt-[24px]">
+                      <p className="text-grey500 mx-[49px] font-[500] text-[24px] pb-[16px] pt-[24px]">
                         Side Options
                       </p>
                     </div>
@@ -370,7 +370,7 @@ const MenuDetailsModal: React.FC<MenuDetailsModalProps> = ({
                     {menuModifiers.map((menu, index) => (
                       <div className="" key={index}>
                         <div className="">
-                          <p className="text-[#121212] mx-[49px] font-[500] text-[24px] pb-[16px] pt-[24px] capitalize">
+                          <p className="text-grey500 mx-[49px] font-[500] text-[24px] pb-[16px] pt-[24px] capitalize">
                             {menu?.modifier_group_name}
                           </p>
                           <div className="mx-[49px] grid grid-cols-2 gap-[20px]">
@@ -391,7 +391,7 @@ const MenuDetailsModal: React.FC<MenuDetailsModalProps> = ({
                                           opt.name === option.modifier_name
                                       )
                                         ? "bg-red-600"
-                                        : " border-[3px] border-[#B6B6B6]"
+                                        : " border-[3px] border-grey100"
                                     }`}
                                   ></div>
                                   <label
@@ -431,7 +431,7 @@ const MenuDetailsModal: React.FC<MenuDetailsModalProps> = ({
                   ) && (
                     <div className="mx-[24px] my-[80px]">
                       <div className="flex items-center justify-between py-[32px] px-[24px]">
-                        <p className="text-[32px] font-[500] text-[#121212]">
+                        <p className="text-[32px] font-[500] text-grey500">
                           Recommended Items
                         </p>
                         <div className="text-[50px]">
@@ -450,10 +450,10 @@ const MenuDetailsModal: React.FC<MenuDetailsModalProps> = ({
                               >
                                 <div className="flex items-center justify-between px-[24px]">
                                   <div className="w-[180px] grid gap-[40px]">
-                                    <p className="text-[28px] text-[#121212] font-[500]">
+                                    <p className="text-[28px] text-grey500 font-[500]">
                                       {menu?.menu_item_name}
                                     </p>
-                                    <p className="text-[28px] text-[#606060]">
+                                    <p className="text-[28px] text-grey300">
                                       &#x20A6;
                                       {menu.menu_item_price?.toLocaleString()}
                                     </p>
@@ -471,17 +471,17 @@ const MenuDetailsModal: React.FC<MenuDetailsModalProps> = ({
                                         <div className="absolute bottom-2 right-2">
                                           <div className="flex items-center gap-[20px] p-[10px] rounded-[8px] bg-black">
                                             <FaCircleMinus
-                                              className="text-[#ffffff]"
+                                              className="text-white"
                                               size={30}
                                               onClick={() => decrement(menu)}
                                             />
-                                            <p className="text-[36px] text-[#ffffff] font-[500]">
+                                            <p className="text-[36px] text-white font-[500]">
                                               {ids.find(
                                                 (item) => item.id === menu?._id
                                               )?.quantity || 1}
                                             </p>
                                             <FaCirclePlus
-                                              className="text-[#ffffff]"
+                                              className="text-white"
                                               size={30}
                                               onClick={() => increment(menu)}
                                             />
@@ -510,7 +510,7 @@ const MenuDetailsModal: React.FC<MenuDetailsModalProps> = ({
 
                   <div className=" mx-[24px] my-[150px]">
                     <div className=" flex items-center justify-between py-[32px] px-[24px]">
-                      <p className=" text-[32px] font-[500] text-[#121212]">
+                      <p className=" text-[32px] font-[500] text-grey500">
                         Add Special Instructions
                       </p>
                     </div>
@@ -559,7 +559,7 @@ const MenuDetailsModal: React.FC<MenuDetailsModalProps> = ({
                       </div>
 
                       <p
-                        className="text-[36px] font-[500] py-[14px] px-[48px] rounded-[5px] text-[#ffffff]  cursor-pointer"
+                        className="text-[36px] font-[500] py-[14px] px-[48px] rounded-[5px] text-white  cursor-pointer"
                         onClick={handleAddToBasket}
                       >
                         Add

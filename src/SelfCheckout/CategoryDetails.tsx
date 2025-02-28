@@ -320,7 +320,7 @@ export const CategoryDetails = () => {
                     className={`cursor-pointer text-[32px] px-[12px] py-[8px] rounded-[4px] ${
                       selectedGroup === "All"
                         ? "font-[600] text-[#FFFFFF] border border-[#929292]"
-                        : "text-[#606060] font-[400] border border-[#B6B6B6]"
+                        : "text-grey300 font-[400] border border-grey100"
                     }`}
                     style={{
                       backgroundColor:
@@ -347,7 +347,7 @@ export const CategoryDetails = () => {
                             className={`cursor-pointer text-[32px] px-[12px] py-[8px] rounded-[4px] border ${
                               selectedGroup === groupName
                                 ? "font-[600] text-[#FFFFFF] border-[#929292]"
-                                : "text-[#606060] font-[400] border-[#B6B6B6]"
+                                : "text-grey300 font-[400] border-grey100"
                             }`}
                             style={{
                               backgroundColor:
@@ -385,7 +385,7 @@ export const CategoryDetails = () => {
             <Slider {...settings}>
               {menuItems.map((menu, index) => (
                 <div
-                  className="max-w-[406px] pb-[34px] pt-[18px] rounded-[10px] px-[7px] mb-[34px] border-2 drop-shadow border-[#E7E7E7] flex-shrink-0"
+                  className="max-w-[406px] pb-[34px] pt-[18px] rounded-[10px] px-[7px] mb-[34px] border-2 drop-shadow border-grey40 flex-shrink-0"
                   key={index}
                   onClick={() => openModal(menu._id)}
                 >
@@ -406,7 +406,7 @@ export const CategoryDetails = () => {
                         <HiPlusSm className="text-[80px]" />
                       </div>
                     </div>
-                    <p className="text-[32px] text-[#121212] font-[500] px-[24px] mt-[24px]">
+                    <p className="text-[32px] text-grey500 font-[500] px-[24px] mt-[24px]">
                       {menu?.menu_item_name?.length > 18
                         ? `${menu?.menu_item_name.substring(0, 15)}...`
                         : menu?.menu_item_name}
@@ -422,7 +422,7 @@ export const CategoryDetails = () => {
           {Object.keys(groupedMenuItems).map((groupName) => (
             <div key={groupName} className="mb-[24px]">
               {groupName !== "undefined" && (
-                <p className="text-[32px] font-bold text-[#121212] mb-[12px] px-[24px]">
+                <p className="text-[32px] font-bold text-grey500 mb-[12px] px-[24px]">
                   {groupName.length > 30
                     ? `${groupName.slice(0, 30)}...`
                     : groupName}
@@ -433,7 +433,7 @@ export const CategoryDetails = () => {
                 <div className="grid grid-cols-2 items-center gap-4 mb-[100px]">
                   {groupedMenuItems[groupName]?.map((menu) => (
                     <div
-                      className="pb-[34px] pt-[18px] rounded-[10px] px-[7px] my-[34px] border-2 drop-shadow border-[#E7E7E7] max-w-[500px]"
+                      className="pb-[34px] pt-[18px] rounded-[10px] px-[7px] my-[34px] border-2 drop-shadow border-grey40 max-w-[500px]"
                       key={menu._id}
                     >
                       <div>
@@ -445,7 +445,7 @@ export const CategoryDetails = () => {
                         />
 
                         <p
-                          className="text-[32px] text-[#121212] font-[500] px-[24px] mt-[24px]"
+                          className="text-[32px] text-grey500 font-[500] px-[24px] mt-[24px]"
                           onClick={() => openModal(menu._id)}
                         >
                           {menu?.menu_item_name?.length > 18
@@ -546,7 +546,7 @@ export const CategoryDetails = () => {
         {isVisible && (
           <button
             onClick={scrollToTop}
-            className="fixed bottom-4 right-4 bg-[#ffffff] text-[#000000] px-4 py-4 rounded-full shadow-lg hover:bg-[#000000] hover:text-white transition-all duration-300 animate-bounce hover:animate-none"
+            className="fixed bottom-4 right-4 bg-white text-[#000000] px-4 py-4 rounded-full shadow-lg hover:bg-[#000000] hover:text-white transition-all duration-300 animate-bounce hover:animate-none"
           >
             <RiArrowUpDoubleLine className="text-2xl" />
           </button>

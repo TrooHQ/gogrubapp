@@ -58,7 +58,7 @@ const CreatePin = () => {
   };
 
   return (
-    <div className="bg-[#EFEFEF] h-screen">
+    <div className="bg-grey50 h-screen">
       <div className="flex flex-col items-center justify-center h-screen my-auto">
         {/* Logo section */}
         <div className="">
@@ -68,7 +68,9 @@ const CreatePin = () => {
         {/* Form container */}
         <div className="bg-white grid gap-5 p-8 my-10 w-full md:w-[530px] rounded shadow-md">
           <div className="max-w-[387px]">
-            <p className="text-2xl text-grey500 mb-4 font-[600]">Create Your PIN</p>
+            <p className="text-2xl text-grey500 mb-4 font-[600]">
+              Create Your PIN
+            </p>
             <p>Your new PIN should be easy to remember and secure.</p>
           </div>
 
@@ -100,7 +102,10 @@ const CreatePin = () => {
 
           {/* Go back option */}
           <div className="text-center mt-4">
-            <p className="font-medium text-purple500 cursor-pointer" onClick={() => navigate(-1)}>
+            <p
+              className="font-medium text-purple500 cursor-pointer"
+              onClick={() => navigate(-1)}
+            >
               Go Back
             </p>
           </div>

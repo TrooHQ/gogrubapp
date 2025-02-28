@@ -61,13 +61,16 @@ const UpdateCredentials = () => {
     setError("");
 
     try {
-      const response = await axios.post(`${SERVER_DOMAIN}/employee/updateEmployeePassword/`, {
-        id: employeeId,
-        password,
-        confirm_password: confirmPassword,
-        pin,
-        confirm_pin: confirmPin,
-      });
+      const response = await axios.post(
+        `${SERVER_DOMAIN}/employee/updateEmployeePassword/`,
+        {
+          id: employeeId,
+          password,
+          confirm_password: confirmPassword,
+          pin,
+          confirm_pin: confirmPin,
+        }
+      );
 
       if (response.status === 200) {
         navigate("/pin-created"); // Redirecting to a success page
@@ -91,14 +94,16 @@ const UpdateCredentials = () => {
   };
 
   return (
-    <div className="bg-[#EFEFEF] h-screen">
+    <div className="bg-grey50 h-screen">
       <div className="flex flex-col items-center justify-center h-screen my-auto">
         <div className="">
           <img src={Logo} alt="Logo" />
         </div>
         <div className="bg-white grid gap-5 p-8 my-10 w-full md:w-[530px] rounded shadow-md">
           <div className="max-w-[387px]">
-            <p className="text-2xl text-grey500 mb-4 font-[600]">Update Your Credentials</p>
+            <p className="text-2xl text-grey500 mb-4 font-[600]">
+              Update Your Credentials
+            </p>
             <p>Set your new password and PIN to secure your account.</p>
           </div>
 
@@ -116,7 +121,12 @@ const UpdateCredentials = () => {
           <p className="text-[14px]">Passwords must match</p>
 
           {/* PIN Input Fields */}
-          <PinInput label="Enter new PIN" value={pin} onChange={handlePinChange} maxLength={4} />
+          <PinInput
+            label="Enter new PIN"
+            value={pin}
+            onChange={handlePinChange}
+            maxLength={4}
+          />
           <PinInput
             label="Confirm new PIN"
             value={confirmPin}

@@ -113,7 +113,7 @@ const VerifyAccount2 = () => {
     setError(allInputsFilled() ? "" : "Please fill all input fields");
   }, [digits]);
   return (
-    <div className=" bg-[#EFEFEF] h-screen">
+    <div className=" bg-grey50 h-screen">
       <div className=" mx-10">
         <div className=" py-[48px] flex items-center justify-center">
           <img src={Logo} alt="" />
@@ -122,10 +122,10 @@ const VerifyAccount2 = () => {
         <div className="">
           <p className=" text-red-500">{error}</p>
           <div className=" flex flex-col text-center justify-center items-center gap-[24px] mt-[128px] mb-[40px]">
-            <p className=" font-[500] text-[20px] text-[#121212]">
+            <p className=" font-[500] text-[20px] text-grey500">
               Verify Account
             </p>
-            <p className=" text-[16px] font-[400] text-[#121212]">
+            <p className=" text-[16px] font-[400] text-grey500">
               {" "}
               A verification code has been sent to your email. Please enter the
               six-digit OTP that was sent to your email
@@ -149,7 +149,7 @@ const VerifyAccount2 = () => {
             onClick={resendOTP}
           >
             <button
-              className=" font-[400] text-[16px] text-[#5955B3]"
+              className=" font-[400] text-[16px] text-purple500"
               disabled={loading}
             >
               Resend Code
@@ -169,7 +169,7 @@ const VerifyAccount2 = () => {
           ) : (
             <div className=" mt-[16px]">
               <button
-                className="bg-[#E7E7E7] text-[#B6B6B6] w-full text-center  py-3 rounded"
+                className="bg-grey40 text-grey100 w-full text-center  py-3 rounded"
                 disabled
               >
                 Activate account

@@ -17,9 +17,12 @@ const ForgotPassword = () => {
     setError("");
 
     try {
-      const response = await axios.post(`${SERVER_DOMAIN}/requestForgotPassword`, {
-        email: value,
-      });
+      const response = await axios.post(
+        `${SERVER_DOMAIN}/requestForgotPassword`,
+        {
+          email: value,
+        }
+      );
 
       if (response.status === 200) {
         navigate("/checkmail");
@@ -43,7 +46,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="bg-[#EFEFEF] h-screen">
+    <div className="bg-grey50 h-screen">
       <div className="flex flex-col items-center justify-center h-screen my-auto">
         <div className="">
           <img src={Logo} alt="Logo" />
@@ -53,10 +56,12 @@ const ForgotPassword = () => {
             <img src={lockIcon} alt="Lock Icon" />
           </div>
           <div className="flex flex-col items-center justify-center text-center">
-            <p className="text-grey500 text-[24px] font-[600] py-5">Forgot Password?</p>
+            <p className="text-grey500 text-[24px] font-[600] py-5">
+              Forgot Password?
+            </p>
             <p className="text-grey300 text-[16px] font-[500] leading-[24px]">
-              Enter email or phone number associated with your account and we'll send you an
-              email/SMS to reset it.
+              Enter email or phone number associated with your account and we'll
+              send you an email/SMS to reset it.
             </p>
           </div>
           <div className="py-5">
@@ -77,7 +82,9 @@ const ForgotPassword = () => {
           </button>
           <div className="text-center py-3">
             <div onClick={() => navigate(-1)}>
-              <p className="font-[500] text-[16px] text-purple500 cursor-pointer">Go Back</p>
+              <p className="font-[500] text-[16px] text-purple500 cursor-pointer">
+                Go Back
+              </p>
             </div>
           </div>
         </div>

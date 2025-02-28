@@ -125,12 +125,10 @@ const PaymentScreen = () => {
       />
 
       <div className=" text-center mt-[7px] max-w-[554px] mx-auto">
-        <p className=" text-[#121212] text-[44px] font-[500]">
-          Payment Options
-        </p>
+        <p className=" text-grey500 text-[44px] font-[500]">Payment Options</p>
         <p className=" text-[#000000] text-[32px] font-[500] mt-[56px]">
           Balance Due:{" "}
-          <span className=" text-[#121212]">
+          <span className=" text-grey500">
             ₦ {totalPrice ? totalPrice.toLocaleString() : "0"}
           </span>
         </p>
@@ -142,13 +140,13 @@ const PaymentScreen = () => {
         <hr className=" border border-[#414141] mb-[16px] mt-[24px]" />
         <p className="text-[#000000] text-[32px] font-[600]">
           Pay:{" "}
-          <span className="text-[#121212]">
+          <span className="text-grey500">
             ₦{(totalPrice + (tip ?? 0)).toLocaleString()}
           </span>
         </p>
       </div>
 
-      <div className="bg-[#F8F8F8] border border-[#E7E7E7] px-[24px] py-[32px] rounded-[10px] grid grid-cols-3 gap-[8px] items-center mx-[18px] mt-[80px]">
+      <div className="bg-[#F8F8F8] border border-grey40 px-[24px] py-[32px] rounded-[10px] grid grid-cols-3 gap-[8px] items-center mx-[18px] mt-[80px]">
         <p
           className={`text-[25px] font-[500] cursor-pointer text-center py-[35px] px-[8px] bg-white rounded-[10px] ${
             selectedOption === "Bank Transfer QR"
@@ -213,7 +211,7 @@ const PaymentScreen = () => {
               <hr className=" border-[#929292] border" />
 
               <div className=" my-[40px] max-w-[566px] mx-auto text-center">
-                <p className=" text-[28px]  font-[400] text-[#121212]">
+                <p className=" text-[28px]  font-[400] text-grey500">
                   Scan QR Code below in your bank app to complete this payment
                 </p>
 
@@ -245,7 +243,7 @@ const PaymentScreen = () => {
               <hr className=" border-[#929292] border" />
 
               <div className=" my-[40px] max-w-[566px] mx-auto text-center">
-                <p className=" text-[28px]  font-[400] text-[#121212]">
+                <p className=" text-[28px]  font-[400] text-grey500">
                   Scan QR Code with your phone camera
                 </p>
 
@@ -277,7 +275,7 @@ const PaymentScreen = () => {
               <hr className=" border-[#929292] border" />
 
               <div className=" my-[40px] max-w-[566px] mx-auto text-center">
-                <p className=" text-[28px]  font-[400] text-[#121212]">
+                <p className=" text-[28px]  font-[400] text-grey500">
                   Tap attached NFC device
                 </p>
 
@@ -308,7 +306,7 @@ const PaymentScreen = () => {
               </p>
               <hr className=" border-[#929292] border" />
               <div className=" my-[40px] max-w-[566px] mx-auto text-center">
-                <p className=" text-[28px]  font-[400] text-[#121212]">
+                <p className=" text-[28px]  font-[400] text-grey500">
                   Make your cash payment with the cashier
                 </p>
 

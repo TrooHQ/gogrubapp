@@ -22,7 +22,9 @@ export const AdminMenuPage = () => {
 
   const business_name = userDetails?.userData?.business_name;
 
-  const selectedOutletID = useSelector((state: any) => state.outlet.selectedOutletID);
+  const selectedOutletID = useSelector(
+    (state: any) => state.outlet.selectedOutletID
+  );
 
   const getCategories = async () => {
     setLoading(true);
@@ -66,15 +68,18 @@ export const AdminMenuPage = () => {
 
         <div className="px-[21px]">
           {menuCategory.length === 0 ? (
-            <p className="text-center text-[16px] font-[400] text-[#121212] mt-[24px]">
+            <p className="text-center text-[16px] font-[400] text-grey500 mt-[24px]">
               No items found
             </p>
           ) : (
             menuCategory.map((menu, index) => (
-              <Link key={index} to={`/demo/${business_name}/menu-page/${menu.name}/troo-portal`}>
+              <Link
+                key={index}
+                to={`/demo/${business_name}/menu-page/${menu.name}/troo-portal`}
+              >
                 <div className="mt-[24px]">
                   <div className="flex items-center justify-between">
-                    <p className="text-[16px] font-[500] text-[#121212] uppercase">
+                    <p className="text-[16px] font-[500] text-grey500 uppercase">
                       {truncateText(menu.name, 15)}
                     </p>
                     <div className="flex items-center">

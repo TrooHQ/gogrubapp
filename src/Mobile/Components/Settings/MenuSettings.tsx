@@ -442,7 +442,7 @@ const MenuSettings = () => {
               <p className=" text-grey500 text-[16px] font-[400]">
                 Setup menu group
               </p>
-              <p className=" text-[#606060] text-[14px] font-[400]">
+              <p className=" text-grey300 text-[14px] font-[400]">
                 Would you like to add a Menu group?
               </p>
               <div className=" flex">
@@ -450,14 +450,14 @@ const MenuSettings = () => {
               </div>
             </div>
             <p
-              className=" text-[#5855B3] py-[11px] px-[4px] text-[14px] font-[400] flex items-center cursor-pointer"
+              className=" text-grey20 py-[11px] px-[4px] text-[14px] font-[400] flex items-center cursor-pointer"
               onClick={handleAddMenuItem}
             >
               <img src={AddWhite} alt="" />
               Add new menu item
             </p>
             <Link to="">
-              <div className="border border-purple500 text-center bg-purple500 rounded px-[24px]  py-[10px] font-[500] text-[#ffffff] mt-[72px]">
+              <div className="border border-purple500 text-center bg-purple500 rounded px-[24px]  py-[10px] font-[500] text-white mt-[72px]">
                 <button className=" text-[16px] ">Save</button>
               </div>
             </Link>
@@ -659,7 +659,7 @@ const MenuSettings = () => {
               <p className=" text-grey500 text-[16px] font-[400]">
                 Edit menu group
               </p>
-              <p className=" text-[#606060] text-[14px] font-[400]">
+              <p className=" text-grey300 text-[14px] font-[400]">
                 Would you like to edit this menu group?
               </p>
               <div className=" flex">
@@ -682,7 +682,7 @@ const MenuSettings = () => {
               )}
 
               <p
-                className=" text-[#5855B3] py-[11px] px-[4px] text-[14px] font-[400] flex items-center cursor-pointer"
+                className=" text-grey20 py-[11px] px-[4px] text-[14px] font-[400] flex items-center cursor-pointer"
                 onClick={handleAddMenuItem}
               >
                 <img src={AddWhite} alt="" />
@@ -758,7 +758,7 @@ const MenuSettings = () => {
                 <div className="flex items-center gap-[16px]">
                   <label
                     htmlFor="fileInput"
-                    className="w-[72px] border border-dashed p-[20px] border-[#5855B3] cursor-pointer"
+                    className="w-[72px] border border-dashed p-[20px] border-grey20 cursor-pointer"
                   >
                     <input
                       type="file"
@@ -772,7 +772,7 @@ const MenuSettings = () => {
                   <div className="">
                     <label
                       htmlFor="fileInput"
-                      className="text-[#5855B3] font-[500] text-[16px] cursor-pointer"
+                      className="text-grey20 font-[500] text-[16px] cursor-pointer"
                     >
                       Click to upload{" "}
                     </label>
@@ -784,7 +784,7 @@ const MenuSettings = () => {
               </div>
             </div>
             <div
-              className="border border-purple500 cursor-pointer text-center bg-purple500 rounded px-[24px]  py-[10px] font-[500] text-[#ffffff] mt-[72px]"
+              className="border border-purple500 cursor-pointer text-center bg-purple500 rounded px-[24px]  py-[10px] font-[500] text-white mt-[72px]"
               onClick={handleSuccessModal}
             >
               <button className=" text-[16px] ">Save</button>

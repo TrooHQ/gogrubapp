@@ -48,8 +48,10 @@ const AddModifierModal: React.FC<AddModifierModalProps> = ({
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="w-[539px] py-[32px] px-[52px]">
         <div>
-          <p className="text-[24px] mb-[11px] font-[500] text-purple500">Asset Arrangement</p>
-          <hr className="border my-[24px] border-[#E7E7E7]" />
+          <p className="text-[24px] mb-[11px] font-[500] text-purple500">
+            Asset Arrangement
+          </p>
+          <hr className="border my-[24px] border-grey40" />
           <div className="flex flex-col gap-[8px] justify-center">
             <CustomSelect5
               options={businessType}
@@ -85,17 +87,22 @@ const AddModifierModal: React.FC<AddModifierModalProps> = ({
                     onChange={(newValue) => {
                       setTableNumber(newValue);
                       setTableArr(
-                        Array.from({ length: Number(newValue) }, (_, index) => ({
-                          table_number: index + 1,
-                          guests: 1,
-                        }))
+                        Array.from(
+                          { length: Number(newValue) },
+                          (_, index) => ({
+                            table_number: index + 1,
+                            guests: 1,
+                          })
+                        )
                       );
                     }}
                   />
                 </div>
 
                 <div className="mt-4 p-4 bg-gray-50 border rounded-lg">
-                  <h3 className="text-lg font-medium mb-4">Number of Seats by Table</h3>
+                  <h3 className="text-lg font-medium mb-4">
+                    Number of Seats by Table
+                  </h3>
                   <div className="grid grid-cols-2 gap-4">
                     {/* <div className="text-center font-semibold">Table</div>
                     <div className="text-center font-semibold">Seat</div> */}
@@ -122,15 +129,17 @@ const AddModifierModal: React.FC<AddModifierModalProps> = ({
               </>
             )}
           </div>
-          <hr className="border mb-[16px] mt-[24px] border-[#E7E7E7]" />
+          <hr className="border mb-[16px] mt-[24px] border-grey40" />
           <div className="flex justify-end items-center gap-2">
             <div
               className="border cursor-pointer border-purple500 rounded px-[24px] py-[10px] font-[600] text-purple500"
               onClick={onClose}
             >
-              <p className="font-[500] text-[16px] text-purple500 cursor-pointer">Cancel</p>
+              <p className="font-[500] text-[16px] text-purple500 cursor-pointer">
+                Cancel
+              </p>
             </div>
-            <div className="border border-purple500 bg-purple500 rounded px-[24px] py-[10px] font-[500] text-[#ffffff]">
+            <div className="border border-purple500 bg-purple500 rounded px-[24px] py-[10px] font-[500] text-white">
               <button onClick={handleCreateAsset} className="text-[16px]">
                 {loading ? "Saving..." : "Save"}
               </button>

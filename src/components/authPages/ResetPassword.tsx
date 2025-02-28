@@ -64,15 +64,20 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="bg-[#EFEFEF] h-screen">
+    <div className="bg-grey50 h-screen">
       <div className="flex flex-col items-center justify-center h-screen my-auto">
         <div className="">
           <img src={Logo} alt="Logo" />
         </div>
         <div className="bg-white grid gap-5 p-8 my-10 w-full md:w-[530px] rounded shadow-md">
           <div className="max-w-[387px]">
-            <p className="text-2xl text-grey500 mb-4 font-[600]">Create new password</p>
-            <p>Your new password must be different from previously used passwords.</p>
+            <p className="text-2xl text-grey500 mb-4 font-[600]">
+              Create new password
+            </p>
+            <p>
+              Your new password must be different from previously used
+              passwords.
+            </p>
           </div>
           <PasswordInput
             label="Enter new password"
@@ -95,7 +100,9 @@ const ResetPassword = () => {
           </button>
           <div className="text-center py-3">
             <div onClick={() => navigate(-1)}>
-              <p className="font-[500] text-[16px] text-purple500 cursor-pointer">Go Back</p>
+              <p className="font-[500] text-[16px] text-purple500 cursor-pointer">
+                Go Back
+              </p>
             </div>
           </div>
         </div>

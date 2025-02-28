@@ -92,7 +92,7 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-[#EFEFEF] h-screen overflow-auto">
+    <div className="bg-grey50 h-screen overflow-auto">
       {loading && <Loader />}
       <div className="flex flex-col items-center justify-center h-screen my-auto">
         <div className="">

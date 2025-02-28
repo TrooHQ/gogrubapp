@@ -47,7 +47,9 @@ const AddMenuCategory = ({ setIsModalOpen }: any) => {
   const handleBranchSelect = (branchId: string) => {
     setSelectedBranch(branchId);
 
-    const selectedBranchObj = branches.find((branch: any) => branch._id === branchId);
+    const selectedBranchObj = branches.find(
+      (branch: any) => branch._id === branchId
+    );
     if (selectedBranchObj) {
       setSelectedBranchId(selectedBranchObj._id);
     }
@@ -91,11 +93,15 @@ const AddMenuCategory = ({ setIsModalOpen }: any) => {
       if (response.status === 200) {
         dispatch(fetchMenuCategories(selectedBranchId));
 
-        toast.success(response.data.message || "Menu category added successfully.");
+        toast.success(
+          response.data.message || "Menu category added successfully."
+        );
         setIsModalOpen(false);
       } else {
         setError("Something went wrong. Please try again.");
-        toast.error(response.data.message || "Something went wrong. Please try again.");
+        toast.error(
+          response.data.message || "Something went wrong. Please try again."
+        );
       }
     } catch (error) {
       console.error("Error occurred:", error);
@@ -143,12 +149,14 @@ const AddMenuCategory = ({ setIsModalOpen }: any) => {
             />
 
             <div>
-              <p className="text-[18px] mb-[8px] font-[500] text-grey500">Add image</p>
+              <p className="text-[18px] mb-[8px] font-[500] text-grey500">
+                Add image
+              </p>
 
               <div className="flex items-center gap-[16px]">
                 <label
                   htmlFor="fileInput"
-                  className="w-[72px] border border-dashed p-[20px] border-[#5855B3] cursor-pointer"
+                  className="w-[72px] border border-dashed p-[20px] border-grey20 cursor-pointer"
                 >
                   <input
                     type="file"
@@ -162,18 +170,26 @@ const AddMenuCategory = ({ setIsModalOpen }: any) => {
                 <div>
                   <label
                     htmlFor="fileInput"
-                    className="text-[#5855B3] font-[500] text-[16px] mb-[8px] cursor-pointer"
+                    className="text-grey20 font-[500] text-[16px] mb-[8px] cursor-pointer"
                   >
                     Click to upload{" "}
-                    <span className="font-[400] text-grey300">or drag and drop</span>
+                    <span className="font-[400] text-grey300">
+                      or drag and drop
+                    </span>
                   </label>
-                  <p className="text-[14px] font-[400] text-grey300">Max. file size: 2MB</p>
+                  <p className="text-[14px] font-[400] text-grey300">
+                    Max. file size: 2MB
+                  </p>
                 </div>
               </div>
               {image && (
                 <div className="mt-4">
                   <p className="text-[14px] text-grey500">Image: {imageName}</p>
-                  <img src={image} alt="Uploaded Preview" className="mt-2 w-full h-auto" />
+                  <img
+                    src={image}
+                    alt="Uploaded Preview"
+                    className="mt-2 w-full h-auto"
+                  />
                 </div>
               )}
             </div>
@@ -187,11 +203,17 @@ const AddMenuCategory = ({ setIsModalOpen }: any) => {
             className="border cursor-pointer border-purple500 rounded px-[24px] py-[10px] font-[600] text-purple500"
             onClick={() => setIsModalOpen(false)}
           >
-            <p className="font-[500] text-[16px] text-purple500 cursor-pointer">Cancel</p>
+            <p className="font-[500] text-[16px] text-purple500 cursor-pointer">
+              Cancel
+            </p>
           </div>
 
-          <div className="border border-purple500 bg-purple500 rounded px-[24px] py-[10px] font-[500] text-[#ffffff]">
-            <button className="text-[16px]" onClick={handleSubmit} disabled={loading}>
+          <div className="border border-purple500 bg-purple500 rounded px-[24px] py-[10px] font-[500] text-white">
+            <button
+              className="text-[16px]"
+              onClick={handleSubmit}
+              disabled={loading}
+            >
               {loading ? "Saving..." : "Save Menu"}
             </button>
           </div>

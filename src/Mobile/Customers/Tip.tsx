@@ -76,14 +76,14 @@ export const Tip = () => {
 
       <div className=" mt-[68px] ">
         <div className=" px-[16px] grid gap-[8px] mb-[40px]">
-          <p className=" text-center text-[18px] font-[500] text-[#121212]">
+          <p className=" text-center text-[18px] font-[500] text-grey500">
             Enter Tip
           </p>
           <div className=" grid grid-cols-3 gap-[8px]">
             {tipPercentages.map((tip, index) => (
               <div
                 key={index}
-                className={`flex flex-col items-center px-[36px] py-[8px] border border-[#B6B6B6] rounded-[3px] cursor-pointer`}
+                className={`flex flex-col items-center px-[36px] py-[8px] border border-grey100 rounded-[3px] cursor-pointer`}
                 style={{
                   backgroundColor:
                     selectedTip === tip ? colorScheme || "#E0E0E0" : "",
@@ -123,7 +123,7 @@ export const Tip = () => {
           </p>
           <Link to="/demo/payment-type/orderandpay">
             <p
-              className=" inline font-[500] text-[16px] rounded-[5px] text-[#ffffff]  py-[10px] px-[56px]"
+              className=" inline font-[500] text-[16px] rounded-[5px] text-white  py-[10px] px-[56px]"
               style={{ backgroundColor: colorScheme || "#FF0000" }}
             >
               Add Tip

@@ -1046,7 +1046,7 @@ const SettingsPage = () => {
                 <CustomSelect3
                   options={roles}
                   placeholder="Roles"
-                  BG=" bg-[#ffffff]"
+                  BG=" bg-white"
                   text=" text-black"
                   hover="hover:bg-[#0D0D0D] hover:text-white"
                   searchable={false}

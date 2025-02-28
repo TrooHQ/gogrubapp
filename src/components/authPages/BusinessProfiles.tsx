@@ -37,7 +37,9 @@ const BusinessProfiles: React.FC = () => {
         }
       } catch (error: any) {
         console.error("Error submitting sample data:", error);
-        toast.error(error.response.data.message || "Error submitting business information");
+        toast.error(
+          error.response.data.message || "Error submitting business information"
+        );
       } finally {
         setLoading(false);
       }
@@ -50,22 +52,33 @@ const BusinessProfiles: React.FC = () => {
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const response = await axios.post(`${SERVER_DOMAIN}/createAccountDetails`, transformedState2);
+      const response = await axios.post(
+        `${SERVER_DOMAIN}/createAccountDetails`,
+        transformedState2
+      );
       if (response.status === 200) {
         toast.success(response.data.message || "Data submitted successfully");
         navigate("/verify-account");
       } else {
-        toast.error(response.data.message || "Error submitting business information");
+        toast.error(
+          response.data.message || "Error submitting business information"
+        );
       }
     } catch (error: any) {
       console.error("Error submitting data:", error);
-      toast.error(error.response.data.message || "Error submitting business information");
+      toast.error(
+        error.response.data.message || "Error submitting business information"
+      );
     } finally {
       setLoading(false);
     }
   };
 
-  const stepTitles = ["Business Information", "Personal Information", "Payout Details"];
+  const stepTitles = [
+    "Business Information",
+    "Personal Information",
+    "Payout Details",
+  ];
   const stepDescriptions = [
     "This information is required in order to verify your business. It will show up on your payout report, invoices and receipts.",
     "Please make sure that your personal details remain up-to-date. Because this information is used to verify your identity. You will need to send our Support Team a message if you need to change it.",
@@ -92,14 +105,18 @@ const BusinessProfiles: React.FC = () => {
           <div key={index} className="flex items-center">
             <div
               className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                currentStep >= index ? "bg-purple500 text-white" : "bg-gray-300 text-gray-600"
+                currentStep >= index
+                  ? "bg-purple500 text-white"
+                  : "bg-gray-300 text-gray-600"
               }`}
             >
               {index + 1}
             </div>
             {index < stepTitles.length - 1 && (
               <div
-                className={`flex-1 h-1 ${currentStep > index ? "bg-purple500" : "bg-gray-300"}`}
+                className={`flex-1 h-1 ${
+                  currentStep > index ? "bg-purple500" : "bg-gray-300"
+                }`}
               ></div>
             )}
           </div>
@@ -109,11 +126,13 @@ const BusinessProfiles: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#fff] h-screen flex flex-col items-center justify-center">
+    <div className="bg-white h-screen flex flex-col items-center justify-center">
       <img src={Logo} alt="Logo" className="mb-8" />
       <div className="bg-white py-10 px-8 w-full md:w-3/5 rounded shadow-md h-[85vh] overflow-y-auto border-[1.5px] border-[#5955b3]">
         {renderStepProgress()}
-        <p className="text-2xl font-medium text-purple500 mb-2">{stepTitles[currentStep]}</p>
+        <p className="text-2xl font-medium text-purple500 mb-2">
+          {stepTitles[currentStep]}
+        </p>
         <p className="text-gray-600 mb-8">{stepDescriptions[currentStep]}</p>
         {renderStepContent()}
       </div>
@@ -142,7 +161,11 @@ const BusinessProfiles: React.FC = () => {
             className="ml-auto border-2 border-purple500 bg-purple500 rounded px-6 py-3 font-semibold text-white"
             disabled={loading}
           >
-            {loading ? "Loading..." : currentStep === 0 ? "Next" : "Save and continue"}
+            {loading
+              ? "Loading..."
+              : currentStep === 0
+              ? "Next"
+              : "Save and continue"}
           </button>
         ) : (
           <button

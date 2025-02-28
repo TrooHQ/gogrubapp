@@ -23,7 +23,7 @@ const RadioCustom: React.FC<ReusableRadioInputProps> = ({
   return (
     <div
       className={`flex items-center justify-between py-[8px] px-[16px] cursor-pointer ${
-        isSelected ? "bg-[#EFEFEF]" : ""
+        isSelected ? "bg-grey50" : ""
       }`}
       onClick={handleSelection}
     >

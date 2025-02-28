@@ -54,33 +54,46 @@ const MenuList = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const branches = useSelector((state: any) => state.branches.branches);
-  const { menuItems2: menuItems, loading } = useSelector((state: any) => state.menu);
+  const { menuItems2: menuItems, loading } = useSelector(
+    (state: any) => state.menu
+  );
 
   const [openModal, setOpenModal] = useState(false);
-  const [selectedModifiers, setSelectedModifiers] = useState<Modifiers | null>(null);
+  const [selectedModifiers, setSelectedModifiers] = useState<Modifiers | null>(
+    null
+  );
   const [viewingBranch, setViewingBranch] = useState<Branch | null>(null);
 
-  const [toggleStates, setToggleStates] = useState<{ [key: string]: boolean }>({});
-  const [toggleStates2, setToggleStates2] = useState<{ [key: string]: boolean }>({});
+  const [toggleStates, setToggleStates] = useState<{ [key: string]: boolean }>(
+    {}
+  );
+  const [toggleStates2, setToggleStates2] = useState<{
+    [key: string]: boolean;
+  }>({});
   const [isFetching, setIsFetching] = useState(false);
   const [fetchedModifiers, setFetchedModifiers] = useState<any>([]);
-  const [confirmationDialog, setConfirmationDialog] = useState<ConfirmationDialogState>({
-    open: false,
-    id: null,
-  });
+  const [confirmationDialog, setConfirmationDialog] =
+    useState<ConfirmationDialogState>({
+      open: false,
+      id: null,
+    });
 
   const [confirmationDialog2, setConfirmationDialog2] = useState({
     open: false,
     item: {},
   });
 
-  const [confirmationDialog3, setConfirmationDialog3] = useState<ConfirmationDialogState>({
-    open: false,
-    id: null,
-  });
+  const [confirmationDialog3, setConfirmationDialog3] =
+    useState<ConfirmationDialogState>({
+      open: false,
+      id: null,
+    });
 
   const [editModalOpen, setEditModalOpen] = useState(false);
-  const [editingItem, setEditingItem] = useState<{ id: string; oldName: string } | null>(null);
+  const [editingItem, setEditingItem] = useState<{
+    id: string;
+    oldName: string;
+  } | null>(null);
   const [newMenuName, setNewMenuName] = useState<string>("");
 
   // Delete function
@@ -345,15 +358,21 @@ const MenuList = () => {
             <div className="overflow-x-auto mt-6">
               <table className="min-w-full border-collapse">
                 <thead>
-                  <tr className="bg-[#606060] text-white text-center text-base font-normal">
-                    <th className="py-2 px-4 text-base font-normal text-start">Branch Name</th>
-                    <th className="py-2 px-4 text-base font-normal text-start">Manager</th>
-                    <th className="py-2 px-4 text-base font-normal text-center">Action</th>
+                  <tr className="bg-grey300 text-white text-center text-base font-normal">
+                    <th className="py-2 px-4 text-base font-normal text-start">
+                      Branch Name
+                    </th>
+                    <th className="py-2 px-4 text-base font-normal text-start">
+                      Manager
+                    </th>
+                    <th className="py-2 px-4 text-base font-normal text-center">
+                      Action
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {branches.map((branch: any) => (
-                    <tr key={branch._id} className="bg-[#ffffff]">
+                    <tr key={branch._id} className="bg-white">
                       <td className="text-base font-normal py-2 px-4 text-start">
                         {branch.branch_name}
                       </td>
@@ -361,7 +380,10 @@ const MenuList = () => {
                         {branch.branch_email}
                       </td>
                       <td className="text-base font-normal py-2 px-4 text-center">
-                        <button className="text-blue-500" onClick={() => handleViewMore(branch)}>
+                        <button
+                          className="text-blue-500"
+                          onClick={() => handleViewMore(branch)}
+                        >
                           View more
                         </button>
                       </td>
@@ -386,7 +408,7 @@ const MenuList = () => {
                 <div className="relative">
                   <input
                     type="text"
-                    className="bg-[#F8F8F8] rounded p-2 pl-14 outline-none border border-[#5855B3]"
+                    className="bg-[#F8F8F8] rounded p-2 pl-14 outline-none border border-grey20"
                     placeholder="Search"
                   />
                   <img
@@ -401,17 +423,23 @@ const MenuList = () => {
             <div className="overflow-x-auto mt-6">
               <table className="min-w-full border-collapse">
                 <thead>
-                  <tr className="bg-[#606060] text-white text-center text-base font-normal">
-                    <th className="py-2 px-4 text-base font-normal">Menu Group</th>
-                    <th className="py-2 px-4 text-base font-normal text-start">Menu Name</th>
+                  <tr className="bg-grey300 text-white text-center text-base font-normal">
+                    <th className="py-2 px-4 text-base font-normal">
+                      Menu Group
+                    </th>
+                    <th className="py-2 px-4 text-base font-normal text-start">
+                      Menu Name
+                    </th>
                     {/* <th className="py-2 px-4 text-base font-normal">Quantity</th> */}
                     <th className="py-2 px-4 text-base font-normal">Price</th>
-                    <th className="py-2 px-4 text-base font-normal">Modifiers</th>
+                    <th className="py-2 px-4 text-base font-normal">
+                      Modifiers
+                    </th>
                     <th className="py-2 px-4 text-base font-normal">Actions</th>
                   </tr>
                 </thead>
 
-                <hr className="mb-2 text-[#E7E7E7]" />
+                <hr className="mb-2 text-grey40" />
 
                 {loading ? (
                   <div className="text-center min-w-full">Loading...</div>
@@ -424,16 +452,21 @@ const MenuList = () => {
                           !toggleStates[item._id]
                             ? "opacity-50"
                             : index % 2 === 1
-                            ? "bg-[#ffffff]"
+                            ? "bg-white"
                             : "bg-[#F8F8F8]"
                         }`}
                       >
-                        <td className="text-base font-normal py-2 px-4">{item.menu_group_name}</td>
+                        <td className="text-base font-normal py-2 px-4">
+                          {item.menu_group_name}
+                        </td>
                         <td className="text-base font-normal py-2 px-4">
                           <div className="flex items-center justify-start gap-1">
                             {toggleStates2[item._id] && (
                               <Tooltip title="This item is recommended." arrow>
-                                <IconButton style={{ padding: "0px" }} color="default">
+                                <IconButton
+                                  style={{ padding: "0px" }}
+                                  color="default"
+                                >
                                   <CheckCircleOutline
                                     style={{ color: "#5955b3", padding: "0px" }}
                                   />{" "}
@@ -458,10 +491,14 @@ const MenuList = () => {
                           </div>
                         </td> */}
                         <td className="text-base font-normal text-center py-2 px-4 break-words">
-                          &#8358;{parseFloat(item.menu_item_price).toLocaleString()}
+                          &#8358;
+                          {parseFloat(item.menu_item_price).toLocaleString()}
                         </td>
                         <td className="text-base font-normal text-center py-2 px-4 break-words">
-                          <button className="text-blue-500" onClick={() => handleOpenModal(item)}>
+                          <button
+                            className="text-blue-500"
+                            onClick={() => handleOpenModal(item)}
+                          >
                             See modifiers
                           </button>
                         </td>
@@ -485,7 +522,11 @@ const MenuList = () => {
                             onClose={handleCloseMenu}
                           >
                             <MenuItem
-                              sx={{ paddingLeft: "4px", paddingRight: "4px", width: "250px" }}
+                              sx={{
+                                paddingLeft: "4px",
+                                paddingRight: "4px",
+                                width: "250px",
+                              }}
                               onClick={() => handleToggleChange(item._id)}
                             >
                               <Tooltip
@@ -497,15 +538,24 @@ const MenuList = () => {
                                   color="default"
                                 >
                                   {toggleStates[item._id] ? (
-                                    <ToggleOffIcon style={{ fontSize: "40px" }} />
+                                    <ToggleOffIcon
+                                      style={{ fontSize: "40px" }}
+                                    />
                                   ) : (
-                                    <ToggleOnIcon style={{ color: "#5855B3", fontSize: "40px" }} />
+                                    <ToggleOnIcon
+                                      style={{
+                                        color: "#5855B3",
+                                        fontSize: "40px",
+                                      }}
+                                    />
                                   )}
                                 </IconButton>
                               </Tooltip>
                               <span
                                 className={clsx(
-                                  toggleStates[item._id] ? "text-[#5855b3]" : "text-gray-700",
+                                  toggleStates[item._id]
+                                    ? "text-grey20"
+                                    : "text-gray-700",
                                   "text-base font-medium",
                                   "w-full"
                                 )}
@@ -516,7 +566,11 @@ const MenuList = () => {
 
                             {/* Edit */}
                             <MenuItem
-                              sx={{ paddingLeft: "4px", paddingRight: "12px", width: "250px" }}
+                              sx={{
+                                paddingLeft: "4px",
+                                paddingRight: "12px",
+                                width: "250px",
+                              }}
                               onClick={() => handleEditClick(item)}
                             >
                               <div className="flex items-center justify-start w-full">
@@ -531,7 +585,11 @@ const MenuList = () => {
 
                             {/* Delete */}
                             <MenuItem
-                              sx={{ paddingLeft: "4px", paddingRight: "12px", width: "250px" }}
+                              sx={{
+                                paddingLeft: "4px",
+                                paddingRight: "12px",
+                                width: "250px",
+                              }}
                               onClick={() => handleDeleteClick(item)}
                             >
                               <div className="flex items-center justify-start w-full">
@@ -547,19 +605,29 @@ const MenuList = () => {
 
                             {/* Recommend */}
                             <MenuItem
-                              sx={{ paddingLeft: "4px", paddingRight: "4px", width: "250px" }}
-                              onClick={() => handleToggleRecommendChange(item._id)}
+                              sx={{
+                                paddingLeft: "4px",
+                                paddingRight: "4px",
+                                width: "250px",
+                              }}
+                              onClick={() =>
+                                handleToggleRecommendChange(item._id)
+                              }
                             >
                               <Tooltip
                                 title="Recommending this menu list will display it on all your product channels"
                                 arrow
                               >
                                 <IconButton
-                                  onClick={() => handleToggleRecommendChange(item._id)}
+                                  onClick={() =>
+                                    handleToggleRecommendChange(item._id)
+                                  }
                                   color="default"
                                 >
                                   {toggleStates2[item._id] ? (
-                                    <CheckCircleOutline style={{ color: "#5855B3" }} />
+                                    <CheckCircleOutline
+                                      style={{ color: "#5855B3" }}
+                                    />
                                   ) : (
                                     <CheckCircleOutline />
                                   )}
@@ -567,7 +635,9 @@ const MenuList = () => {
                               </Tooltip>
                               <span
                                 className={clsx(
-                                  toggleStates2[item._id] ? "text-[#5855b3]" : "text-gray-700",
+                                  toggleStates2[item._id]
+                                    ? "text-grey20"
+                                    : "text-gray-700",
                                   "text-[14px] font-medium",
                                   "w-full"
                                 )}
@@ -584,7 +654,9 @@ const MenuList = () => {
                   </tbody>
                 ) : (
                   <div>
-                    <p className="text-center min-w-full">No menu items found</p>
+                    <p className="text-center min-w-full">
+                      No menu items found
+                    </p>
                   </div>
                 )}
               </table>
@@ -619,16 +691,24 @@ const MenuList = () => {
                           </h3>
                           <ul className="ml-4">
                             {/* Display the Modifiers under the group */}
-                            {group.modifiers.map((modifier: any, modifierIndex: any) => (
-                              <li key={modifierIndex} className="flex justify-between">
-                                <span className="text-lg font-normal text-[#414141]">
-                                  {modifier.modifier_name}
-                                </span>
-                                <span className="text-lg font-medium text-[#414141]">
-                                  &#8358; {parseFloat(modifier.modifier_price).toLocaleString()}
-                                </span>
-                              </li>
-                            ))}
+                            {group.modifiers.map(
+                              (modifier: any, modifierIndex: any) => (
+                                <li
+                                  key={modifierIndex}
+                                  className="flex justify-between"
+                                >
+                                  <span className="text-lg font-normal text-[#414141]">
+                                    {modifier.modifier_name}
+                                  </span>
+                                  <span className="text-lg font-medium text-[#414141]">
+                                    &#8358;{" "}
+                                    {parseFloat(
+                                      modifier.modifier_price
+                                    ).toLocaleString()}
+                                  </span>
+                                </li>
+                              )
+                            )}
                           </ul>
                         </li>
                       ))}
@@ -638,7 +718,10 @@ const MenuList = () => {
                   <hr className="h-[1px] bg-[#929292] my-3" />
                 </>
               )}
-              <Close className="absolute top-3 right-3 cursor-pointer" onClick={handleCloseModal} />
+              <Close
+                className="absolute top-3 right-3 cursor-pointer"
+                onClick={handleCloseModal}
+              />
             </div>
           </div>
         )}
@@ -646,7 +729,9 @@ const MenuList = () => {
         {editModalOpen && (
           <Modal isOpen={editModalOpen} onClose={() => setEditModalOpen(false)}>
             <div className=" w-[539px] py-[32px] px-[52px]">
-              <h2 className="text-[24px] mb-[11px] font-[500] text-purple500">Edit Menu Item</h2>
+              <h2 className="text-[24px] mb-[11px] font-[500] text-purple500">
+                Edit Menu Item
+              </h2>
               <CustomInput
                 type="text"
                 label=""
@@ -654,17 +739,17 @@ const MenuList = () => {
                 error=""
                 onChange={(newValue) => setNewMenuName(newValue)}
               />
-              <hr className="border my-[24px] border-[#E7E7E7]" />
+              <hr className="border my-[24px] border-grey40" />
               <div className="flex items-center justify-end gap-4 mt-8">
                 <button
                   onClick={handleEditConfirm}
-                  className="bg-[#5855B3] text-white rounded-[6px] px-4 py-2"
+                  className="bg-grey20 text-white rounded-[6px] px-4 py-2"
                 >
                   {editLoading ? "Loading..." : "Confirm"}
                 </button>
                 <button
                   onClick={() => setEditModalOpen(false)}
-                  className="bg-[#F8F8F8] text-[#5855B3] rounded-[6px] px-4 py-2"
+                  className="bg-[#F8F8F8] text-grey20 rounded-[6px] px-4 py-2"
                 >
                   Cancel
                 </button>
@@ -687,11 +772,13 @@ const MenuList = () => {
         onClose={() => setConfirmationDialog({ open: false, id: null })}
         onConfirm={handleConfirmToggleChange}
         message={`Are you sure you want to ${
-          confirmationDialog.id !== null && toggleStates[confirmationDialog.id as any]
+          confirmationDialog.id !== null &&
+          toggleStates[confirmationDialog.id as any]
             ? "freeze"
             : "unfreeze"
         } this menu item? ${
-          confirmationDialog.id !== null && toggleStates[confirmationDialog.id as any]
+          confirmationDialog.id !== null &&
+          toggleStates[confirmationDialog.id as any]
             ? "Freezing it will remove it from all your product channels."
             : ""
         }`}
@@ -703,7 +790,8 @@ const MenuList = () => {
         onConfirm={handleConfirmToggleRecommendChange}
         isLoading={confirmationLoading}
         message={`Are you sure you want to ${
-          confirmationDialog3.id !== null && toggleStates2[confirmationDialog3.id as any]
+          confirmationDialog3.id !== null &&
+          toggleStates2[confirmationDialog3.id as any]
             ? "unrecommend"
             : "recommend"
         } this menu item?

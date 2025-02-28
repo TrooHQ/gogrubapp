@@ -65,7 +65,9 @@ export const CustomAutocomplete = styled(Autocomplete)({
 
 const Overview: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { branches, selectedBranch } = useSelector((state: any) => state.branches);
+  const { branches, selectedBranch } = useSelector(
+    (state: any) => state.branches
+  );
   const { userData } = useSelector((state: RootState) => state.user);
 
   const [open, setOpen] = useState(false);
@@ -105,9 +107,9 @@ const Overview: React.FC = () => {
         <TopMenuNav pathName="Overview" />
         {/* First div */}
         <div className="flex items-end my-10">
-          <h3 className="text-[#606060] text-[20px] font-normal">
+          <h3 className="text-grey300 text-[20px] font-normal">
             Hello,{" "}
-            <h5 className="text-[#121212] text-[24px] font-medium">
+            <h5 className="text-grey500 text-[24px] font-medium">
               {userData?.business_name} {""}
             </h5>
           </h3>
@@ -125,7 +127,8 @@ const Overview: React.FC = () => {
               },
             }}
           >
-            {selectedBranch?.label || selectedOutlet?.label || "All outlets"} <ArrowDropDown />
+            {selectedBranch?.label || selectedOutlet?.label || "All outlets"}{" "}
+            <ArrowDropDown />
           </Button>
           <Popper
             open={open}
@@ -149,7 +152,9 @@ const Overview: React.FC = () => {
                       ...params.InputProps,
                       startAdornment: (
                         <>
-                          <Search style={{ color: "gray", marginRight: "4px" }} />
+                          <Search
+                            style={{ color: "gray", marginRight: "4px" }}
+                          />
                           {params.InputProps.startAdornment}
                         </>
                       ),
@@ -172,7 +177,9 @@ const Overview: React.FC = () => {
         </div>
         {/* 5th div */}
         <div className="mt-9">
-          <h3 className="text-[#012320] text-[20px] font-semibold mb-9">Sales Trend</h3>
+          <h3 className="text-[#012320] text-[20px] font-semibold mb-9">
+            Sales Trend
+          </h3>
           <KPI />
         </div>
         {/* 6th div */}

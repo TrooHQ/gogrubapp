@@ -42,7 +42,7 @@ const CustomSelect5: React.FC<CustomSelectProps> = ({
     <div>
       <div className="relative">
         <select
-          className={`border outline-grey200 text-grey500 border-gray-500 text-[16px] bg-white p-2 focus:outline-[#5955B3] w-full rounded ${
+          className={`border outline-grey200 text-grey500 border-gray-500 text-[16px] bg-white p-2 focus:outline-purple500 w-full rounded ${
             error ? "border-red-500" : ""
           }`}
           value={value}

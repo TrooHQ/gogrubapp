@@ -100,7 +100,7 @@ const CustomSelect3: React.FC<CustomSelect3Props> = ({
       <div
         className={`border border-gray-300 ${
           BG ? BG : "bg-white"
-        } p-2 focus:outline-[#5955B3] ${
+        } p-2 focus:outline-purple500 ${
           text ? text : "text-black"
         } w-full rounded flex justify-between items-center gap-[8px] cursor-pointer ${
           searchable ? "rounded-b-none" : "rounded"

@@ -1,7 +1,12 @@
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import { ArrowDropDown, ArrowRight, CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
+import {
+  ArrowDropDown,
+  ArrowRight,
+  CheckBox,
+  CheckBoxOutlineBlank,
+} from "@mui/icons-material";
 import ToggleOnIcon from "@mui/icons-material/ToggleOn";
 import ToggleOffIcon from "@mui/icons-material/ToggleOff";
 import IconButton from "@mui/material/IconButton";
@@ -37,10 +42,12 @@ export const AccordionItem = ({
   setSelectedOutlets,
   setAllDisabled,
 }: any) => {
-  const handleChange = (panel: any) => (event: { preventDefault: () => void }, isExpanded: any) => {
-    event.preventDefault();
-    setExpanded(isExpanded ? panel : false);
-  };
+  const handleChange =
+    (panel: any) =>
+    (event: { preventDefault: () => void }, isExpanded: any) => {
+      event.preventDefault();
+      setExpanded(isExpanded ? panel : false);
+    };
 
   const handleToggleChange = () => {
     if (!isEnabled) {
@@ -67,15 +74,20 @@ export const AccordionItem = ({
       expanded={expanded === title}
       onChange={handleChange(title)}
     >
-      <AccordionSummary aria-controls={`${title}-content`} id={`${title}-header`}>
+      <AccordionSummary
+        aria-controls={`${title}-content`}
+        id={`${title}-header`}
+      >
         {expanded === title ? <ArrowDropDown /> : <ArrowRight />}
-        <h5 className="text-[18px] font-normal text-[#121212]">{title}</h5>
+        <h5 className="text-[18px] font-normal text-grey500">{title}</h5>
       </AccordionSummary>
       <AccordionDetails className="sm:text-lg flex flex-col gap-4">
-        <p className="text-xs font-normal text-[#606060]">
+        <p className="text-xs font-normal text-grey300">
           {isEnabled ? "Enabled for entire organization" : "Disabled"}
         </p>
-        <p className="text-base font-normal text-[#606060] w-full md:w-[50%]">{subText}</p>
+        <p className="text-base font-normal text-grey300 w-full md:w-[50%]">
+          {subText}
+        </p>
         <div>
           <IconButton onClick={handleToggleChange} color="default">
             {isEnabled ? (
@@ -86,14 +98,14 @@ export const AccordionItem = ({
           </IconButton>
           <span
             className={clsx(
-              isEnabled ? "text-[#5855b3]" : "text-gray-700",
+              isEnabled ? "text-grey20" : "text-gray-700",
               "text-base font-medium"
             )}
           >
             {isEnabled ? "Enabled" : "Disabled"}
           </span>
 
-          <h5 className="text-sm font-normal text-[#606060]">Apply to:</h5>
+          <h5 className="text-sm font-normal text-grey300">Apply to:</h5>
 
           <RadioGroup
             aria-label="apply-to"
@@ -148,9 +160,15 @@ export const AccordionItem = ({
                 )}
                 style={{ width: 350 }}
                 renderInput={(params) => (
-                  <TextField {...params} label="Select Outlets" placeholder="Outlets" />
+                  <TextField
+                    {...params}
+                    label="Select Outlets"
+                    placeholder="Outlets"
+                  />
                 )}
-                value={allOutlets.filter((outlet) => selectedOutlets.includes(outlet.label))}
+                value={allOutlets.filter((outlet) =>
+                  selectedOutlets.includes(outlet.label)
+                )}
                 onChange={(event, newValue) => {
                   event.preventDefault();
                   setSelectedOutlets(newValue.map((item) => item.label));

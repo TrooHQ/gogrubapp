@@ -58,14 +58,19 @@ const MenuBuilder = () => {
 
   const [editCategoryModalOpen, setEditCategoryModalOpen] = useState(false);
   const [editGroupModalOpen, setEditGroupModalOpen] = useState(false);
-  const [editingCategory, setEditingCategory] = useState<{ id: string; oldName: string } | null>(
-    null
-  );
+  const [editingCategory, setEditingCategory] = useState<{
+    id: string;
+    oldName: string;
+  } | null>(null);
   const [newCategoryName, setNewCategoryName] = useState<string>("");
   const [newGroupName, setNewGroupName] = useState<string>("");
-  const [editingGroup, setEditingGroup] = useState<{ id: string; oldName: string } | null>(null);
+  const [editingGroup, setEditingGroup] = useState<{
+    id: string;
+    oldName: string;
+  } | null>(null);
   const [editLoading, setEditLoading] = useState(false);
-  const [selectedCategoryForEdit, setSelectedCategoryForEdit] = useState<any>(null);
+  const [selectedCategoryForEdit, setSelectedCategoryForEdit] =
+    useState<any>(null);
   const [selectedGroupForEdit, setSelectedGroupForEdit] = useState<any>(null);
   const [activeCategory, setActiveCategory] = useState<any | null>(null);
   const [activeGroup, setActiveGroup] = useState<any | null>(null);
@@ -97,7 +102,10 @@ const MenuBuilder = () => {
   };
 
   // Handle edit category and other dropdown functions
-  const handleCategoryDropdown = (event: React.MouseEvent<HTMLElement>, category: any) => {
+  const handleCategoryDropdown = (
+    event: React.MouseEvent<HTMLElement>,
+    category: any
+  ) => {
     setAnchorEl2(event.currentTarget);
     setSelectedCategoryForEdit(category);
   };
@@ -168,7 +176,10 @@ const MenuBuilder = () => {
     setIsVisibilityOpen(true);
   };
 
-  const handleGroupDropdown = (event: React.MouseEvent<HTMLElement>, group: any) => {
+  const handleGroupDropdown = (
+    event: React.MouseEvent<HTMLElement>,
+    group: any
+  ) => {
     setAnchorEl(event.currentTarget);
     setSelectedGroupForEdit(group);
   };
@@ -311,7 +322,11 @@ const MenuBuilder = () => {
     };
 
     try {
-      const response = await axios.post(`${SERVER_DOMAIN}/menu/addMenuGroup`, payload, headers);
+      const response = await axios.post(
+        `${SERVER_DOMAIN}/menu/addMenuGroup`,
+        payload,
+        headers
+      );
       console.log(response);
       dispatch(
         fetchMenuGroups({
@@ -325,7 +340,9 @@ const MenuBuilder = () => {
       setApplyPriceToAll(false);
     } catch (error: any) {
       console.log(error);
-      toast.error(error.response.data.message || "An error occurred. Please try again.");
+      toast.error(
+        error.response.data.message || "An error occurred. Please try again."
+      );
     } finally {
       setMenuGroupLoading(false);
       setAddMenuGroup(false);
@@ -402,7 +419,9 @@ const MenuBuilder = () => {
       setAddMenuItem(false);
     } catch (error: any) {
       console.log(error);
-      toast.error(error.response.data.message || "An error occurred. Please try again.");
+      toast.error(
+        error.response.data.message || "An error occurred. Please try again."
+      );
     } finally {
       setMenuGroupLoading(false);
       setAddMenuGroup(false);
@@ -418,7 +437,12 @@ const MenuBuilder = () => {
     setAddModifierModal(true);
   };
 
-  console.log(selectedMenuItem, menuItemsByGroup, "menuItemsByGroup", activeGroup);
+  console.log(
+    selectedMenuItem,
+    menuItemsByGroup,
+    "menuItemsByGroup",
+    activeGroup
+  );
   return (
     <div>
       {" "}
@@ -427,8 +451,11 @@ const MenuBuilder = () => {
         <div>
           <div className="mt-[40px]">
             <div className="flex items-center justify-between">
-              <div className="border border-purple500 bg-purple500 w-fit rounded-[5px] px-[24px] py-[10px] font-[500] text-[#ffffff]">
-                <button className="text-[16px] flex items-center gap-[8px]" onClick={handleAddMenu}>
+              <div className="border border-purple500 bg-purple500 w-fit rounded-[5px] px-[24px] py-[10px] font-[500] text-white">
+                <button
+                  className="text-[16px] flex items-center gap-[8px]"
+                  onClick={handleAddMenu}
+                >
                   <img src={Add} alt="" /> Add new menu category
                 </button>
               </div>
@@ -452,7 +479,9 @@ const MenuBuilder = () => {
                         <IconButton
                           aria-controls="simple-menu"
                           aria-haspopup="true"
-                          onClick={(event) => handleCategoryDropdown(event, category)}
+                          onClick={(event) =>
+                            handleCategoryDropdown(event, category)
+                          }
                         >
                           <MoreVert />
                         </IconButton>
@@ -547,7 +576,10 @@ const MenuBuilder = () => {
           </Modal>
 
           {/* Edit selected category */}
-          <Modal isOpen={editCategoryModalOpen} onClose={() => setEditCategoryModalOpen(false)}>
+          <Modal
+            isOpen={editCategoryModalOpen}
+            onClose={() => setEditCategoryModalOpen(false)}
+          >
             <EditCategoryNameModal
               newCategoryName={newCategoryName}
               setNewCategoryName={setNewCategoryName}
@@ -558,14 +590,22 @@ const MenuBuilder = () => {
           </Modal>
 
           {/* Edit selected group, visibility and delete */}
-          <Modal isOpen={isVisibilityOpen} onClose={() => setIsVisibilityOpen(false)}>
+          <Modal
+            isOpen={isVisibilityOpen}
+            onClose={() => setIsVisibilityOpen(false)}
+          >
             <VisibilityOpen setIsVisibilityOpen={setIsVisibilityOpen} />
           </Modal>
 
-          <Modal isOpen={editGroupModalOpen} onClose={() => setEditGroupModalOpen(false)}>
+          <Modal
+            isOpen={editGroupModalOpen}
+            onClose={() => setEditGroupModalOpen(false)}
+          >
             {/* <EditOpen setIsEditOpen={setIsEditOpen} /> */}
             <div className=" w-[539px] py-[32px] px-[52px]">
-              <h2 className="text-[24px] mb-[11px] font-[500] text-purple500">Edit Group Name</h2>
+              <h2 className="text-[24px] mb-[11px] font-[500] text-purple500">
+                Edit Group Name
+              </h2>
               <CustomInput
                 type="text"
                 label=""
@@ -573,17 +613,17 @@ const MenuBuilder = () => {
                 error=""
                 onChange={(newValue) => setNewGroupName(newValue)}
               />
-              <hr className="border my-[24px] border-[#E7E7E7]" />
+              <hr className="border my-[24px] border-grey40" />
               <div className="flex items-center justify-end gap-4 mt-8">
                 <button
                   onClick={handleEditGroupConfirm}
-                  className="bg-[#5855B3] text-white rounded-[6px] px-4 py-2"
+                  className="bg-grey20 text-white rounded-[6px] px-4 py-2"
                 >
                   {editLoading ? "Loading..." : "Confirm"}
                 </button>
                 <button
                   onClick={() => setEditGroupModalOpen(false)}
-                  className="bg-[#F8F8F8] text-[#5855B3] rounded-[6px] px-4 py-2"
+                  className="bg-[#F8F8F8] text-grey20 rounded-[6px] px-4 py-2"
                 >
                   Cancel
                 </button>

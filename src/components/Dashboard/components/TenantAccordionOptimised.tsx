@@ -66,11 +66,17 @@ const TenantAccordion = () => {
           title={accordion.title}
           subText={accordion.subText}
           expanded={accordion.expanded}
-          setExpanded={(value: any) => handleAccordionChange(index, "expanded", value)}
+          setExpanded={(value: any) =>
+            handleAccordionChange(index, "expanded", value)
+          }
           isEnabled={accordion.isEnabled}
-          setIsEnabled={(value: any) => handleAccordionChange(index, "isEnabled", value)}
+          setIsEnabled={(value: any) =>
+            handleAccordionChange(index, "isEnabled", value)
+          }
           selectedOption={accordion.selectedOption}
-          setSelectedOption={(value: any) => handleAccordionChange(index, "selectedOption", value)}
+          setSelectedOption={(value: any) =>
+            handleAccordionChange(index, "selectedOption", value)
+          }
           selectedOutlets={accordion.selectedOutlets}
           setSelectedOutlets={(value: any) =>
             handleAccordionChange(index, "selectedOutlets", value)
@@ -81,7 +87,7 @@ const TenantAccordion = () => {
         (accordion, index) =>
           accordion.expanded && (
             <div key={`settings-${index}`}>
-              <h3 className="text-xl font-medium text-[#121212] mt-[40px] mb-[32px]">
+              <h3 className="text-xl font-medium text-grey500 mt-[40px] mb-[32px]">
                 Operations Apps Settings
               </h3>
               <ul className="flex flex-col gap-4">

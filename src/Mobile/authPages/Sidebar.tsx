@@ -93,7 +93,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
   return (
     <>
       <div
-        className={`fixed inset-0 bg-[#606060] transition-opacity duration-300 ${
+        className={`fixed inset-0 bg-grey300 transition-opacity duration-300 ${
           isOpen ? " pointer-events-auto" : "opacity-0 pointer-events-none"
         } z-50`}
         onClick={toggleSidebar}
@@ -104,7 +104,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
           isOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 ease-in-out bg-white text-black w-64 z-50 px-[16px] py-[21px]`}
       >
-        <div className="flex items-center justify-between pb-[33px] border-b border-[#E7E7E7]">
+        <div className="flex items-center justify-between pb-[33px] border-b border-grey40">
           <img src={Logo} alt="Logo" className="max-w-[147px]" />
           <img
             src={closeIcon}
@@ -113,8 +113,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
             className="cursor-pointer"
           />
         </div>
-        <div className="p-4  border-b border-[#E7E7E7] grid gap-[8px]">
-          <p className="text-[16px] font-[500] text-[#121212]">
+        <div className="p-4  border-b border-grey40 grid gap-[8px]">
+          <p className="text-[16px] font-[500] text-grey500">
             {userDetails?.business_name}
           </p>
 
@@ -128,17 +128,17 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
             onSelect={handleSelectOutlet}
             value={selectedOutlet}
           />
-          <p className="text-[14px] font-[400] text-[#606060]">
+          <p className="text-[14px] font-[400] text-grey300">
             {userDetails?.business_type}
           </p>
         </div>
         <div className="absolute bottom-4 left-4 right-4">
           <div
-            className=" flex items-center gap-[8px] py-[14px] px-[13px] border-y border-[#E7E7E7] cursor-pointer"
+            className=" flex items-center gap-[8px] py-[14px] px-[13px] border-y border-grey40 cursor-pointer"
             onClick={handleLogout}
           >
             <img src={LogoutIcon} alt="" />
-            <p className=" text-[#5855B3] font-[500] text-[14px]"> Logout</p>
+            <p className=" text-grey20 font-[500] text-[14px]"> Logout</p>
           </div>
         </div>
       </div>

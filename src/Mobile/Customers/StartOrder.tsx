@@ -139,7 +139,7 @@ const StartOrder = () => {
 
         <div className="mt-[40px] flex flex-col items-center justify-center">
           <p
-            className="cursor-pointer text-[#ffffff] px-[40px] py-[10px]  rounded-[5px] font-[500] inline"
+            className="cursor-pointer text-white px-[40px] py-[10px]  rounded-[5px] font-[500] inline"
             onClick={() => setIsOpen(true)}
             style={{ backgroundColor: color || "#606060" }}
           >
@@ -180,7 +180,7 @@ const StartOrder = () => {
             </p>
 
             <p
-              className={`px-[24px] py-[10px] inline rounded-[5px] text-[#ffffff] text-[16px] font-[500] ${
+              className={`px-[24px] py-[10px] inline rounded-[5px] text-white text-[16px] font-[500] ${
                 !userName ? " cursor-default" : "cursor-pointer"
               }`}
               onClick={userName ? handleNext : undefined}
@@ -214,7 +214,7 @@ const StartOrder = () => {
               <p
                 className={`px-[24px] py-[10px] ${
                   !table ? " cursor-default" : " cursor-pointer"
-                } inline rounded-[5px] text-[#ffffff] text-[16px] font-[500]`}
+                } inline rounded-[5px] text-white text-[16px] font-[500]`}
                 style={{
                   backgroundColor: table ? color : "#f2f2f2",
                 }}

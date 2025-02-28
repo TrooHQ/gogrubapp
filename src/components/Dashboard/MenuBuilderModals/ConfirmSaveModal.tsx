@@ -6,7 +6,10 @@ interface Props {
   setSuccessModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ConfirmSaveModal: React.FC<Props> = ({ handleSuccessModal, setSuccessModal }) => {
+const ConfirmSaveModal: React.FC<Props> = ({
+  handleSuccessModal,
+  setSuccessModal,
+}) => {
   return (
     <div className=" w-[443px] px-[32px] py-[32px]">
       <div
@@ -21,7 +24,7 @@ const ConfirmSaveModal: React.FC<Props> = ({ handleSuccessModal, setSuccessModal
           Do you want to save changes made to this menu?
         </p>
         <div
-          className="border border-purple500 bg-purple500 rounded px-[24px]  py-[10px] font-[500] text-[#ffffff]"
+          className="border border-purple500 bg-purple500 rounded px-[24px]  py-[10px] font-[500] text-white"
           onClick={handleSuccessModal}
         >
           <button className=" text-[16px]">Yes</button>

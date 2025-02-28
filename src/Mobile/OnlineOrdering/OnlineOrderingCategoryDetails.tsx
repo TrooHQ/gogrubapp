@@ -246,7 +246,7 @@ export const OnlineOrderingCategoryDetails = () => {
       <div className="  ">
         <TopMenuNav />
         <div className=" mb-[100px]">
-          <div className=" bg-[#ffffff] pb-[20px]">
+          <div className=" bg-white pb-[20px]">
             <div className="text-[16px] flex items-center gap-[20px] justify-between pt-[10px] px-[24px]">
               <MdKeyboardArrowLeft
                 className=" cursor-pointer"
@@ -276,7 +276,7 @@ export const OnlineOrderingCategoryDetails = () => {
                   className={`cursor-pointer px-[12px] py-[8px] rounded-[4px] ${
                     selectedGroup === "All"
                       ? `font-[600] text-[#FFFFFF] border border-[#929292]`
-                      : "text-[#606060] font-[400] border border-[#B6B6B6]"
+                      : "text-grey300 font-[400] border border-grey100"
                   }`}
                   style={{
                     backgroundColor:
@@ -326,7 +326,7 @@ export const OnlineOrderingCategoryDetails = () => {
               </div>
             </div>
 
-            <div className=" bg-[#E7E7E7] pb-[50px]">
+            <div className=" bg-grey40 pb-[50px]">
               <div className=" flex items-center justify-between py-[14px] px-[24px]">
                 <p className=" text-[16px] font-[500]">Most Popular</p>
                 <div className=" text-[16px]">
@@ -337,7 +337,7 @@ export const OnlineOrderingCategoryDetails = () => {
                 <Slider {...settings}>
                   {menuItems.map((menu, index) => (
                     <div
-                      className="max-w-[170px] h-[167px] mx-auto pb-[34px]  p-[5px] rounded-[10px]   border-2 drop-shadow bg-[#FFFFFF] border-[#E7E7E7] flex-shrink-0"
+                      className="max-w-[170px] h-[167px] mx-auto pb-[34px]  p-[5px] rounded-[10px]   border-2 drop-shadow bg-[#FFFFFF] border-grey40 flex-shrink-0"
                       key={index}
                     >
                       <Link
@@ -360,7 +360,7 @@ export const OnlineOrderingCategoryDetails = () => {
                               <HiPlusSm className="text-[37px]" />
                             </div>
                           </div>
-                          <p className="text-[14px] text-[#121212] font-[500] px-[16px] mt-[8px] text-center">
+                          <p className="text-[14px] text-grey500 font-[500] px-[16px] mt-[8px] text-center">
                             {menu?.menu_item_name?.length > 10
                               ? `${menu?.menu_item_name.substring(0, 10)}...`
                               : menu?.menu_item_name}
@@ -379,7 +379,7 @@ export const OnlineOrderingCategoryDetails = () => {
               <div key={groupName} className="mb-[24px] ">
                 {groupName && (
                   <p
-                    className="mx-[24px] text-[20px] font-bold text-[#ffffff] mb-[12px] px-[8px] py-[8px]"
+                    className="mx-[24px] text-[20px] font-bold text-white mb-[12px] px-[8px] py-[8px]"
                     style={{
                       borderLeft: `5px solid ${colorScheme || "#414141"}`,
                       color: colorScheme || "#414141",
@@ -395,19 +395,19 @@ export const OnlineOrderingCategoryDetails = () => {
 
                 {groupedMenuItems[groupName].map((menu) => (
                   <div key={menu._id} className="mx-[24px]">
-                    <div className="py-[11px] border-b border-[#E7E7E7]">
+                    <div className="py-[11px] border-b border-grey40">
                       <div className="flex items-center justify-between">
                         <Link
                           to={`/demo/menu-details/${menu._id}/online_ordering`}
                         >
                           <div className="w-[180px]">
-                            <p className="text-[16px] text-[#121212] font-[500]">
+                            <p className="text-[16px] text-grey500 font-[500]">
                               {menu?.menu_item_name?.length > 20
                                 ? `${menu.menu_item_name.slice(0, 20)}...`
                                 : menu?.menu_item_name}
                             </p>
 
-                            <p className="text-[12px] font-[400] text-[#121212]">
+                            <p className="text-[12px] font-[400] text-grey500">
                               {menu?.description?.length > 50
                                 ? `${menu.description.slice(0, 50)}...`
                                 : menu?.description || "A Delicious Delicacy"}
@@ -434,7 +434,7 @@ export const OnlineOrderingCategoryDetails = () => {
                       </div>
 
                       <div className="pt-[8px] flex items-center justify-between">
-                        <p className="text-[16px] text-[#121212] font-[500]">
+                        <p className="text-[16px] text-grey500 font-[500]">
                           From &#x20A6;{menu.menu_item_price.toLocaleString()}
                         </p>
 
@@ -502,7 +502,7 @@ export const OnlineOrderingCategoryDetails = () => {
               }}
             >
               <div className="flex items-center gap-[16px]">
-                <p className="bg-white rounded-[5px] text-[#606060] py-[2px] px-[10px] text-[16px] font-[500]">
+                <p className="bg-white rounded-[5px] text-grey300 py-[2px] px-[10px] text-[16px] font-[500]">
                   {totalCount.totalQuantity || 0}
                 </p>
 

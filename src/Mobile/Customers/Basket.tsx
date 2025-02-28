@@ -55,11 +55,11 @@ export const Basket = () => {
           basketDetails.items.map((item, index) => (
             <>
               <div key={index}>
-                <div className="mx-[14px]  border-b pb-[16px] border-[#E7E7E7] mt-[16px]">
+                <div className="mx-[14px]  border-b pb-[16px] border-grey40 mt-[16px]">
                   <div className=" grid gap-[8px]">
                     <div className="  flex items-start justify-between gap-[20px] place-items-center">
                       <Link to={`/demo/menu-details/${item.id}/orderandpay`}>
-                        <p className="text-[16px] text-[#121212] font-[500] max-w-[100px] w-full">
+                        <p className="text-[16px] text-grey500 font-[500] max-w-[100px] w-full">
                           <span className="pr-2">{item.quantity}x</span>
                           {item?.name?.length > 12
                             ? `${item.name.slice(0, 8)}...`
@@ -100,7 +100,7 @@ export const Basket = () => {
                         </div>
                       </div>
                       {item.menuItem && (
-                        <p className="text-[#121212]">
+                        <p className="text-grey500">
                           &#x20A6;
                           {(
                             item.menuItem.menu_item_price * item.quantity
@@ -125,11 +125,11 @@ export const Basket = () => {
                               key={optionIndex}
                               className="flex items-start justify-between"
                             >
-                              <p className="text-[14px] text-[#121212] font-[400]">
+                              <p className="text-[14px] text-grey500 font-[400]">
                                 {option.name}
                               </p>
 
-                              <p className="text-[14px] text-[#121212] font-[400]  text-start w-[100px]">
+                              <p className="text-[14px] text-grey500 font-[400]  text-start w-[100px]">
                                 &#x20A6;
                                 {(
                                   option.price * item.quantity
@@ -145,7 +145,7 @@ export const Basket = () => {
             </>
           ))
         ) : (
-          <div className="py-[20px] mx-[24px] text-center text-[16px] text-[#121212] font-[500] grid place-items-center items-center">
+          <div className="py-[20px] mx-[24px] text-center text-[16px] text-grey500 font-[500] grid place-items-center items-center">
             <p className=" text-7xl font-bold text-black">
               {/* <GiShoppingCart /> */}
             </p>
@@ -164,7 +164,7 @@ export const Basket = () => {
         {basketDetails?.items.length > 0 && (
           <div className="py-[16px] mx-[24px]">
             <div className="flex items-center justify-between">
-              <p className="text-[16px] text-[#121212] font-[500]">Total:</p>
+              <p className="text-[16px] text-grey500 font-[500]">Total:</p>
               <p
                 className="text-[16px]  font-[500] w-[100px]"
                 style={{

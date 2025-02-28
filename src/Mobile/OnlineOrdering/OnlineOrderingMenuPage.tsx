@@ -61,9 +61,7 @@ export const OnlineOrderingMenuPage = () => {
         <TopMenuNav />
 
         <div className=" mx-[24px] mt-[16px]">
-          <p className=" font-[500] text-[20px] text-[#121212]">
-            Menu Category
-          </p>
+          <p className=" font-[500] text-[20px] text-grey500">Menu Category</p>
         </div>
 
         <div className=" px-[21px] grid grid-cols-2 gap-[24px]">
@@ -73,7 +71,7 @@ export const OnlineOrderingMenuPage = () => {
                 <div className="pt-[16px] pb-[20px] border-b max-w-[104px] mx-auto">
                   <img src={menu?.image} alt="" className="w-full" />
                 </div>
-                <p className=" text-[16px] font-[500] text-[#121212]  uppercase text-center">
+                <p className=" text-[16px] font-[500] text-grey500  uppercase text-center">
                   {truncateText(menu.name, 15)}
                 </p>
               </div>

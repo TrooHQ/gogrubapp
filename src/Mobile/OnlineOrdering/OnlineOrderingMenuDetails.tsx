@@ -323,13 +323,13 @@ const OnlineOrderingMenuDetails = () => {
 
           {menuModifiers?.length > 0 && (
             <div className="menu-item-modifiers pb-[16px] border-b">
-              <p className="text-[#606060] mx-[24px] font-[500] text-[18px] pb-[16px] pt-[24px]">
+              <p className="text-grey300 mx-[24px] font-[500] text-[18px] pb-[16px] pt-[24px]">
                 Customize
               </p>
               <>
                 {menuModifiers.map((menu, index) => (
                   <div
-                    className="text-[#606060] mx-[24px] font-[500] text-[16px] pb-[16px] pt-[24px]"
+                    className="text-grey300 mx-[24px] font-[500] text-[16px] pb-[16px] pt-[24px]"
                     key={index}
                   >
                     <p className="">{menu?.modifier_group_name}</p>
@@ -370,12 +370,12 @@ const OnlineOrderingMenuDetails = () => {
           )}
 
           <div className="menu-item-quantity py-[16px]">
-            <p className="text-[#606060] text-[16px] font-[500] mx-[24px] mb-[10px]">
+            <p className="text-grey300 text-[16px] font-[500] mx-[24px] mb-[10px]">
               Quantity
             </p>
             <hr />
             <div className="flex items-center justify-center">
-              <div className="mt-[24px] mb-[37px] items-center rounded-[5px] justify-center inline-flex bg-[#E7E7E7]">
+              <div className="mt-[24px] mb-[37px] items-center rounded-[5px] justify-center inline-flex bg-grey40">
                 <p className="py-[12px] px-[20px]" onClick={handleDecrement}>
                   <img src={MinusMain} alt="decrement" />
                 </p>
@@ -394,7 +394,7 @@ const OnlineOrderingMenuDetails = () => {
               (menu) => menu.is_recommended && menu._id !== id
             ) && (
               <div className="flex items-center justify-between my-[20px]">
-                <p className="text-[16px] text-[#121212] font-[500]">
+                <p className="text-[16px] text-grey500 font-[500]">
                   Recommended Items
                 </p>
                 <div className="text-[16px]">
@@ -403,7 +403,7 @@ const OnlineOrderingMenuDetails = () => {
               </div>
             )}
 
-            <div className="flex items-center gap-[50px] overflow-x-scroll py-[11px] border-t border-[#E7E7E7] cursor-pointer">
+            <div className="flex items-center gap-[50px] overflow-x-scroll py-[11px] border-t border-grey40 cursor-pointer">
               {menuItems.map(
                 (menu) =>
                   menu.is_recommended &&
@@ -411,10 +411,10 @@ const OnlineOrderingMenuDetails = () => {
                     <div key={menu.id} className="flex-shrink-0 w-[280px]">
                       <div className="flex items-center justify-between">
                         <div className="w-[180px]">
-                          <p className="text-[16px] text-[#121212] font-[500]">
+                          <p className="text-[16px] text-grey500 font-[500]">
                             {menu?.menu_item_name}
                           </p>
-                          <p className="text-[12px] text-[#121212]">
+                          <p className="text-[12px] text-grey500">
                             {menu?.description || "A Delicious Delicacy"}
                           </p>
                         </div>
@@ -431,7 +431,7 @@ const OnlineOrderingMenuDetails = () => {
                         </Link>
                       </div>
                       <div className="pt-[8px] flex items-center justify-between">
-                        <p className="text-[16px] text-[#121212] font-[500]">
+                        <p className="text-[16px] text-grey500 font-[500]">
                           &#x20A6;{menu?.menu_item_price.toLocaleString()}
                         </p>
                         <div className="w-[100px]">
@@ -489,7 +489,7 @@ const OnlineOrderingMenuDetails = () => {
 
           <div className=" mx-[24px] mb-[150px] mt-[16px]">
             <div className=" flex items-center justify-between py-[16px] ">
-              <p className=" text-[16px] font-[500] text-[#121212]">
+              <p className=" text-[16px] font-[500] text-grey500">
                 Add Special Instructions
               </p>
             </div>

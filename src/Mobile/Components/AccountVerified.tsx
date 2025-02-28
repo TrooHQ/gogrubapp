@@ -8,7 +8,7 @@ const AccountVerified = () => {
   const history = useNavigate();
 
   return (
-    <div className=" bg-[#EFEFEF] h-screen">
+    <div className=" bg-grey50 h-screen">
       <div className=" mx-10">
         <div className=" py-[48px] flex items-center justify-center">
           <img src={Logo} alt="" />
@@ -19,10 +19,10 @@ const AccountVerified = () => {
             <div className="  flex items-center justify-center">
               <img src={CheckCircle} alt="" />
             </div>
-            <p className=" font-[500] text-[20px] text-[#121212]">
+            <p className=" font-[500] text-[20px] text-grey500">
               Account Verified!
             </p>
-            <p className=" text-[16px] font-[400] text-[#121212]">
+            <p className=" text-[16px] font-[400] text-grey500">
               {" "}
               Your account has been verified successfully
             </p>

@@ -13,7 +13,7 @@ const EditOpen = ({ setIsEditOpen }: any) => {
         <p className="text-[24px] pb-[24px] font-[500] leading-[36px] text-purple500">
           Edit menu group
         </p>
-        <hr className="border border-[#E7E7E7] mb-[24px]" />
+        <hr className="border border-grey40 mb-[24px]" />
 
         <div className=" lg:mb-[24px]">
           <div className=" grid gap-[32px] lg:gap-[32px] text-[16px] font-[400] text-grey200">
@@ -89,7 +89,7 @@ const EditOpen = ({ setIsEditOpen }: any) => {
                       <div className="flex items-center gap-[16px]">
                         <label
                           htmlFor="fileInput"
-                          className="w-[72px] border border-dashed p-[20px] border-[#5855B3] cursor-pointer"
+                          className="w-[72px] border border-dashed p-[20px] border-grey20 cursor-pointer"
                         >
                           <input
                             type="file"
@@ -103,7 +103,7 @@ const EditOpen = ({ setIsEditOpen }: any) => {
                         <div className="">
                           <label
                             htmlFor="fileInput"
-                            className="text-[#5855B3] font-[500] text-[16px] mb-[8px] cursor-pointer"
+                            className="text-grey20 font-[500] text-[16px] mb-[8px] cursor-pointer"
                           >
                             Click to upload{" "}
                             <span className=" font-[400] text-grey300">or drag and drop</span>
@@ -129,7 +129,7 @@ const EditOpen = ({ setIsEditOpen }: any) => {
           </div>
 
           <div
-            className="border border-purple500 bg-purple500 rounded px-[24px]  py-[10px] font-[500] text-[#ffffff]"
+            className="border border-purple500 bg-purple500 rounded px-[24px]  py-[10px] font-[500] text-white"
             // onClick={handleSaveMenuGroup}
           >
             <button className=" text-[16px]">{"Save Menu"}</button>

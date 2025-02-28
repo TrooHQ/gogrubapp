@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const PasswordChanged = () => {
   return (
-    <div className="bg-[#EFEFEF] h-screen">
+    <div className="bg-grey50 h-screen">
       <div className="flex flex-col items-center justify-center h-screen my-auto">
         <div className="">
           <img src={Logo} alt="" />

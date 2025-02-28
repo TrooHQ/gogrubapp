@@ -4,7 +4,11 @@ import TopMenuNav from "./TopMenuNav";
 import add from "../../assets/add.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/src/store/store";
-import { createBranch, deleteBranch, fetchBranches } from "../../slices/branchSlice";
+import {
+  createBranch,
+  deleteBranch,
+  fetchBranches,
+} from "../../slices/branchSlice";
 import { Menu, MenuItem, IconButton } from "@mui/material";
 import MoreVert from "@mui/icons-material/MoreVert";
 import BranchModal from "./components/BranchModal";
@@ -40,7 +44,10 @@ const ManageBranches = () => {
     setIsModalOpen(true);
   };
 
-  const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>, branchId: string) => {
+  const handleMenuClick = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    branchId: string
+  ) => {
     setAnchorEl(event.currentTarget);
     setSelectedBranchId(branchId);
   };
@@ -74,7 +81,9 @@ const ManageBranches = () => {
 
   const handleDuplicateBranch = () => {
     if (selectedBranchId) {
-      const branchToDuplicate = branches.find((branch: any) => branch._id === selectedBranchId);
+      const branchToDuplicate = branches.find(
+        (branch: any) => branch._id === selectedBranchId
+      );
       if (branchToDuplicate) {
         // Split the email into local part and domain
         const emailParts = branchToDuplicate.branch_email.split("@");
@@ -109,28 +118,33 @@ const ManageBranches = () => {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-[32px]">
                 <div className="">
-                  <p className="font-[500] text-[16px] text-[#121212]">Filter by:</p>
+                  <p className="font-[500] text-[16px] text-grey500">
+                    Filter by:
+                  </p>
                 </div>
                 <div className="flex items-center gap-[8px]">
-                  <div className="border border-purple500 bg-purple500 rounded-[5px] px-[16px] py-[8px] font-[400] text-[#ffffff]">
+                  <div className="border border-purple500 bg-purple500 rounded-[5px] px-[16px] py-[8px] font-[400] text-white">
                     <button className="text-[12px]">Add</button>
                   </div>
-                  <div className="border border-[#B6B6B6] rounded-[5px] px-[16px] py-[8px] font-[400] text-[121212]">
+                  <div className="border border-grey100 rounded-[5px] px-[16px] py-[8px] font-[400] text-[121212]">
                     <button className="text-[12px]">Branch Name</button>
                   </div>
-                  <div className="border border-[#B6B6B6] rounded-[5px] px-[16px] py-[8px] font-[400] text-[#121212]">
+                  <div className="border border-grey100 rounded-[5px] px-[16px] py-[8px] font-[400] text-grey500">
                     <button className="text-[12px]">Address</button>
                   </div>
-                  <div className="border border-[#B6B6B6] rounded-[5px] px-[16px] py-[8px] font-[400] text-[#121212]">
+                  <div className="border border-grey100 rounded-[5px] px-[16px] py-[8px] font-[400] text-grey500">
                     <button className="text-[12px]">Manager</button>
                   </div>
-                  <div className="border border-[#B6B6B6] rounded-[5px] px-[16px] py-[8px] font-[400] text-[#121212]">
+                  <div className="border border-grey100 rounded-[5px] px-[16px] py-[8px] font-[400] text-grey500">
                     <button className="text-[12px]">City</button>
                   </div>
                 </div>
               </div>
-              <div className="border border-purple500 bg-purple500 w-[196px] rounded-[5px] px-[16px] py-[10px] font-[500] text-[#ffffff]">
-                <button className="text-[14px] flex items-center gap-[8px]" onClick={handleAddMenu}>
+              <div className="border border-purple500 bg-purple500 w-[196px] rounded-[5px] px-[16px] py-[10px] font-[500] text-white">
+                <button
+                  className="text-[14px] flex items-center gap-[8px]"
+                  onClick={handleAddMenu}
+                >
                   <img src={add} alt="" /> Create New Branch
                 </button>
               </div>
@@ -139,8 +153,10 @@ const ManageBranches = () => {
             <div className="overflow-x-auto mt-6">
               <table className="min-w-full border-collapse">
                 <thead>
-                  <tr className="bg-[#606060] text-white text-center text-base font-normal">
-                    <th className="py-2 px-4 text-base font-normal">Branch Name</th>
+                  <tr className="bg-grey300 text-white text-center text-base font-normal">
+                    <th className="py-2 px-4 text-base font-normal">
+                      Branch Name
+                    </th>
                     <th className="py-2 px-4 text-base font-normal">Address</th>
                     <th className="py-2 px-4 text-base font-normal">Manager</th>
                     <th className="py-2 px-4 text-base font-normal">City</th>
@@ -149,17 +165,21 @@ const ManageBranches = () => {
                   </tr>
                 </thead>
 
-                <hr className="mb-2 text-[#E7E7E7]" />
+                <hr className="mb-2 text-grey40" />
 
                 <tbody>
                   {branches.map((branch: any) => (
                     <tr
                       key={branch._id}
                       className={`${
-                        branches.indexOf(branch) % 2 === 1 ? "bg-[#ffffff]" : "bg-[#F8F8F8]"
+                        branches.indexOf(branch) % 2 === 1
+                          ? "bg-white"
+                          : "bg-[#F8F8F8]"
                       }`}
                     >
-                      <td className="text-base font-normal py-2 px-4">{branch.branch_name}</td>
+                      <td className="text-base font-normal py-2 px-4">
+                        {branch.branch_name}
+                      </td>
                       <td className="text-base font-normal py-2 px-4 break-words">
                         {branch.branch_address}
                       </td>
@@ -177,7 +197,9 @@ const ManageBranches = () => {
                           aria-label="more"
                           aria-controls="long-menu"
                           aria-haspopup="true"
-                          onClick={(event) => branch._id && handleMenuClick(event, branch._id)}
+                          onClick={(event) =>
+                            branch._id && handleMenuClick(event, branch._id)
+                          }
                         >
                           <MoreVert />
                         </IconButton>
@@ -187,13 +209,20 @@ const ManageBranches = () => {
                           open={openMenu}
                           onClose={handleMenuClose}
                         >
-                          <MenuItem onClick={handleDeleteBranch}>Delete</MenuItem>
+                          <MenuItem onClick={handleDeleteBranch}>
+                            Delete
+                          </MenuItem>
                           <MenuItem
-                            onClick={() => selectedBranchId && handleEditBranch(selectedBranchId)}
+                            onClick={() =>
+                              selectedBranchId &&
+                              handleEditBranch(selectedBranchId)
+                            }
                           >
                             Edit
                           </MenuItem>
-                          <MenuItem onClick={handleDuplicateBranch}>Duplicate</MenuItem>
+                          <MenuItem onClick={handleDuplicateBranch}>
+                            Duplicate
+                          </MenuItem>
                         </Menu>
                       </td>
                     </tr>
@@ -202,7 +231,10 @@ const ManageBranches = () => {
               </table>
             </div>
           </div>
-          <BranchModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+          <BranchModal
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+          />
           <EditBranchModal
             isModalOpen={isEditModalOpen}
             setIsModalOpen={setIsEditModalOpen}

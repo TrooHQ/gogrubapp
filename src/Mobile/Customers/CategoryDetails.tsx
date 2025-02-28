@@ -68,8 +68,6 @@ export const CategoryDetails = () => {
       ? menuItems
       : menuItems.filter((menu) => menu.menu_group_name === selectedGroup);
 
-
-
   const groupedMenuItems: GroupedMenuItems = filteredMenuItems.reduce(
     (acc: GroupedMenuItems, item: MenuItem) => {
       const { menu_group_name } = item;
@@ -264,7 +262,7 @@ export const CategoryDetails = () => {
                 className={`cursor-pointer px-[12px] py-[8px] rounded-[4px] ${
                   selectedGroup === "All"
                     ? `font-[600] text-[#FFFFFF] border border-[#929292]`
-                    : "text-[#606060] font-[400] border border-[#B6B6B6]"
+                    : "text-grey300 font-[400] border border-grey100"
                 }`}
                 style={{
                   backgroundColor:
@@ -323,7 +321,7 @@ export const CategoryDetails = () => {
               <Slider {...settings}>
                 {menuItems.map((menu, index) => (
                   <div
-                    className="max-w-[170px] h-[167px] mx-auto pb-[34px]  p-[5px] rounded-[10px]   border-2 drop-shadow bg-[#FFFFFF] border-[#E7E7E7] flex-shrink-0"
+                    className="max-w-[170px] h-[167px] mx-auto pb-[34px]  p-[5px] rounded-[10px]   border-2 drop-shadow bg-[#FFFFFF] border-grey40 flex-shrink-0"
                     key={index}
                   >
                     <Link to={`/demo/menu-details/${menu._id}/orderandpay`}>
@@ -344,7 +342,7 @@ export const CategoryDetails = () => {
                             <HiPlusSm className="text-[37px]" />
                           </div>
                         </div>
-                        <p className="text-[14px] text-[#121212] font-[500] px-[16px] mt-[8px] text-center">
+                        <p className="text-[14px] text-grey500 font-[500] px-[16px] mt-[8px] text-center">
                           {menu?.menu_item_name?.length > 10
                             ? `${menu?.menu_item_name.substring(0, 10)}...`
                             : menu?.menu_item_name}
@@ -362,7 +360,7 @@ export const CategoryDetails = () => {
               <div key={groupName} className="mb-[24px]">
                 {groupName && (
                   <p
-                    className="mx-[24px] text-[20px] font-bold text-[#ffffff] mb-[12px] px-[8px] py-[8px]"
+                    className="mx-[24px] text-[20px] font-bold text-white mb-[12px] px-[8px] py-[8px]"
                     style={{
                       borderLeft: `5px solid ${colorScheme || "#414141"}`,
                       color: colorScheme || "#414141",
@@ -378,16 +376,16 @@ export const CategoryDetails = () => {
 
                 {groupedMenuItems[groupName].map((menu) => (
                   <div key={menu._id} className="mx-[24px]">
-                    <div className="py-[11px] border-b border-[#E7E7E7]">
+                    <div className="py-[11px] border-b border-grey40">
                       <div className="flex items-center justify-between">
                         <Link to={`/demo/menu-details/${menu._id}/orderandpay`}>
                           <div className="w-[180px]">
-                            <p className="text-[16px] text-[#121212] font-[500]">
+                            <p className="text-[16px] text-grey500 font-[500]">
                               {menu?.menu_item_name?.length > 20
                                 ? `${menu.menu_item_name.slice(0, 20)}...`
                                 : menu.menu_item_name}
                             </p>
-                            <p className="text-[12px] font-[400] text-[#121212]">
+                            <p className="text-[12px] font-[400] text-grey500">
                               {menu?.description?.length > 50
                                 ? `${menu.description.slice(0, 50)}...`
                                 : menu.description || "A Delicious Delicacy"}
@@ -412,7 +410,7 @@ export const CategoryDetails = () => {
                       </div>
 
                       <div className="pt-[8px] flex items-center justify-between">
-                        <p className="text-[16px] text-[#121212] font-[500]">
+                        <p className="text-[16px] text-grey500 font-[500]">
                           From &#x20A6;{menu.menu_item_price.toLocaleString()}
                         </p>
 

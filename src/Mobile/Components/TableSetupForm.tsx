@@ -65,7 +65,7 @@ const TableSetupForm = () => {
   };
 
   return (
-    <div className=" bg-[#EFEFEF] h-screen">
+    <div className=" bg-grey50 h-screen">
       <div className=" mx-10">
         <div className=" py-[48px] flex items-center justify-center">
           <img src={Logo} alt="" />
@@ -92,8 +92,8 @@ const TableSetupForm = () => {
           <div className=" grid mt-[32px] gap-[8px]">
             <div
               className={`${
-                loading ? "bg-[#B6B6B6] " : "bg-purple500"
-              } text-[16px] font-[500] text-[#ffffff] border w-full text-center py-3 rounded cursor-pointer`}
+                loading ? "bg-grey100 " : "bg-purple500"
+              } text-[16px] font-[500] text-white border w-full text-center py-3 rounded cursor-pointer`}
               onClick={generateQr}
             >
               <p>Save Table</p>

@@ -22,7 +22,7 @@ const Register: React.FC = () => {
     dispatch(setField({ field, value }));
   };
   return (
-    <div className="bg-[#EFEFEF] ">
+    <div className="bg-grey50 ">
       <div className="flex flex-col items-center justify-center h-screen  my-auto">
         <div className="">
           <img src={Logo} alt="" />
@@ -66,7 +66,9 @@ const Register: React.FC = () => {
             </Link>
             <div className=" flex items-center justify-center my-5">
               <div onClick={() => navigate(-1)}>
-                <p className=" font-[500] text-[16px] text-purple500 cursor-pointer">Go Back</p>
+                <p className=" font-[500] text-[16px] text-purple500 cursor-pointer">
+                  Go Back
+                </p>
               </div>
             </div>
           </div>

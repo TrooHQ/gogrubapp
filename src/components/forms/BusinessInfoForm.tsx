@@ -42,7 +42,10 @@ const BusinessInfoForm: React.FC = () => {
     }
   }, [location.search]);
 
-  const handleInputChange = (field: keyof RootState["register"], value: string) => {
+  const handleInputChange = (
+    field: keyof RootState["register"],
+    value: string
+  ) => {
     dispatch(setField({ field, value }));
   };
 
@@ -76,7 +79,9 @@ const BusinessInfoForm: React.FC = () => {
         type="text"
         label="Business contact (Owner's name)"
         value={business_contract_person as any}
-        onChange={(newValue) => handleInputChange("business_contract_person", newValue)}
+        onChange={(newValue) =>
+          handleInputChange("business_contract_person", newValue)
+        }
       />
       <CustomInput
         type="text"
@@ -88,7 +93,9 @@ const BusinessInfoForm: React.FC = () => {
         type="text"
         label="Business phone number"
         value={businessPhoneNumber}
-        onChange={(newValue) => handleInputChange("businessPhoneNumber", newValue)}
+        onChange={(newValue) =>
+          handleInputChange("businessPhoneNumber", newValue)
+        }
       />
       <CustomSelect5
         label="Business type"
@@ -120,11 +127,13 @@ const BusinessInfoForm: React.FC = () => {
         value={pin}
         onChange={(newValue) => handleInputChange("pin", newValue)}
       />
-      <p className="text-[16px] text-grey500 font-semibold">Add business logo</p>
+      <p className="text-[16px] text-grey500 font-semibold">
+        Add business logo
+      </p>
       <div className="flex items-center gap-[16px]">
         <label
           htmlFor="fileInput"
-          className="w-[72px] border border-dashed p-[20px] border-[#5855B3] cursor-pointer"
+          className="w-[72px] border border-dashed p-[20px] border-grey20 cursor-pointer"
         >
           <input
             type="file"
@@ -138,17 +147,24 @@ const BusinessInfoForm: React.FC = () => {
         <div>
           <label
             htmlFor="fileInput"
-            className="text-[#5855B3] font-[500] text-[16px] mb-[8px] cursor-pointer"
+            className="text-grey20 font-[500] text-[16px] mb-[8px] cursor-pointer"
           >
-            Click to upload <span className="font-[400] text-grey300">or drag and drop</span>
+            Click to upload{" "}
+            <span className="font-[400] text-grey300">or drag and drop</span>
           </label>
-          <p className="text-[14px] font-[400] text-grey300">Max. file size: 2MB</p>
+          <p className="text-[14px] font-[400] text-grey300">
+            Max. file size: 2MB
+          </p>
         </div>
       </div>
       {image && (
         <div className="mt-4">
           <p className="text-[14px] text-grey500">Image: {imageName}</p>
-          <img src={image} alt="Uploaded Preview" className="mt-2 w-1/4 h-auto" />
+          <img
+            src={image}
+            alt="Uploaded Preview"
+            className="mt-2 w-1/4 h-auto"
+          />
         </div>
       )}
     </div>

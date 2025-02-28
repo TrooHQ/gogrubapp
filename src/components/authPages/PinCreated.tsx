@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const PinCreated = () => {
   return (
-    <div className="bg-[#EFEFEF] h-screen">
+    <div className="bg-grey50 h-screen">
       <div className="flex flex-col items-center justify-center h-screen my-auto">
         <div className="">
           <img src={Logo} alt="" />
@@ -14,7 +14,9 @@ const PinCreated = () => {
             <div className=" flex gap-5 flex-col items-center justify-center text-center">
               <img src={lockIcon} alt="" />
               <div className=" max-w-[355px] mx-auto">
-                <p className=" text-grey500 text-[24px] font-[600]">Well done!</p>
+                <p className=" text-grey500 text-[24px] font-[600]">
+                  Well done!
+                </p>
                 <p className=" text-grey500 text-[16px] font-[500] py-3">
                   You have successfully created a pin and a password!
                 </p>

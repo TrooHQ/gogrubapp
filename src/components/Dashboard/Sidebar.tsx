@@ -14,11 +14,19 @@ import HubIcon from "../../assets/hub.svg";
 import LogoutIcon from "../../assets/logout.svg";
 import ArrowToggle from "../../assets/arrowToggle.svg";
 import { TextField, Button, Popper, Paper } from "@mui/material";
-import { ArrowCircleRightOutlined, ArrowDropDown, Search } from "@mui/icons-material";
+import {
+  ArrowCircleRightOutlined,
+  ArrowDropDown,
+  Search,
+} from "@mui/icons-material";
 import { CustomAutocomplete } from "./Overview";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
-import { clearSelectedBranch, fetchBranches, userSelectedBranch } from "../../slices/branchSlice";
+import {
+  clearSelectedBranch,
+  fetchBranches,
+  userSelectedBranch,
+} from "../../slices/branchSlice";
 import { clearUserData } from "../../slices/UserSlice";
 import getPermittedMenuItems from "../../utils/getPermittedMenuItems";
 
@@ -41,7 +49,9 @@ const SideBar: React.FC<SideBarProps> = ({ userType }) => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  const { branches, selectedBranch } = useSelector((state: RootState) => state.branches);
+  const { branches, selectedBranch } = useSelector(
+    (state: RootState) => state.branches
+  );
   const { userData } = useSelector((state: RootState) => state.user);
 
   const [open, setOpen] = useState(true);
@@ -92,7 +102,9 @@ const SideBar: React.FC<SideBarProps> = ({ userType }) => {
     selectedMenu.forEach((menu, index) => {
       if (
         menu.subMenu &&
-        menu.subMenu.some((subMenuItem) => subMenuItem.link === location.pathname)
+        menu.subMenu.some(
+          (subMenuItem) => subMenuItem.link === location.pathname
+        )
       ) {
         setOpenSubmenuIndex(index);
       }
@@ -213,7 +225,9 @@ const SideBar: React.FC<SideBarProps> = ({ userType }) => {
     // },
   ];
 
-  const adminMenu: MenuItem[] = [{ title: "AdminHome", gap: false, icon: HomeIcon }];
+  const adminMenu: MenuItem[] = [
+    { title: "AdminHome", gap: false, icon: HomeIcon },
+  ];
 
   const userPermissions = userData?.permissions || [];
   const permittedMenu =
@@ -227,7 +241,10 @@ const SideBar: React.FC<SideBarProps> = ({ userType }) => {
     setOpenSubmenuIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
-  const isMenuItemActive = (menuLink: string, subMenu?: MenuItem[]): boolean => {
+  const isMenuItemActive = (
+    menuLink: string,
+    subMenu?: MenuItem[]
+  ): boolean => {
     if (location.pathname === menuLink) {
       return true;
     }
@@ -274,10 +291,16 @@ const SideBar: React.FC<SideBarProps> = ({ userType }) => {
           />
         </div>
 
-        <div className={`cursor-pointer duration-500 ${!open ? "hidden" : "block"} `}>
+        <div
+          className={`cursor-pointer duration-500 ${
+            !open ? "hidden" : "block"
+          } `}
+        >
           <hr className="h-[2px] bg-[#929292] my-3" />
           <div className="ml-[5px] flex flex-col items-start justify-center gap-2">
-            <h4 className="text-base font-medium mb-0">{userData?.business_name}</h4>
+            <h4 className="text-base font-medium mb-0">
+              {userData?.business_name}
+            </h4>
 
             {/* Insert Button and Popper components here */}
             {userData?.user_role === "admin" ? (
@@ -308,7 +331,11 @@ const SideBar: React.FC<SideBarProps> = ({ userType }) => {
                     <CustomAutocomplete
                       disablePortal
                       options={transformedBranches}
-                      value={selectedBranch ? selectedBranch.label : selectedOutlet.label}
+                      value={
+                        selectedBranch
+                          ? selectedBranch.label
+                          : selectedOutlet.label
+                      }
                       onChange={handleSelect}
                       renderInput={(params) => (
                         <TextField
@@ -320,7 +347,9 @@ const SideBar: React.FC<SideBarProps> = ({ userType }) => {
                             ...params.InputProps,
                             startAdornment: (
                               <>
-                                <Search style={{ color: "gray", marginRight: "4px" }} />
+                                <Search
+                                  style={{ color: "gray", marginRight: "4px" }}
+                                />
                                 {params.InputProps.startAdornment}
                               </>
                             ),
@@ -351,7 +380,9 @@ const SideBar: React.FC<SideBarProps> = ({ userType }) => {
               </div>
             )}
 
-            <p className="text-[#606060] text-xs font-normal">{userData?.business_type}</p>
+            <p className="text-grey300 text-xs font-normal">
+              {userData?.business_type}
+            </p>
           </div>
           <hr className="h-[2px] bg-[#929292] my-3" />
         </div>
@@ -361,13 +392,16 @@ const SideBar: React.FC<SideBarProps> = ({ userType }) => {
           <div key={index}>
             <li>
               <div
-                className={`flex relative ${menu.title && "px-[4px] cursor-pointer py-[8px]"}  ${
-                  menu.subTitle && "text-[12px] font-normal text-[#121212]"
+                className={`flex relative ${
+                  menu.title && "px-[4px] cursor-pointer py-[8px]"
+                }  ${
+                  menu.subTitle && "text-[12px] font-normal text-grey500"
                 } text-purple200  items-center gap-x-2
             ${menu.gap ? " mt-28" : ""} ${menu.Subgap && "my-5"} ${
                   isMenuItemActive(menu.link || "", menu.subMenu)
                     ? "  bg-[#d3d3d3] font-bold text-[16px] text-black "
-                    : !isMenuItemActive(menu.link || "", menu.subMenu) && !menu.subTitle
+                    : !isMenuItemActive(menu.link || "", menu.subMenu) &&
+                      !menu.subTitle
                     ? " "
                     : ""
                 }`}
@@ -380,15 +414,24 @@ const SideBar: React.FC<SideBarProps> = ({ userType }) => {
                     style={{
                       width: "24px",
                       marginRight: "8px",
-                      fontWeight: isMenuItemActive(menu.link || "", menu.subMenu)
+                      fontWeight: isMenuItemActive(
+                        menu.link || "",
+                        menu.subMenu
+                      )
                         ? "bold"
                         : "normal",
-                      color: isMenuItemActive(menu.link || "", menu.subMenu) ? "black" : "initial",
+                      color: isMenuItemActive(menu.link || "", menu.subMenu)
+                        ? "black"
+                        : "initial",
                     }}
                   />
                 )}
                 <NavLink to={menu.link || "#"} className="flex-grow">
-                  <span className={`${!open && "hidden"} origin-left duration-200 text-[#000]`}>
+                  <span
+                    className={`${
+                      !open && "hidden"
+                    } origin-left duration-200 text-[#000]`}
+                  >
                     {menu.title}
                     {menu.subTitle}
                   </span>
@@ -436,7 +479,9 @@ const SideBar: React.FC<SideBarProps> = ({ userType }) => {
         <hr className="h-[2px] bg-[#929292] mt-5 mb-3" />
         <p className="text-[10px] font-medium ml-3.5">You are using the</p>
         <button className="ml-0 px-2.5 py-[6px] bg-[#DB7F3B] rounded-[100px] mt-1">
-          <span className="text-white text-base font-semibold mr-2">Standard Plan</span>
+          <span className="text-white text-base font-semibold mr-2">
+            Standard Plan
+          </span>
           <ArrowCircleRightOutlined sx={{ color: "var(--white, #FFF)" }} />{" "}
         </button>
         <hr className="h-[2px] bg-[#929292] mt-5 mb-3" />
@@ -451,10 +496,15 @@ const SideBar: React.FC<SideBarProps> = ({ userType }) => {
       <div
         className="w-full p-2 mt-6"
         style={{
-          backgroundColor: isMenuItemActive("/logout") ? "#d3d3d3" : "transparent",
+          backgroundColor: isMenuItemActive("/logout")
+            ? "#d3d3d3"
+            : "transparent",
         }}
       >
-        <div onClick={handleLogout} className="flex items-center gap-x-2 cursor-pointer py-2">
+        <div
+          onClick={handleLogout}
+          className="flex items-center gap-x-2 cursor-pointer py-2"
+        >
           <img
             src={LogoutIcon}
             alt="Logout"

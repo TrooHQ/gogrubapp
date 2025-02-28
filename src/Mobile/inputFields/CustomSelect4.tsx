@@ -39,7 +39,7 @@ const CustomSelect4: React.FC<CustomSelect4Props> = ({
   return (
     <div className="relative z-50">
       <div
-        className="border border-grey200 bg-transparent p-2 focus:outline-[#5955B3] w-full rounded flex justify-between items-center"
+        className="border border-grey200 bg-transparent p-2 focus:outline-purple500 w-full rounded flex justify-between items-center"
         onClick={toggleDropdown}
       >
         {/* <span className="selected-option"> */}
@@ -55,7 +55,7 @@ const CustomSelect4: React.FC<CustomSelect4Props> = ({
         </span>
       </div>
       <div
-        className={`options-container  w-full border border-[#B6B6B6] bg-transparent rounded-b transition-all ${
+        className={`options-container  w-full border border-grey100 bg-transparent rounded-b transition-all ${
           isOpen ? "block" : "hidden"
         }`}
       >

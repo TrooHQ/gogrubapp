@@ -108,21 +108,21 @@ export const Basket = () => {
       <div className="  ">
         <div className="">
           <Header2 />
-          <p className=" text-[44px] font-[500] text-[#606060] text-center">
+          <p className=" text-[44px] font-[500] text-grey300 text-center">
             Order Summary
           </p>
         </div>
-        <div className=" shadow-xl shadow-[#E7E7E7] border border-[#E7E7E7] my-[40px]  max-w-[960px] mx-[5%] rounded-[10px]">
+        <div className=" shadow-xl shadow-grey40 border border-grey40 my-[40px]  max-w-[960px] mx-[5%] rounded-[10px]">
           {backetDetails?.items.map((item, index) => (
             <div
-              className={`border-[#E7E7E7] grid items-center mb-[10px]  px-[40px] py-[36px]  ${
+              className={`border-grey40 grid items-center mb-[10px]  px-[40px] py-[36px]  ${
                 index % 2 === 0 ? "bg-[#f0f0f0]" : ""
               }`}
               key={index}
             >
               <div className=" flex  justify-between place-items-center text-start items-center">
                 <p
-                  className="text-[25px] text-[#121212] font-[400] max-w-[200px]"
+                  className="text-[25px] text-grey500 font-[400] max-w-[200px]"
                   onClick={() => openModal(item?.id)}
                 >
                   {item?.name?.length > 12
@@ -166,15 +166,13 @@ export const Basket = () => {
 
               {item.selectedOptions && item.selectedOptions?.length > 0 && (
                 <div className="my-[32px]">
-                  <p className="text-[20px] font-[400] text-[#606060]">
-                    SIDES:
-                  </p>
+                  <p className="text-[20px] font-[400] text-grey300">SIDES:</p>
                   {item.selectedOptions.map((option, optionIndex) => (
                     <div
                       key={optionIndex}
                       className="flex  justify-between place-items-center text-start items-center"
                     >
-                      <p className="text-[20px] font-[500] text-[#606060] max-w-[200px] w-full ">
+                      <p className="text-[20px] font-[500] text-grey300 max-w-[200px] w-full ">
                         {option?.name?.length > 12
                           ? `${option.name.slice(0, 10)}...`
                           : option.name}
@@ -198,7 +196,7 @@ export const Basket = () => {
                           }
                         />
                       </div>
-                      <p className="text-[20px] font-[500] text-[#606060] max-w-[100px] w-full text-center">
+                      <p className="text-[20px] font-[500] text-grey300 max-w-[100px] w-full text-center">
                         &#x20A6;
                         {(option.price * item.quantity).toLocaleString()}
                       </p>
@@ -281,23 +279,21 @@ export const Basket = () => {
 
           <div className=" max-w-[854px] flex flex-col items-center justify-center ">
             <div className=" px-[74px] text-center">
-              <p className=" text-[44px] font-[500] text-[#121212] ">
-                Add a Tip
-              </p>
-              <p className=" text-[32px] font-[500] text-[#121212] my-[16px]">
+              <p className=" text-[44px] font-[500] text-grey500 ">Add a Tip</p>
+              <p className=" text-[32px] font-[500] text-grey500 my-[16px]">
                 Thank you
               </p>
-              <p className=" text-[32px] font-[500] text-[#121212]">
+              <p className=" text-[32px] font-[500] text-grey500">
                 {/* Your Subtotal: ₦ {totalPrice ? totalPrice : "0"} */}
               </p>
               <div className=" grid grid-cols-2 items-center gap-[24px] mt-[40px]">
                 {tipPercentages.map((tip, index) => (
                   <div
                     key={index}
-                    className={`py-[39px] px-[134px] flex items-center  justify-center text-center cursor-pointer rounded-[10px] text-[#121212] text-[36px] font-[500] ${
+                    className={`py-[39px] px-[134px] flex items-center  justify-center text-center cursor-pointer rounded-[10px] text-grey500 text-[36px] font-[500] ${
                       selectedPercentage === tip
                         ? " text-white"
-                        : "border-2 border-[#606060] "
+                        : "border-2 border-grey300 "
                     }`}
                     onClick={() => handlePercentageClick(tip)}
                     style={{
@@ -314,7 +310,7 @@ export const Basket = () => {
                 ))}
 
                 <p
-                  className=" cursor-pointer text-center py-[39px]  border-2 border-[#606060] rounded-[10px] text-[#121212] text-[36px] font-[500]"
+                  className=" cursor-pointer text-center py-[39px]  border-2 border-grey300 rounded-[10px] text-grey500 text-[36px] font-[500]"
                   onClick={handleModal}
                 >
                   Custom
@@ -324,7 +320,7 @@ export const Basket = () => {
                 className=" mt-[24px] cursor-pointer"
                 onClick={handleNoTipClick}
               >
-                <p className="text-center py-[39px]  border-2 border-[#606060] rounded-[10px] text-[#121212] text-[36px] font-[500]">
+                <p className="text-center py-[39px]  border-2 border-grey300 rounded-[10px] text-grey500 text-[36px] font-[500]">
                   No Tip
                 </p>
               </div>
@@ -344,7 +340,7 @@ export const Basket = () => {
 
           <div className=" w-[854px] flex flex-col items-center justify-center ">
             <div className=" px-[74px] text-center">
-              <p className=" text-[44px] font-[500] text-[#121212] ">
+              <p className=" text-[44px] font-[500] text-grey500 ">
                 Enter Custom Tip
               </p>
 
@@ -369,7 +365,7 @@ export const Basket = () => {
                 <p
                   className={`px-[24px] py-[10px] ${
                     !tip ? "bg-[#85C0BE]" : "cursor-pointer"
-                  } inline rounded-[5px] text-[#ffffff] text-[16px] font-[500]`}
+                  } inline rounded-[5px] text-white text-[16px] font-[500]`}
                   onClick={tip ? handleNext : undefined}
                   style={{
                     backgroundColor: tip ? color || "#FF0000" : "#85C0BE",

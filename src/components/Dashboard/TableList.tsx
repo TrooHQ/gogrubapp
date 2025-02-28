@@ -172,7 +172,11 @@ const TableList = () => {
                           className="w-[30px] h-[30px] flex items-center justify-center cursor-pointer"
                           onClick={() => toggleMenu(index)}
                         >
-                          <img src={More} alt="" className="cursor-pointer w-[5px]" />
+                          <img
+                            src={More}
+                            alt=""
+                            className="cursor-pointer w-[5px]"
+                          />
                         </div>
                         {activeMenuIndex === index && (
                           <DropdownMenu onClose={() => toggleMenu(index)} />
@@ -187,7 +191,7 @@ const TableList = () => {
 
           <div className=" flex items-center justify-end my-[28px]">
             <div
-              className="border border-purple500 bg-purple500 rounded px-[24px]  py-[10px] font-[500] text-[#ffffff] inline"
+              className="border border-purple500 bg-purple500 rounded px-[24px]  py-[10px] font-[500] text-white inline"
               onClick={handleAddModifier}
             >
               <button className=" text-[16px]">Save As</button>
@@ -195,11 +199,16 @@ const TableList = () => {
           </div>
         </div>
 
-        <Modal isOpen={addModifierModar} onClose={() => setAddModifierModal(false)}>
+        <Modal
+          isOpen={addModifierModar}
+          onClose={() => setAddModifierModal(false)}
+        >
           <div className=" w-[539px] py-[32px] px-[52px]">
             <div className="">
-              <p className=" text-[24px] mb-[11px] font-[500] text-[#121212]">Save Table As</p>
-              <hr className="border my-[24px] border-[#E7E7E7]" />
+              <p className=" text-[24px] mb-[11px] font-[500] text-grey500">
+                Save Table As
+              </p>
+              <hr className="border my-[24px] border-grey40" />
               <div className=" flex items-center gap-[8px] justify-center">
                 <div className=" flex-grow  ">
                   <CustomInput
@@ -207,7 +216,9 @@ const TableList = () => {
                     label="Enter table Name"
                     value={tableData.tableName}
                     error=""
-                    onChange={(newValue) => handleTableData("tableName", newValue)}
+                    onChange={(newValue) =>
+                      handleTableData("tableName", newValue)
+                    }
                   />
 
                   <div className="mt-3">
@@ -283,7 +294,9 @@ const TableList = () => {
                   renderOption={(props, option: Outlet, { selected }) => (
                     <li {...props}>
                       <Checkbox
-                        icon={<CheckBoxOutlineBlank style={{ marginRight: 8 }} />}
+                        icon={
+                          <CheckBoxOutlineBlank style={{ marginRight: 8 }} />
+                        }
                         checkedIcon={<CheckBox style={{ marginRight: 8 }} />}
                         checked={selected}
                       />
@@ -292,7 +305,11 @@ const TableList = () => {
                   )}
                   style={{ width: 350 }}
                   renderInput={(params) => (
-                    <TextField {...params} label="Select Outlets" placeholder="Outlets" />
+                    <TextField
+                      {...params}
+                      label="Select Outlets"
+                      placeholder="Outlets"
+                    />
                   )}
                   value={selectedOutlets}
                   onChange={(event, newValue: Outlet[]) => {
@@ -301,19 +318,21 @@ const TableList = () => {
                   }}
                 />
               )}
-              <hr className="border mb-[16px] mt-[24px] border-[#E7E7E7]" />
+              <hr className="border mb-[16px] mt-[24px] border-grey40" />
 
               <div className=" flex justify-end items-center  gap-2">
                 <div
                   className="border cursor-pointer border-purple500 rounded px-[24px]  py-[10px] font-[600] text-purple500"
                   onClick={() => setAddModifierModal(false)}
                 >
-                  <p className="font-[500] text-[16px] text-purple500 cursor-pointer">Cancel</p>
+                  <p className="font-[500] text-[16px] text-purple500 cursor-pointer">
+                    Cancel
+                  </p>
                   {/* <CancelButton text="Cancel" /> */}
                 </div>
 
                 <Link to="/manage-assets">
-                  <div className="border border-purple500 bg-purple500 rounded px-[24px]  py-[10px] font-[500] text-[#ffffff]">
+                  <div className="border border-purple500 bg-purple500 rounded px-[24px]  py-[10px] font-[500] text-white">
                     <button className=" text-[16px]">Save</button>
                   </div>
                 </Link>

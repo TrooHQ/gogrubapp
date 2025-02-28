@@ -76,22 +76,22 @@ export const OnlineOrderingTip = () => {
 
       <div className=" mt-[68px] ">
         <div className=" px-[16px] grid gap-[8px] mb-[40px]">
-          <p className=" text-center text-[18px] font-[500] text-[#121212]">
+          <p className=" text-center text-[18px] font-[500] text-grey500">
             Enter Tip
           </p>
           <div className=" grid grid-cols-3 gap-[8px]">
             {tipPercentages.map((tip, index) => (
               <div
                 key={index}
-                className={`flex flex-col items-center px-[36px] py-[8px] border border-[#B6B6B6] rounded-[3px] cursor-pointer ${
+                className={`flex flex-col items-center px-[36px] py-[8px] border border-grey100 rounded-[3px] cursor-pointer ${
                   selectedTip === tip ? "bg-[#E0E0E0]" : ""
                 }`}
                 onClick={() => handleTipClick(tip)}
               >
-                <p className=" text-[#121212] text-[16px] font-[500]">
+                <p className=" text-grey500 text-[16px] font-[500]">
                   {(tip * 100).toFixed(1)}%
                 </p>
-                <p className=" text-[14px] text-[#121212] font-[400]">
+                <p className=" text-[14px] text-grey500 font-[400]">
                   {(totalPrice * tip).toFixed(2)}
                 </p>
               </div>
@@ -112,13 +112,13 @@ export const OnlineOrderingTip = () => {
 
         <div className=" mt-[60px] flex items-center justify-center gap-[16px]">
           <p
-            className=" cursor-pointer font-[500] text-[16px] py-[10px] px-[24px] text-[#606060]"
+            className=" cursor-pointer font-[500] text-[16px] py-[10px] px-[24px] text-grey300"
             onClick={handleNoTipClick}
           >
             No Tip
           </p>
           <Link to="/demo/payment-type/online_ordering">
-            <p className=" inline font-[500] text-[16px] rounded-[5px] text-[#ffffff] bg-[#606060] py-[10px] px-[56px]">
+            <p className=" inline font-[500] text-[16px] rounded-[5px] text-white bg-grey300 py-[10px] px-[56px]">
               Add Tip
             </p>
           </Link>

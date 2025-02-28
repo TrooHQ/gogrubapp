@@ -263,8 +263,8 @@ const ManageTables: React.FC = () => {
 
           {Object.entries(combinedData).map(([category, items]) => (
             <div key={category}>
-              <div className="mt-3 cursor-pointer flex items-center justify-between border-b py-[16px] border-[#E7E7E7]">
-                <h2 className="text-[#5855B3] text-[20px] font-[400]">
+              <div className="mt-3 cursor-pointer flex items-center justify-between border-b py-[16px] border-grey40">
+                <h2 className="text-grey20 text-[20px] font-[400]">
                   {category?.toUpperCase()}
                 </h2>
                 <div>
@@ -462,7 +462,7 @@ const ManageTables: React.FC = () => {
               <p className=" text-[24px] mb-[11px] font-[500] text-purple500">
                 Asset Arrangement
               </p>
-              <hr className="border my-[24px] border-[#E7E7E7]" />
+              <hr className="border my-[24px] border-grey40" />
               <div className=" flex flex-col gap-[8px] justify-center">
                 <CustomSelect5
                   options={businessType}
@@ -499,7 +499,7 @@ const ManageTables: React.FC = () => {
                   />
                 </div>
               </div>
-              <hr className="border mb-[16px] mt-[24px] border-[#E7E7E7]" />
+              <hr className="border mb-[16px] mt-[24px] border-grey40" />
 
               <div className=" flex justify-end items-center  gap-2">
                 <div
@@ -513,7 +513,7 @@ const ManageTables: React.FC = () => {
                 </div>
 
                 {/* <Link to="/table-list"> */}
-                <div className="border border-purple500 bg-purple500 rounded px-[24px]  py-[10px] font-[500] text-[#ffffff]">
+                <div className="border border-purple500 bg-purple500 rounded px-[24px]  py-[10px] font-[500] text-white">
                   <button onClick={handleCreateAsset} className=" text-[16px]">
                     {loading ? "Saving..." : "Save"}
                   </button>
@@ -548,7 +548,7 @@ const ManageTables: React.FC = () => {
                       </p>
                     </div>
                     <div
-                      className="border border-[#ED5048] bg-[#ED5048] rounded-[5px] px-[24px] py-[10px] font-[500] text-[#ffffff]"
+                      className="border border-[#ED5048] bg-[#ED5048] rounded-[5px] px-[24px] py-[10px] font-[500] text-white"
                       onClick={() =>
                         itemToDelete &&
                         handleDelete(

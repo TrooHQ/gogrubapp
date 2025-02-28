@@ -56,9 +56,7 @@ const Menu = () => {
 
       <div className=" mt-[53px]">
         <div className=" px-[21px]">
-          <p className=" font-[400] text-[40px] text-[#121212]">
-            Menu Category
-          </p>
+          <p className=" font-[400] text-[40px] text-grey500">Menu Category</p>
         </div>
         <div className=" px-[21px] items-center place-items-center grid grid-cols-2 gap-[24px] mt-[10px]">
           {menuCategory.map((menu) => (
@@ -100,7 +98,7 @@ const Menu = () => {
             onClick={() => setIsOpen(false)}
           >
             <div
-              className="px-[70px] rounded-[15px] flex flex-col gap-[41px] items-center justify-center max-w-[300px] h-[356px] w-full bg-[#B6B6B6]"
+              className="px-[70px] rounded-[15px] flex flex-col gap-[41px] items-center justify-center max-w-[300px] h-[356px] w-full bg-grey100"
               style={
                 {
                   // backgroundColor: color || "#E9B017",
@@ -111,7 +109,7 @@ const Menu = () => {
               <p className="font-[400] text-[28px] ">Take-away</p>
             </div>
             <div
-              className="px-[70px] rounded-[15px] flex flex-col gap-[41px] items-center justify-center max-w-[300px] h-[356px] w-full bg-[#B6B6B6]"
+              className="px-[70px] rounded-[15px] flex flex-col gap-[41px] items-center justify-center max-w-[300px] h-[356px] w-full bg-grey100"
               style={
                 {
                   // backgroundColor: color || "#E9B017",

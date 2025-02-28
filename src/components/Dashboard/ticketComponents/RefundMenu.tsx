@@ -24,7 +24,7 @@ const RefundMenu = ({
             <p className="text-[24px] pb-[24px] font-[500] leading-[36px] text-purple500">
               Request Refund
             </p>
-            <hr className="border border-[#E7E7E7] mb-[24px]" />
+            <hr className="border border-grey40 mb-[24px]" />
 
             <div>
               <div>
@@ -69,7 +69,7 @@ const RefundMenu = ({
                   ></textarea>
                 </div>
               </div>
-              <hr className="border border-[#E7E7E7] mb-[24px] mt-3" />
+              <hr className="border border-grey40 mb-[24px] mt-3" />
 
               <div className="flex items-center justify-end gap-4 mt-5">
                 <div
@@ -80,11 +80,15 @@ const RefundMenu = ({
                     setRefundType("");
                   }}
                 >
-                  <p className="font-[500] text-[16px] text-purple500 cursor-pointer">Cancel</p>
+                  <p className="font-[500] text-[16px] text-purple500 cursor-pointer">
+                    Cancel
+                  </p>
                 </div>
 
-                <div className="border border-purple500 bg-purple500 rounded px-[24px]  py-[10px] font-[500] text-[#ffffff]">
-                  <button className=" text-[16px] font-normal">Make Refund</button>
+                <div className="border border-purple500 bg-purple500 rounded px-[24px]  py-[10px] font-[500] text-white">
+                  <button className=" text-[16px] font-normal">
+                    Make Refund
+                  </button>
                 </div>
               </div>
             </div>

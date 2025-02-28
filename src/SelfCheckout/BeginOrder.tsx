@@ -140,7 +140,7 @@ const BeginOrder = () => {
             <div className=" flex items-center justify-center">
               <p
                 className={` px-[120px] py-[37px] text-[32px]  font-bold ${
-                  !userName ? " bg-[#B6B6B6]" : "bg-[#FF0000] cursor-pointer"
+                  !userName ? " bg-grey100" : "bg-[#FF0000] cursor-pointer"
                 } rounded-full inline-flex text-white text-center`}
                 style={{
                   backgroundColor: !userName ? "#B6B6B6" : color,
@@ -180,7 +180,7 @@ const BeginOrder = () => {
             <div className=" flex items-center justify-center gap-[24px]">
               {" "}
               <p
-                className={` px-[99px] py-[37px] text-[32px] font-[500] text-[#B6B6B6]  border-[3px]  border-[#B6B6B6] cursor-default rounded-full inline-flex text-center`}
+                className={` px-[99px] py-[37px] text-[32px] font-[500] text-grey100  border-[3px]  border-grey100 cursor-default rounded-full inline-flex text-center`}
               >
                 CANCEL
               </p>

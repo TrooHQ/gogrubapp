@@ -154,7 +154,7 @@ const OrderTab: React.FC = () => {
                 )
                 .map((ticket, index) => (
                   <div
-                    className="rounded-[5px] px-[24px] py-[16px] bg-[#E7E7E7] border"
+                    className="rounded-[5px] px-[24px] py-[16px] bg-grey40 border"
                     key={index}
                   >
                     <div className="rounded-[5px] flex items-center justify-between font-[500] text-[16px]">
@@ -189,7 +189,7 @@ const OrderTab: React.FC = () => {
                           <>
                             {" "}
                             <div key={itemIndex}>
-                              <p className="text-[16px] font-[400] text-[#121212]">
+                              <p className="text-[16px] font-[400] text-grey500">
                                 {item?.quantity || 1}x{" "}
                                 <span className="p-[5px]">{item?.name}</span>
                               </p>
@@ -259,7 +259,7 @@ const OrderTab: React.FC = () => {
                   )
                   .map((ticket, index) => (
                     <div
-                      className="rounded-[5px] px-[24px] py-[16px] bg-[#E7E7E7] border"
+                      className="rounded-[5px] px-[24px] py-[16px] bg-grey40 border"
                       key={index}
                     >
                       <div className="rounded-[5px] flex items-center justify-between font-[500] text-[16px]">
@@ -292,7 +292,7 @@ const OrderTab: React.FC = () => {
                           {ticket?.menu_items.map((item, index) => (
                             <>
                               <div key={index}>
-                                <p className=" text-[16px] font-[400] text-[#121212]">
+                                <p className=" text-[16px] font-[400] text-grey500">
                                   {item?.quantity || 1}x{" "}
                                   <span className=" p-[5px]">{item?.name}</span>
                                 </p>
@@ -361,7 +361,7 @@ const OrderTab: React.FC = () => {
 
       <Modal isOpen={ticketModal}>
         <div className=" w-[328px] min-h-[181px]">
-          <div className="border-b border-b-[#E7E7E7] flex items-center justify-between">
+          <div className="border-b border-b-grey40 flex items-center justify-between">
             <div className=" py-[16px]  w-full">
               {/* <p className=" text-[16px] font-[500] text-grey500 ">James O.</p> */}
               <div className="text-[16px] font-[500] text-grey500 flex items-center justify-between capitalize">

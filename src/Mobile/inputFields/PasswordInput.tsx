@@ -61,8 +61,8 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
           <label
             className={`absolute transition-all duration-300 cursor-text ${
               isFocused || value
-                ? "text-[14px] -top-3 left-2 bg-[#EFEFEF] px-2 text-[#000000]"
-                : "top-2 left-4 bg-[#EFEFEF] text-grey200 text-[14px]"
+                ? "text-[14px] -top-3 left-2 bg-grey50 px-2 text-[#000000]"
+                : "top-2 left-4 bg-grey50 text-grey200 text-[14px]"
             } ${error ? "text-red-500" : ""}`}
             onClick={handleLabelClick}
           >

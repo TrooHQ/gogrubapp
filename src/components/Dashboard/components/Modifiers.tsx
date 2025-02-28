@@ -38,7 +38,9 @@ const Modifiers = ({
 }: any) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const [modifiers, setModifiers] = useState<Modifier[]>([{ id: 1, name: "", price: "" }]);
+  const [modifiers, setModifiers] = useState<Modifier[]>([
+    { id: 1, name: "", price: "" },
+  ]);
   const [confirmSaveModal, setConfirmSaveModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [modifierRules, setModifierRules] = useState<ModifierRules>({
@@ -134,7 +136,11 @@ const Modifiers = ({
     };
 
     try {
-      const response = await axios.post(`${SERVER_DOMAIN}/menu/addMenuModifier`, payload, headers);
+      const response = await axios.post(
+        `${SERVER_DOMAIN}/menu/addMenuModifier`,
+        payload,
+        headers
+      );
       console.log(response, "responselll");
       toast.success(response.data.message || "Modifiers added successfully.");
       setAddModifierModal(false);
@@ -222,15 +228,18 @@ const Modifiers = ({
     try {
       const authToken = localStorage.getItem("token"); // Retrieve the auth token from local storage
 
-      const response = await axios.delete(`${SERVER_DOMAIN}/menu/deleteMenuModifier/`, {
-        params: {
-          branch_id: selectedBranch.id,
-          modifier_id: modifierId,
-        },
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
+      const response = await axios.delete(
+        `${SERVER_DOMAIN}/menu/deleteMenuModifier/`,
+        {
+          params: {
+            branch_id: selectedBranch.id,
+            modifier_id: modifierId,
+          },
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
 
       if (response.status === 200) {
         // Optionally refresh the list of modifiers after deletion
@@ -330,7 +339,11 @@ const Modifiers = ({
     };
 
     try {
-      await axios.put(`${SERVER_DOMAIN}/menu/updateModifierGroup/`, payload, headers);
+      await axios.put(
+        `${SERVER_DOMAIN}/menu/updateModifierGroup/`,
+        payload,
+        headers
+      );
       // Handle success (e.g., refetch data or update UI)
       setEditId(null); // Exit edit mode
       fetchModifierGroups();
@@ -344,8 +357,10 @@ const Modifiers = ({
   return (
     <div className="">
       <div className=" mt-[32px] max-w-[628px]">
-        <p className=" text-[20px] font-[500] text-purple500 mb-[8px]">Modifiers</p>
-        <hr className=" border-[#B6B6B6]" />
+        <p className=" text-[20px] font-[500] text-purple500 mb-[8px]">
+          Modifiers
+        </p>
+        <hr className=" border-grey100" />
       </div>
 
       {/* Display Fetched Modifiers */}
@@ -372,7 +387,7 @@ const Modifiers = ({
             <div key={modifier.id} className="grid gap-[8px]">
               {/* <div className=" mt-[32px] flex items-center gap-[8px]"> */}
               {/* <button
-                  className="w-[196px] border border-[#5955B3] rounded-[5px]  px-[16px] py-[8px] font-[500] text-purple500 text-[16px] flex items-center gap-[8px]"
+                  className="w-[196px] border border-purple500 rounded-[5px]  px-[16px] py-[8px] font-[500] text-purple500 text-[16px] flex items-center gap-[8px]"
                   onClick={handleAddModifierGroup}
                 >
                   {modGroupLoading ? "Loading..." : "Save Modifier Group"}
@@ -410,13 +425,15 @@ const Modifiers = ({
                 />
 
                 <button
-                  className=" border border-[#5955B3] rounded-[5px]  px-[16px] py-[8px] font-[500] text-purple500 text-[16px] flex items-center gap-[8px]"
+                  className=" border border-purple500 rounded-[5px]  px-[16px] py-[8px] font-[500] text-purple500 text-[16px] flex items-center gap-[8px]"
                   onClick={handleAddModifierGroup}
                 >
                   {modGroupLoading ? "Loading..." : "Save"}
                 </button>
                 <div className="flex items-center">
-                  {modifiers.length > 1 && <Close onClick={() => removeModifier(modifier.id)} />}
+                  {modifiers.length > 1 && (
+                    <Close onClick={() => removeModifier(modifier.id)} />
+                  )}
                 </div>
                 {/* <button
                   className="px-[16px] py-[8px] font-[500]  rounded-[5px] text-purple500 text-[16px] flex items-center gap-[8px]"
@@ -429,12 +446,12 @@ const Modifiers = ({
           ))}
           <div className="mt-4 flex items-center gap-[8px]">
             {/* <button
-              className=" border border-[#5855B3] px-[16px] py-[8px] font-[500]  rounded-[5px] text-purple500 text-[14px] flex items-center gap-[8px]"
+              className=" border border-grey20 px-[16px] py-[8px] font-[500]  rounded-[5px] text-purple500 text-[14px] flex items-center gap-[8px]"
               onClick={addModifier}
             >
               Add
             </button>
-            <button className=" border border-[#5855B3] px-[16px] py-[8px] font-[500]  rounded-[5px] text-purple500 text-[14px] flex items-center gap-[8px]">
+            <button className=" border border-grey20 px-[16px] py-[8px] font-[500]  rounded-[5px] text-purple500 text-[14px] flex items-center gap-[8px]">
               Edit
             </button> */}
           </div>
@@ -442,11 +459,16 @@ const Modifiers = ({
 
         <div className="">
           <div className=" mt-[32px] max-w-[628px]">
-            <p className=" text-[20px] font-[500] text-purple500 mb-[8px]">Modifier Rules</p>
-            <hr className=" border-[#B6B6B6]" />
+            <p className=" text-[20px] font-[500] text-purple500 mb-[8px]">
+              Modifier Rules
+            </p>
+            <hr className=" border-grey100" />
             <div>
               {rules.map((rule) => (
-                <div key={rule.key} className="flex items-center gap-[16px] my-[16px]">
+                <div
+                  key={rule.key}
+                  className="flex items-center gap-[16px] my-[16px]"
+                >
                   <input
                     type="checkbox"
                     id={rule.key}
@@ -454,21 +476,24 @@ const Modifiers = ({
                     checked={modifierRules[rule.key]}
                     onChange={() => handleRuleChange(rule.key)}
                   />
-                  <label htmlFor={rule.key} className="text-[16px] font-[400] text-[#000000]">
+                  <label
+                    htmlFor={rule.key}
+                    className="text-[16px] font-[400] text-[#000000]"
+                  >
                     {rule.label}
                   </label>
                 </div>
               ))}
             </div>
-            <hr className=" border-[#B6B6B6]" />
+            <hr className=" border-grey100" />
             <OutletSelectionRadioGroup
               allOutlets={transformedBranches}
               onApplyChanges={handleApplyChanges}
             />
-            <hr className=" border-[#B6B6B6] mt-3" />
+            <hr className=" border-grey100 mt-3" />
             <div className="flex items-center justify-end py-[16px]">
               <div
-                className="cursor-pointer inline border mb-5 border-purple500 bg-purple500 rounded px-[24px]  py-[10px] font-[500] text-[#ffffff]"
+                className="cursor-pointer inline border mb-5 border-purple500 bg-purple500 rounded px-[24px]  py-[10px] font-[500] text-white"
                 onClick={saveModifiers}
               >
                 <button className=" text-[16px]">Save Modifier</button>
@@ -487,7 +512,10 @@ const Modifiers = ({
       />
 
       {confirmSaveModal && (
-        <Modal isOpen={confirmSaveModal} onClose={() => setConfirmSaveModal(false)}>
+        <Modal
+          isOpen={confirmSaveModal}
+          onClose={() => setConfirmSaveModal(false)}
+        >
           <div className="w-[443px] px-[32px] py-[32px]">
             <div
               className="flex items-center justify-end cursor-pointer"
@@ -496,15 +524,19 @@ const Modifiers = ({
               <Close />
             </div>
             <div className="flex flex-col gap-[24px] items-center justify-center">
-              <p className="text-grey500 text-[22px] font-[500]">Save modifier(s)</p>
+              <p className="text-grey500 text-[22px] font-[500]">
+                Save modifier(s)
+              </p>
               <p className="text-[16px] font-[400] text-grey500">
                 Are you sure you want to save the modifier(s)?
               </p>
               <div
-                className="border border-purple500 bg-purple500 rounded px-[24px] py-[10px] font-[500] text-[#ffffff]"
+                className="border border-purple500 bg-purple500 rounded px-[24px] py-[10px] font-[500] text-white"
                 onClick={handleConfirmSave}
               >
-                <button className="text-[16px]">{loading ? "Sending..." : "Yes"}</button>
+                <button className="text-[16px]">
+                  {loading ? "Sending..." : "Yes"}
+                </button>
               </div>
             </div>
           </div>

@@ -1,6 +1,11 @@
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import AddWhite from "../../../assets/addWhite.svg";
-import { CancelOutlined, EditOutlined, MoreVert, VisibilityOutlined } from "@mui/icons-material";
+import {
+  CancelOutlined,
+  EditOutlined,
+  MoreVert,
+  VisibilityOutlined,
+} from "@mui/icons-material";
 import chevron_right from "../../../assets/chevron_right.svg";
 import activeArrow from "../../../assets/activeArrow.svg";
 import CoffeeImg from "../../../assets/coffeeImg.png";
@@ -20,7 +25,10 @@ interface Props {
   handleAddMenuItem: () => void;
   truncateText: (text: string, maxLength: number) => string;
   activeGroup: any;
-  handleGroupDropdown: (event: React.MouseEvent<HTMLElement>, group: any) => void;
+  handleGroupDropdown: (
+    event: React.MouseEvent<HTMLElement>,
+    group: any
+  ) => void;
   handleGroupEdit: (group: any) => void;
   handleGroupDeleteClick: (group: any) => void;
   activeCategory: any;
@@ -50,19 +58,24 @@ const MenuGroup: React.FC<Props> = ({
     <div className="mt-[24px] w-full border p-[16px]">
       <div className=" flex gap-[16px] items-start">
         <div className=" w-[204px]">
-          <p className=" font-[400] text-[12px] text-[#606060]">Menu Group</p>
+          <p className=" font-[400] text-[12px] text-grey300">Menu Group</p>
           <div className="">
             {mgLoading ? (
               <div className="flex justify-center items-center h-[200px]">
-                <p className="text-[16px] font-[400] text-grey500">Loading menu groups...</p>
+                <p className="text-[16px] font-[400] text-grey500">
+                  Loading menu groups...
+                </p>
               </div>
             ) : activeCategory ? (
               menuGroups.map((group: any) => (
-                <div key={group._id} className="flex items-center justify-between">
+                <div
+                  key={group._id}
+                  className="flex items-center justify-between"
+                >
                   <p
                     className={`${
                       activeGroup?.name === group?.name
-                        ? "font-[500] text-[#5855B3]"
+                        ? "font-[500] text-grey20"
                         : "text-grey200"
                     } hover:bg-purple100 flex justify-between cursor-pointer items-center w-[201px] text-[16px] font-[400] py-[12px] px-[8px]`}
                     key={group._id}
@@ -102,7 +115,9 @@ const MenuGroup: React.FC<Props> = ({
                               fontWeight: "300",
                             }}
                           />
-                          <span style={{ fontWeight: "300" }}>Menu Visibility</span>
+                          <span style={{ fontWeight: "300" }}>
+                            Menu Visibility
+                          </span>
                         </MenuItem>
                         <MenuItem
                           onClick={() => handleGroupEdit(group)}
@@ -162,9 +177,9 @@ const MenuGroup: React.FC<Props> = ({
         {/* Menu items */}
         {activeGroup ? (
           <div className=" flex-grow space-y-[16px]">
-            <p className=" font-[400] text-[12px] text-[#606060]">Menu Item</p>
+            <p className=" font-[400] text-[12px] text-grey300">Menu Item</p>
             <div className=" flex items-start justify-between ">
-              <p className=" text-[16px] font-[500] text-[#5855B3]">Type</p>
+              <p className=" text-[16px] font-[500] text-grey20">Type</p>
               <div className=" ">
                 <button
                   className="w-[196px]  px-[10px] py-[6px] font-[500] text-purple500 text-[16px] flex items-center gap-[8px]"
@@ -176,7 +191,9 @@ const MenuGroup: React.FC<Props> = ({
             </div>
             {menuItemLoading ? (
               <div className="flex justify-center items-center h-[200px]">
-                <p className="text-[16px] font-[400] text-grey500">Loading menu items...</p>
+                <p className="text-[16px] font-[400] text-grey500">
+                  Loading menu items...
+                </p>
               </div>
             ) : (
               subMenuContent?.map((item, index) => {
@@ -218,7 +235,9 @@ const MenuGroup: React.FC<Props> = ({
 
                     {subMenuContent.length === 0 && (
                       <div className=" flex justify-center items-center h-[200px]">
-                        <p className="text-[16px] font-[400] text-grey500">No menu items</p>
+                        <p className="text-[16px] font-[400] text-grey500">
+                          No menu items
+                        </p>
                       </div>
                     )}
                   </div>
@@ -229,7 +248,7 @@ const MenuGroup: React.FC<Props> = ({
             {subMenuContent.length > 1 && (
               <div className=" flex items-center justify-end">
                 <button
-                  className="w-[196px] border border-[#5955B3] rounded-[5px]  px-[16px] py-[8px] font-[500] text-purple500 text-[16px] flex items-center gap-[8px]"
+                  className="w-[196px] border border-purple500 rounded-[5px]  px-[16px] py-[8px] font-[500] text-purple500 text-[16px] flex items-center gap-[8px]"
                   onClick={handleAddMenuItem}
                 >
                   <img src={AddWhite} alt="" /> Add Menu Item

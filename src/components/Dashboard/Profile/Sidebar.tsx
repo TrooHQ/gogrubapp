@@ -1,4 +1,8 @@
-import { AccountCircleOutlined, LocationCityOutlined, Password } from "@mui/icons-material";
+import {
+  AccountCircleOutlined,
+  LocationCityOutlined,
+  Password,
+} from "@mui/icons-material";
 import React from "react";
 
 interface SidebarProps {
@@ -6,7 +10,10 @@ interface SidebarProps {
   setActiveComponent: (component: string) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ activeComponent, setActiveComponent }) => {
+const Sidebar: React.FC<SidebarProps> = ({
+  activeComponent,
+  setActiveComponent,
+}) => {
   const isActive = (component: string) => activeComponent === component;
 
   return (
@@ -19,11 +26,15 @@ const Sidebar: React.FC<SidebarProps> = ({ activeComponent, setActiveComponent }
           }`}
         >
           <AccountCircleOutlined
-            className={`w-5 h-5 ${isActive("profile") ? "text-[#121212]" : "text-[#929292]"}`}
+            className={`w-5 h-5 ${
+              isActive("profile") ? "text-grey500" : "text-[#929292]"
+            }`}
           />
           <span
             className={`${
-              isActive("profile") ? "text-[#121212] font-medium" : "text-[#929292] font-normal"
+              isActive("profile")
+                ? "text-grey500 font-medium"
+                : "text-[#929292] font-normal"
             } text-[16px] leading-[24px] tracking-[0.5px]`}
           >
             Profile Details
@@ -36,11 +47,15 @@ const Sidebar: React.FC<SidebarProps> = ({ activeComponent, setActiveComponent }
           }`}
         >
           <LocationCityOutlined
-            className={`w-5 h-5 ${isActive("branch") ? "text-[#121212]" : "text-[#929292]"}`}
+            className={`w-5 h-5 ${
+              isActive("branch") ? "text-grey500" : "text-[#929292]"
+            }`}
           />
           <span
             className={`${
-              isActive("branch") ? "text-[#121212] font-medium" : "text-[#929292] font-normal"
+              isActive("branch")
+                ? "text-grey500 font-medium"
+                : "text-[#929292] font-normal"
             } text-[16px] leading-[24px] tracking-[0.5px]`}
           >
             Branch Details
@@ -53,11 +68,15 @@ const Sidebar: React.FC<SidebarProps> = ({ activeComponent, setActiveComponent }
           }`}
         >
           <Password
-            className={`w-5 h-5 ${isActive("security") ? "text-[#121212]" : "text-[#929292]"}`}
+            className={`w-5 h-5 ${
+              isActive("security") ? "text-grey500" : "text-[#929292]"
+            }`}
           />
           <span
             className={`${
-              isActive("security") ? "text-[#121212] font-medium" : "text-[#929292] font-normal"
+              isActive("security")
+                ? "text-grey500 font-medium"
+                : "text-[#929292] font-normal"
             } text-[16px] leading-[24px] tracking-[0.5px]`}
           >
             Password & Pin

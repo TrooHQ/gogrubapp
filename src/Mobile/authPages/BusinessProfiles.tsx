@@ -40,7 +40,7 @@ const BusinessProfiles: React.FC = () => {
     console.log(newFAQData);
   };
   return (
-    <div className="bg-[#EFEFEF] ">
+    <div className="bg-grey50 ">
       <div className="flex flex-col items-center justify-center h-screen my-auto">
         <div>
           <img src={Logo} alt="" />
@@ -70,7 +70,7 @@ const BusinessProfiles: React.FC = () => {
               {/* <BackButton text="Cancel" /> */}
             </div>
 
-            <div className="border-2 border-grey700 bg-grey700 rounded px-[24px] py-[13px] font-[600] text-[#ffffff]">
+            <div className="border-2 border-grey700 bg-grey700 rounded px-[24px] py-[13px] font-[600] text-white">
               <Link to="/">
                 <button className="">Save and continue</button>
               </Link>

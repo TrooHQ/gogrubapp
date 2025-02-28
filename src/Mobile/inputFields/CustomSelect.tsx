@@ -25,7 +25,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
     <div>
       <div className="relative">
         <select
-          className={`border-2 border-gray-300 p-2 focus:outline-[#5955B3] w-full rounded ${
+          className={`border-2 border-gray-300 p-2 focus:outline-purple500 w-full rounded ${
             bgColor ? bgColor : "bg-white"
           } ${error ? "border-red-500" : ""}`}
           value={value}

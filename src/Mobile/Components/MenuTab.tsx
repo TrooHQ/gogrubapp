@@ -57,7 +57,9 @@ const MenuTab: React.FC = () => {
     setSelectedImage(null);
   };
 
-  const selectedOutletID = useSelector((state: any) => state.outlet.selectedOutletID);
+  const selectedOutletID = useSelector(
+    (state: any) => state.outlet.selectedOutletID
+  );
 
   const getGroups = async () => {
     setLoading(true);
@@ -143,7 +145,7 @@ const MenuTab: React.FC = () => {
                 key={menu.name}
                 className={`pb-[8px] ${
                   selectedGroup === menu.name
-                    ? "border-b-[4px] border-b-[#E16B07] text-[#121212] text-[16px] flex items-center justify-center font-[500]"
+                    ? "border-b-[4px] border-b-[#E16B07] text-grey500 text-[16px] flex items-center justify-center font-[500]"
                     : "text-grey100 font-[400]"
                 }`}
                 onClick={() => setSelectedGroup(menu.name)}
@@ -183,7 +185,10 @@ const MenuTab: React.FC = () => {
                           </p>
                         </div>
                       </div>
-                      <div className="cursor-pointer" onClick={() => handleEditModal(menu)}>
+                      <div
+                        className="cursor-pointer"
+                        onClick={() => handleEditModal(menu)}
+                      >
                         <img src={EditIcon} alt="Edit" />
                       </div>
                     </div>
@@ -195,13 +200,18 @@ const MenuTab: React.FC = () => {
       </div>
       <Modal isOpen={editModal}>
         <div className="bg-white w-[300px] relative">
-          <div className="cursor-pointer absolute top-0 right-0" onClick={closeEditModal}>
+          <div
+            className="cursor-pointer absolute top-0 right-0"
+            onClick={closeEditModal}
+          >
             <img src={Close} alt="" />
           </div>
           <div className="pt-[16px]">
             {editItem && (
               <div className=" ">
-                <p className="text-[18px] font-[500] text-[#000000]">{editItem.menu_item_name}</p>
+                <p className="text-[18px] font-[500] text-[#000000]">
+                  {editItem.menu_item_name}
+                </p>
                 <div className="my-[22px] flex items-center gap-[8px]">
                   <img
                     src={selectedImage || editItem.menu_item_image}
@@ -212,7 +222,7 @@ const MenuTab: React.FC = () => {
                   <input
                     type="file"
                     onChange={handleFileChange}
-                    className="text-[14px] font-[400] text-[#5855B3]"
+                    className="text-[14px] font-[400] text-grey20"
                   />
                 </div>
                 <div className="mb-[26px] grid gap-[16px]">
@@ -233,8 +243,8 @@ const MenuTab: React.FC = () => {
                 {price && name && (
                   <div
                     className={`${
-                      loading ? "bg-[#B6B6B6] " : "bg-purple500"
-                    } text-[16px] font-[500] text-[#ffffff] border w-full text-center py-3 rounded cursor-pointer`}
+                      loading ? "bg-grey100 " : "bg-purple500"
+                    } text-[16px] font-[500] text-white border w-full text-center py-3 rounded cursor-pointer`}
                   >
                     <p>Save Table</p>
                   </div>

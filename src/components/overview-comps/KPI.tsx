@@ -23,12 +23,16 @@ const colors = [
 const KPI = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { topMenuItems, loading } = useSelector((state: RootState) => state.overview);
+  const { topMenuItems, loading } = useSelector(
+    (state: RootState) => state.overview
+  );
   console.log(topMenuItems, "topMenuItems");
   const { selectedBranch } = useSelector((state: any) => state.branches);
 
   useEffect(() => {
-    dispatch(fetchTopMenuItems({ date_filter: "today", branch_id: selectedBranch }));
+    dispatch(
+      fetchTopMenuItems({ date_filter: "today", branch_id: selectedBranch })
+    );
   }, [dispatch, selectedBranch]);
 
   return (
@@ -43,22 +47,28 @@ const KPI = () => {
         </div>
       ) : (
         <div className="overflow-auto whitespace-nowrap scrollbar-hide">
-          {topMenuItems?.data?.map((product: any, index: Key | null | undefined) => (
-            <div
-              key={index}
-              className="border border-[#C7C6CF] rounded-[10px] overflow-auto inline-block mr-4"
-            >
-              <div className="flex flex-col items-center gap-4 min-w-[200px] py-7 px-8">
-                <img
-                  src={product?._id?.menuItemImage}
-                  alt="product"
-                  className="w-[80px] h-[60px]"
-                />
-                <h6 className="text-[#201F44] font-medium">{product.menuItemName}</h6>
-                <p className="text-[#B2B1DC] text-sm">{product.totalQuantity} quantities sold</p>
+          {topMenuItems?.data?.map(
+            (product: any, index: Key | null | undefined) => (
+              <div
+                key={index}
+                className="border border-[#C7C6CF] rounded-[10px] overflow-auto inline-block mr-4"
+              >
+                <div className="flex flex-col items-center gap-4 min-w-[200px] py-7 px-8">
+                  <img
+                    src={product?._id?.menuItemImage}
+                    alt="product"
+                    className="w-[80px] h-[60px]"
+                  />
+                  <h6 className="text-[#201F44] font-medium">
+                    {product.menuItemName}
+                  </h6>
+                  <p className="text-purple200 text-sm">
+                    {product.totalQuantity} quantities sold
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          )}
         </div>
       )}
       {/* Pie chart component */}

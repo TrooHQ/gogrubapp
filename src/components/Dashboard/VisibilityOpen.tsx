@@ -23,7 +23,7 @@ const VisibilityOpen = ({ setIsVisibilityOpen }: any) => {
 
   return (
     <div className="p-6">
-      <h2 className="text-[#121212] text-2xl font-medium">Menu Visibility</h2>
+      <h2 className="text-grey500 text-2xl font-medium">Menu Visibility</h2>
       <p className="text-[#0d0d0d] text-base font-normal">
         Select where this menu is visible
       </p>
@@ -37,7 +37,7 @@ const VisibilityOpen = ({ setIsVisibilityOpen }: any) => {
             <input
               type="checkbox"
               id={rule.key}
-              className="h-6 w-6 border-[#87878780] checked:bg-[#5955B3]"
+              className="h-6 w-6 border-[#87878780] checked:bg-purple500"
               checked={modifierRules[rule.key] || false}
               onChange={() => handleRuleChange(rule.key)}
             />
@@ -62,7 +62,7 @@ const VisibilityOpen = ({ setIsVisibilityOpen }: any) => {
         </div>
 
         <div
-          className="border border-purple500 bg-purple500 rounded px-[24px] py-[10px] font-[500] text-[#ffffff]"
+          className="border border-purple500 bg-purple500 rounded px-[24px] py-[10px] font-[500] text-white"
           onClick={() => {
             // Handle the save functionality here
             setIsVisibilityOpen(false);
