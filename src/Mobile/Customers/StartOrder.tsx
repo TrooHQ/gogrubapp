@@ -53,7 +53,7 @@ const StartOrder = () => {
 
       getBusinessDetails();
     } else {
-      window.location.href = "https://gogrub.co";
+      navigate("https://gogrub.co");
     }
   }, [business_identifier, tableNo, group_name, navigate, branch, fullUrl]);
 
@@ -114,7 +114,7 @@ const StartOrder = () => {
       }`
     );
   } else if (!business_identifier || !tableNo || !comingFrom) {
-    window.location.href = "https://gogrub.co";
+    navigate("https://gogrub.co");
   }
 
   return (

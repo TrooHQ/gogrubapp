@@ -2,8 +2,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { FaCircleCheck } from "react-icons/fa6";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SuccessPage = () => {
+  const navigate = useNavigate();
   const collection_number = sessionStorage.getItem("collection_number");
 
   const url = sessionStorage.getItem("url");
@@ -14,7 +16,7 @@ const SuccessPage = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      window.location.href = `${url}`;
+      navigate(`${url}`);
     }, 10000);
   }, []);
 

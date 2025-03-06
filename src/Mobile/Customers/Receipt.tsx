@@ -2,6 +2,7 @@ import TopMenuNav from "./TopMenuNav";
 import html2canvas from "html2canvas";
 import dayjs from "dayjs";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface MenuItem {
   menu_item_name: string;
@@ -26,6 +27,7 @@ interface OrderDetails {
 }
 
 export const Receipt = () => {
+  const navigate = useNavigate();
   const receiptRef = useRef<HTMLDivElement>(null);
 
   const storedOrderDetails = sessionStorage.getItem("OrderDetails");
@@ -43,7 +45,7 @@ export const Receipt = () => {
       link.download = "receipt.png";
       link.click();
 
-      window.location.href = "/demo/get-receipt/orderandpay";
+      navigate("/demo/get-receipt/orderandpay");
     }
   };
   return (

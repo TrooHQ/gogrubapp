@@ -33,6 +33,9 @@ export const OnlineOrderingSelectPayment = () => {
 
   const totalPrice = basketDetails?.totalPrice ?? 0;
   const deliveryFee = basketDetails?.deliveryFee ?? 0;
+
+  console.log(deliveryFee);
+
   // const finalTotal = totalPrice;
 
   const config = {

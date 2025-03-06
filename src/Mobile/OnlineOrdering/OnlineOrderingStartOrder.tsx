@@ -8,6 +8,7 @@ import {
   setBusinessDetails,
   setURL,
   setBranchID,
+  setDeliveryDetails,
 } from "../../slices/businessSlice";
 import { RootState } from "../../store/store";
 import NotFound from "../NotFound";
@@ -58,6 +59,7 @@ const OnlineOrderingStartOrder = () => {
       );
 
       dispatch(setBusinessDetails(response.data.data));
+      dispatch(setDeliveryDetails(response.data.otherData));
     } catch (error) {
       console.error("Error getting Business Details:", error);
     }

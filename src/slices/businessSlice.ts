@@ -11,6 +11,36 @@ interface BusinessDetails {
   colour_scheme: string;
 }
 
+interface pickupDetails {
+  state: string;
+  address?: string;
+  _id: number;
+  support_link: string;
+}
+interface deliveryDetails {
+  state: string;
+  fixedPrice: number;
+  support_link?: string;
+  _id: number;
+}
+
+interface DeliveryDetails {
+  fixedPrice: number | null;
+  hasDeliveryDetails: boolean;
+  hadPickUpLocation: boolean;
+  canScheduledDelivery: boolean;
+  pickUpLoacation: pickupDetails | null;
+  deliveryDetails: deliveryDetails | null;
+  name: string;
+  id: number;
+  business_name?: string;
+  _id: number;
+  business_logo: string;
+  tableNumber: string;
+  URL: string;
+  colour_scheme: string;
+}
+
 interface BusinessState {
   _id: string | null;
   branchID: string | null;
@@ -20,6 +50,7 @@ interface BusinessState {
   URL: string;
   colour_scheme: string;
   businessDetails: BusinessDetails | null;
+  deliveryDetails: DeliveryDetails | null;
 }
 
 const initialState: BusinessState = {
@@ -30,6 +61,7 @@ const initialState: BusinessState = {
   tableNo: "",
   URL: "",
   businessDetails: null,
+  deliveryDetails: null,
   colour_scheme: "",
 };
 
@@ -56,12 +88,16 @@ const businessSlice = createSlice({
     setBusinessDetails(state, action: PayloadAction<BusinessDetails>) {
       state.businessDetails = action.payload;
     },
+    setDeliveryDetails(state, action: PayloadAction<DeliveryDetails>) {
+      state.deliveryDetails = action.payload;
+    },
     resetBusinessDetails(state) {
       state.businessIdentifier = initialState.businessIdentifier;
       state.branchID = initialState.branchID;
       state.groupName = initialState.groupName;
       state.tableNo = initialState.tableNo;
       state.businessDetails = initialState.businessDetails;
+      state.deliveryDetails = initialState.deliveryDetails;
     },
   },
 });
@@ -73,6 +109,7 @@ export const {
   setURL,
   setBranchID,
   setBusinessDetails,
+  setDeliveryDetails,
   resetBusinessDetails,
 } = businessSlice.actions;
 

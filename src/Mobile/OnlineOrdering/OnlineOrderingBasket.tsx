@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import Delivery from "../assets/delivery.svg";
 import Pickup from "../assets/pickup.svg";
+import pickupIcon from "../assets/ic_outline-delivery-dining.svg";
 import {
   clearBasket,
   removeItemFromBasket,
@@ -16,9 +17,9 @@ import {
 import { TiDelete } from "react-icons/ti";
 import MenuModal from "../Components/MenuModal";
 import Back from "../assets/Cancel.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HiMinusSm, HiPlusSm } from "react-icons/hi";
-import CustomSelect3 from "../inputFields/CustomSelect3";
+// import CustomSelect3 from "../inputFields/CustomSelect3";
 import RadioInput from "../inputFields/RadioInput";
 
 export const OnlineOrderingBasket = () => {
@@ -26,17 +27,19 @@ export const OnlineOrderingBasket = () => {
   const basketDetails = useSelector((state: RootState) => state.basket);
   const dispatch = useDispatch();
   const [deliveryModal, setDeliveryModal] = useState(false);
+  const [scheduleModal, setScheduleModal] = useState(false);
+  const [scheduleDelivery, setSheduleDelivery] = useState(true);
   const [pickupModal, setPickupModal] = useState(false);
   const [cancelModal, setCancelModal] = useState(false);
-
+  const [time, setTime] = useState("");
+  const [date, setDate] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
 
   const [userName, setUserName] = useState("");
   const [phone, setPhone] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
-  const [addressvalue, setAddressvalue] = useState("");
+  const [postCode, setPostCode] = useState("");
 
-  const DELIVERY_PRICE = 500;
   const handleDeliveryOptionChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -45,7 +48,7 @@ export const OnlineOrderingBasket = () => {
 
     if (value === "delivery") {
       // setPickupModal(true);
-      dispatch(setDeliveryFee(DELIVERY_PRICE));
+      dispatch(setDeliveryFee(DELIVERY_PRICE ?? null));
     } else if (value === "pickup") {
       // setDeliveryModal(true);
       dispatch(setDeliveryFee(0));
@@ -54,8 +57,12 @@ export const OnlineOrderingBasket = () => {
 
   const handleCloseDeliveryModal = () => {
     setDeliveryModal(false);
+    setScheduleModal(true);
     setPickupModal(false);
     setSelectedOption("");
+  };
+  const handleCloseScheduleModal = () => {
+    setScheduleModal(false);
   };
 
   const handleCancelModal = () => {
@@ -66,7 +73,28 @@ export const OnlineOrderingBasket = () => {
   // const handleOptionChange = (option: string) => {
   //   setSelectedAddress(option);
   // };
-  const options = ["Lekki", "Ikeja", "Ikoyi", "Yaba", "Lagos"];
+
+  const [options, setOptions] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (Array.isArray(deliveryDetails?.pickUpLoacation)) {
+      setOptions(
+        deliveryDetails.pickUpLoacation.map(
+          (location: { state: string }) => location.state
+        )
+      );
+    }
+  }, []);
+
+  const deliveryDetails = useSelector(
+    (state: RootState) => state.business?.deliveryDetails
+  );
+
+  const [addressvalue, setAddressvalue] = useState(
+    `${deliveryDetails?.deliveryDetails?.state}`
+  );
+
+  const DELIVERY_PRICE = deliveryDetails?.deliveryDetails?.fixedPrice;
 
   // const handleAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
   //   const addressLocation = event.target.value;
@@ -79,9 +107,16 @@ export const OnlineOrderingBasket = () => {
     dispatch(updateCustomerAddress(addressLocation));
   };
 
-  console.log(addressvalue);
-
   const handleAddressSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    {
+      deliveryDetails?.canScheduledDelivery === true
+        ? handleCloseDeliveryModal()
+        : navigate("/demo/payment-type/online_ordering");
+    }
+  };
+
+  const handleScheduleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     handleCloseDeliveryModal();
     navigate("/demo/payment-type/online_ordering");
@@ -253,45 +288,49 @@ export const OnlineOrderingBasket = () => {
                 Choose your pickup option
               </p>
               <div className="py-[25px] flex items-center border-b ">
-                <label className="flex items-center gap-[12px] pr-[24px] border-r cursor-pointer">
-                  <input
-                    type="radio"
-                    name="deliveryOption"
-                    value="pickup"
-                    checked={selectedOption === "pickup"}
-                    onChange={handleDeliveryOptionChange}
-                    className=""
-                  />
-                  <img src={Pickup} alt="Pickup" />
-                  <p
-                    className="font-[500] text-[16px] "
-                    style={{
-                      color: colorScheme || "#414141",
-                    }}
-                  >
-                    Pickup
-                  </p>
-                </label>
+                {deliveryDetails?.hadPickUpLocation === true && (
+                  <label className="flex items-center gap-[12px] pr-[24px] border-r cursor-pointer">
+                    <input
+                      type="radio"
+                      name="deliveryOption"
+                      value="pickup"
+                      checked={selectedOption === "pickup"}
+                      onChange={handleDeliveryOptionChange}
+                      className=""
+                    />
+                    <img src={Pickup} alt="Pickup" />
+                    <p
+                      className="font-[500] text-[16px] "
+                      style={{
+                        color: colorScheme || "#414141",
+                      }}
+                    >
+                      Pickup
+                    </p>
+                  </label>
+                )}
 
-                <label className="flex items-center gap-[12px] pl-[24px] cursor-pointer">
-                  <input
-                    type="radio"
-                    name="deliveryOption"
-                    value="delivery"
-                    checked={selectedOption === "delivery"}
-                    onChange={handleDeliveryOptionChange}
-                    className=""
-                  />
-                  <img src={Delivery} alt="Delivery" />
-                  <p
-                    className="font-[500] text-[16px] "
-                    style={{
-                      color: colorScheme || "#414141",
-                    }}
-                  >
-                    Delivery
-                  </p>
-                </label>
+                {deliveryDetails?.hasDeliveryDetails === true && (
+                  <label className="flex items-center gap-[12px] pl-[24px] cursor-pointer">
+                    <input
+                      type="radio"
+                      name="deliveryOption"
+                      value="delivery"
+                      checked={selectedOption === "delivery"}
+                      onChange={handleDeliveryOptionChange}
+                      className=""
+                    />
+                    <img src={Delivery} alt="Delivery" />
+                    <p
+                      className="font-[500] text-[16px] "
+                      style={{
+                        color: colorScheme || "#414141",
+                      }}
+                    >
+                      Delivery
+                    </p>
+                  </label>
+                )}
               </div>
             </div>
           </div>
@@ -368,12 +407,12 @@ export const OnlineOrderingBasket = () => {
         </form>
       </MenuModal>
 
-      <MenuModal isOpen={deliveryModal} onClose={handleCloseDeliveryModal}>
+      <MenuModal isOpen={deliveryModal} onClose={() => setDeliveryModal(false)}>
         <form action="" onSubmit={handleAddressSubmit}>
           <div className="w-full py-[32px] px-[16px] absolute bottom-0 bg-white rounded-tr-[20px] rounded-tl-[20px]">
             <div
               className=" cursor-pointer flex items-center justify-end"
-              onClick={handleCloseDeliveryModal}
+              onClick={() => setDeliveryModal(false)}
             >
               <img src={Back} alt="" />
             </div>
@@ -384,7 +423,7 @@ export const OnlineOrderingBasket = () => {
                   color: colorScheme || "#121212",
                 }}
               >
-                Enter your details
+                Please Enter your details
               </p>
 
               <div className="py-[25px] grid gap-[16px]">
@@ -407,7 +446,7 @@ export const OnlineOrderingBasket = () => {
                       setPhone(value);
                     }
                   }}
-                  placeholder="Phone Number"
+                  placeholder="WhatsApp Number"
                   className="bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-4 w-full"
                   inputMode="tel"
                 />
@@ -420,16 +459,39 @@ export const OnlineOrderingBasket = () => {
                   className={`bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-4 w-full `}
                 />
 
-                <CustomSelect3
-                  options={["Lekki", "Ikeja", "Ikoyi", "Yaba", "Lagos"]}
-                  placeholder="City"
+                <input
+                  type="text"
+                  id="name"
+                  value={deliveryDetails?.deliveryDetails?.state}
+                  placeholder="LGA"
+                  onChange={(e) => handleAddress(e.target.value)}
+                  className={`bg-transparent  placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-4 w-full `}
+                  readOnly
+                />
+
+                {/* <CustomSelect3
+                  options={
+                    deliveryDetails?.deliveryDetails?.state
+                      ? [deliveryDetails.deliveryDetails.state]
+                      : []
+                  }
+                  placeholder="LGA"
                   onSelect={handleAddress}
+                /> */}
+
+                <input
+                  type="text"
+                  id="name"
+                  value={postCode}
+                  onChange={(e) => setPostCode(e.target.value)}
+                  placeholder="Post Code (Optional)"
+                  className={`bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-4 w-full `}
                 />
               </div>
               <div className="mt-[24px] flex items-center justify-center gap-[16px]">
                 <p
                   className="cursor-pointer font-[500] border border-[#B11111] rounded-[5px] text-[16px] text-[#B11111] py-[10px] px-[24px]"
-                  onClick={handleCloseDeliveryModal}
+                  onClick={() => setDeliveryModal(false)}
                 >
                   Cancel
                 </p>
@@ -443,7 +505,94 @@ export const OnlineOrderingBasket = () => {
                     borderColor: colorScheme || "#11AE16",
                   }}
                 >
-                  Proceed to Pay
+                  Continue
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </MenuModal>
+
+      <MenuModal isOpen={scheduleModal} onClose={handleCloseDeliveryModal}>
+        <form action="" onSubmit={handleScheduleSubmit}>
+          <div className="w-full py-[32px] px-[16px] absolute bottom-0 bg-white rounded-tr-[20px] rounded-tl-[20px]">
+            <div className=" space-y-[44px]">
+              <div className=" border border-[#0D0D0D] p-[28px] rounded-[5px] flex  items-center">
+                <input
+                  type="checkbox"
+                  id="delivery"
+                  className="h-[16px] w-[16px] mr-[24px] border border-black checked:bg-black"
+                  checked={scheduleDelivery}
+                  onChange={() => setSheduleDelivery(!scheduleDelivery)}
+                />
+                <div className=" flex items-center gap-[10px]">
+                  <label
+                    htmlFor="delivery"
+                    className="text-[16px] font-[400] text-grey500"
+                  >
+                    Schedule Delivery
+                  </label>
+
+                  <img src={pickupIcon} alt="" />
+                </div>
+              </div>
+
+              <div className="py-[25px] grid gap-[16px]">
+                <p className=" font-[400] text-[12px] text-[#121212] font-GeneralSans">
+                  You can now schedule your order, your selected time is below
+                  and can be modified
+                </p>
+                <input
+                  type="date"
+                  id="date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  placeholder="Set Date"
+                  disabled={!scheduleDelivery}
+                  className={` ${
+                    !scheduleDelivery
+                      ? " placeholder:text-[#1212123D] text-[#1212123D]"
+                      : ""
+                  } bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-4 w-full 
+                    `}
+                />
+
+                <input
+                  type="time"
+                  id="time"
+                  value={time}
+                  onChange={(e) => setTime(e.target.value)}
+                  placeholder="Set Time"
+                  disabled={!scheduleDelivery}
+                  className={` ${
+                    !scheduleDelivery
+                      ? " placeholder:text-[#1212123D] text-[#1212123D]"
+                      : ""
+                  } bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-4 w-full `}
+                />
+              </div>
+              <div className="mt-[24px] flex items-center justify-center gap-[16px]">
+                <p
+                  className="cursor-pointer font-[500] border border-[#B11111] rounded-[5px] text-[16px] text-[#B11111] py-[10px] px-[24px]"
+                  onClick={handleCloseScheduleModal}
+                >
+                  Cancel
+                </p>
+
+                <button
+                  type="submit"
+                  disabled={
+                    !addressvalue ||
+                    (scheduleDelivery && !date) ||
+                    (scheduleDelivery && !time)
+                  }
+                  className=" font-[500] text-[16px] border  rounded-[5px]  text-white py-[10px] px-[24px]"
+                  style={{
+                    backgroundColor: colorScheme || "#11AE16",
+                    borderColor: colorScheme || "#11AE16",
+                  }}
+                >
+                  Continue
                 </button>
               </div>
             </div>
