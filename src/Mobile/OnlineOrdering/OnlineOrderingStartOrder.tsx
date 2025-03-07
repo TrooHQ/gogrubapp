@@ -13,8 +13,8 @@ import {
 import { RootState } from "../../store/store";
 import NotFound from "../NotFound";
 import Logo from "../assets/goGrubLOGO.svg";
-import Sample1 from "../assets/sampleImage.svg";
-import Sample2 from "../assets/sampleImage1.svg";
+import Sample1 from "../assets/sampleImage.png";
+import Sample2 from "../assets/sampleImage1.png";
 
 const OnlineOrderingStartOrder = () => {
   const location = useLocation();
