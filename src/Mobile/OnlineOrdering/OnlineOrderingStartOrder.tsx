@@ -77,7 +77,7 @@ const OnlineOrderingStartOrder = () => {
 
   return (
     <div
-      className={`mx-[22px] relative mt-[40px]`}
+      className={`mx-[22px] relative mt-[100px]`}
       style={{ color: color || "#606060" }}
     >
       <div className="flex flex-col items-center justify-center  ">
