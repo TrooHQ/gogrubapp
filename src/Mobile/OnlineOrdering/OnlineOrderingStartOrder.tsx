@@ -77,21 +77,19 @@ const OnlineOrderingStartOrder = () => {
 
   return (
     <div
-      className={`mx-[22px] relative `}
+      className={`mx-[22px] relative mt-[40px]`}
       style={{ color: color || "#606060" }}
     >
-      <div className="flex flex-col items-center justify-center ">
-        <div className="mb-[10px] max-w-[200px] h-[200px]">
+      <div className="flex flex-col items-center justify-center  space-y-[15px]">
+        <div className=" max-w-[100px] h-[100px]">
           <img
             src={businessDetails?.business_logo}
             alt=""
             className=" w-full object-cover h-full"
           />
         </div>
-        <p className=" font-[400] text-[18px] text-center">
-          You’re Welcome to{" "}
-          <span className="font-bold">{businessDetails?.business_name}</span>{" "}
-          Page
+        <p className=" font-[400] font-GeneralSans text-[18px] text-center text-[#000000]">
+          {businessDetails?.business_name}{" "}
         </p>
         <p className="mt-[24px] text-[16px] font-[400] text-center">
           Food ready in <span className="font-[600]">8-13 minutes</span> after

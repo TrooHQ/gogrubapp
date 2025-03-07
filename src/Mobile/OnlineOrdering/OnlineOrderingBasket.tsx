@@ -547,12 +547,13 @@ export const OnlineOrderingBasket = () => {
                   onChange={(e) => setDate(e.target.value)}
                   placeholder="Set Date"
                   disabled={!scheduleDelivery}
+                  min={new Date().toISOString().split("T")[0]}
                   className={` ${
                     !scheduleDelivery
                       ? " placeholder:text-[#1212123D] text-[#1212123D]"
                       : ""
                   } bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-4 w-full 
-                    `}
+                  `}
                 />
 
                 <input

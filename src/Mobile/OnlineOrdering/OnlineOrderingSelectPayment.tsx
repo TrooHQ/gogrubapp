@@ -58,7 +58,7 @@ export const OnlineOrderingSelectPayment = () => {
   }));
   const payload = {
     is_paid: "true",
-    channel: "online-ordering",
+    channel: "GoGrub",
     branch_id: branchId,
     businessIdentifier: business?.businessIdentifier,
     customerName: basketDetails.customerName,
