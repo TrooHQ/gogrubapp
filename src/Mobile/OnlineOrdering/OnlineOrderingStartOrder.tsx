@@ -80,28 +80,30 @@ const OnlineOrderingStartOrder = () => {
       className={`mx-[22px] relative mt-[40px]`}
       style={{ color: color || "#606060" }}
     >
-      <div className="flex flex-col items-center justify-center  space-y-[15px]">
-        <div className=" max-w-[100px] h-[100px]">
-          <img
-            src={businessDetails?.business_logo}
-            alt=""
-            className=" w-full object-cover h-full"
-          />
+      <div className="flex flex-col items-center justify-center  ">
+        <div className=" space-y-[8px]">
+          <div className=" max-w-[100px] h-[100px]">
+            <img
+              src={businessDetails?.business_logo}
+              alt=""
+              className=" w-full object-cover h-full"
+            />
+          </div>
+          <p className=" font-[400] font-GeneralSans text-[18px] text-center text-[#000000]">
+            {businessDetails?.business_name}{" "}
+          </p>
         </div>
-        <p className=" font-[400] font-GeneralSans text-[18px] text-center text-[#000000]">
-          {businessDetails?.business_name}{" "}
-        </p>
-        <p className="mt-[24px] text-[16px] font-[400] text-center">
+        <p className="my-[34px] text-[16px] font-[400] text-center">
           Food ready in <span className="font-[600]">8-13 minutes</span> after
           placing order
         </p>
 
-        <div className="mt-[40px] flex flex-col items-center justify-center">
+        <div className=" flex flex-col items-center justify-center">
           <Link
             to={`/demo/${businessDetails?.business_name}/items/online_ordering`}
           >
             <p
-              className="cursor-pointer text-white px-[40px] py-[10px] rounded-[5px] font-[500] inline"
+              className="cursor-pointer text-white px-[40px] py-[10px] rounded-[5px] font-[500] inline "
               style={{ backgroundColor: color || "#606060" }}
             >
               Start Your Order
