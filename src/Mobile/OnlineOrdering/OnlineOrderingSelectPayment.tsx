@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
-// import { clearBasket } from "../../slices/BasketSlice";
 import axios from "axios";
 import { PAYMENT_DOMAIN, SERVER_DOMAIN } from "../../Api/Api";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,26 +16,17 @@ export const OnlineOrderingSelectPayment = () => {
   const storedOrderID = sessionStorage.getItem("OrderDetails");
   const storedOrderDetails = storedOrderID ? JSON.parse(storedOrderID) : null;
 
-  storedOrderID && console.log(storedOrderDetails._id);
-
   const [loading, setLoading] = useState<boolean>(false);
-  // const [paymentResponse, setPaymentResponse] = useState<any>(null);
 
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
 
   const basketDetails = useSelector((state: RootState) => state.basket);
-  // const details = useSelector((state: RootState) => state);
 
   const business = useSelector((state: RootState) => state.business);
   const branchId = useSelector((state: RootState) => state.business?.branchID);
 
   const totalPrice = basketDetails?.totalPrice ?? 0;
   const deliveryFee = basketDetails?.deliveryFee ?? 0;
-
-  console.log(deliveryFee);
-
-  // const finalTotal = totalPrice;
 
   const config = {
     reference: new Date().getTime().toString(),
@@ -74,11 +64,21 @@ export const OnlineOrderingSelectPayment = () => {
     customerName: basketDetails.customerName,
     ordered_by: basketDetails.customerName || "User",
     customerTableNumber: business?.tableNo,
+    customerData: {
+      email: "trooEmails@gmail",
+      phoneNumber: basketDetails.customerPhone,
+      customerName: basketDetails.customerName,
+      address: basketDetails.cutomerStreetAddress,
+    },
     items: items,
     menu_items: items,
     total_price: basketDetails.totalPrice,
     totalPrice: basketDetails.totalPrice,
     totalQuantity: basketDetails.totalQuantity,
+    isScheduledOrder: basketDetails.deliveryDate ? true : false,
+    scheduledDate: basketDetails?.deliveryDate
+      ? new Date(basketDetails.deliveryDate).toLocaleDateString("en-GB")
+      : null,
   };
 
   const colorScheme = useSelector(
@@ -86,17 +86,13 @@ export const OnlineOrderingSelectPayment = () => {
   );
 
   const onSuccess = async (reference: { reference: string }) => {
-    console.log("onSuccess function called");
     try {
       setLoading(true);
-      console.log("Payment Reference:", reference);
 
       const response = await axios.post(
         `${PAYMENT_DOMAIN}/transaction/confirm_paystack_transaction/`,
         { reference: reference.reference }
       );
-
-      console.log(response);
 
       if (response.data.success) {
         toast.success("Payment Successful!");
@@ -105,7 +101,6 @@ export const OnlineOrderingSelectPayment = () => {
           JSON.stringify(response.data.data)
         );
 
-        // navigate(`/payment-success?reference=${reference.reference}`);
         navigate(`/demo/receipt/online_ordering/${storedOrderDetails._id}`);
       } else {
         toast.error("Payment verification failed. Contact support.");
@@ -122,13 +117,11 @@ export const OnlineOrderingSelectPayment = () => {
 
   const onClose = () => {
     toast.info("Payment process was cancelled.");
-    console.log("close");
   };
 
   const handlePayment = async () => {
     try {
       setLoading(true);
-      console.log("Initiating payment...");
 
       const response = await axios.post(
         `${SERVER_DOMAIN}/order/uploadBranchUserOrder`,
@@ -139,8 +132,6 @@ export const OnlineOrderingSelectPayment = () => {
         "OrderDetails",
         JSON.stringify(response.data.data)
       );
-
-      console.log("Order uploaded, calling Paystack...");
 
       initializePayment({ onSuccess, onClose });
     } catch (error) {

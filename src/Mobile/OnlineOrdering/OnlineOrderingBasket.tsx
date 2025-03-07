@@ -12,6 +12,8 @@ import {
   setDeliveryFee,
   updateCustomerAddress,
   updateCustomerDetails,
+  updateCustomerName,
+  updateDeliveryDetails,
   updateItemQuantity,
 } from "../../slices/BasketSlice";
 import { TiDelete } from "react-icons/ti";
@@ -19,7 +21,6 @@ import MenuModal from "../Components/MenuModal";
 import Back from "../assets/Cancel.svg";
 import { useEffect, useState } from "react";
 import { HiMinusSm, HiPlusSm } from "react-icons/hi";
-// import CustomSelect3 from "../inputFields/CustomSelect3";
 import RadioInput from "../inputFields/RadioInput";
 
 export const OnlineOrderingBasket = () => {
@@ -36,6 +37,10 @@ export const OnlineOrderingBasket = () => {
   const [selectedOption, setSelectedOption] = useState("");
 
   const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    dispatch(updateCustomerName(userName));
+  }, [userName, dispatch]);
   const [phone, setPhone] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [postCode, setPostCode] = useState("");
@@ -47,10 +52,8 @@ export const OnlineOrderingBasket = () => {
     setSelectedOption(value);
 
     if (value === "delivery") {
-      // setPickupModal(true);
       dispatch(setDeliveryFee(DELIVERY_PRICE ?? null));
     } else if (value === "pickup") {
-      // setDeliveryModal(true);
       dispatch(setDeliveryFee(0));
     }
   };
@@ -69,10 +72,6 @@ export const OnlineOrderingBasket = () => {
     setCancelModal(false);
     dispatch(clearBasket());
   };
-
-  // const handleOptionChange = (option: string) => {
-  //   setSelectedAddress(option);
-  // };
 
   const [options, setOptions] = useState<string[]>([]);
 
@@ -96,12 +95,6 @@ export const OnlineOrderingBasket = () => {
 
   const DELIVERY_PRICE = deliveryDetails?.deliveryDetails?.fixedPrice;
 
-  // const handleAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const addressLocation = event.target.value;
-  //   setAddressvalue(addressLocation);
-  //   dispatch(updateCustomerAddress(addressLocation));
-  // };
-
   const handleAddress = (addressLocation: string) => {
     setAddressvalue(addressLocation);
     dispatch(updateCustomerAddress(addressLocation));
@@ -109,8 +102,10 @@ export const OnlineOrderingBasket = () => {
 
   const handleAddressSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    dispatch(updateCustomerDetails({ name: userName, phone, streetAddress }));
+
     {
-      deliveryDetails?.canScheduledDelivery === true
+      deliveryDetails?.canScheduledDelivery === false
         ? handleCloseDeliveryModal()
         : navigate("/demo/payment-type/online_ordering");
     }
@@ -118,6 +113,8 @@ export const OnlineOrderingBasket = () => {
 
   const handleScheduleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    dispatch(updateDeliveryDetails({ time, date }));
+
     handleCloseDeliveryModal();
     navigate("/demo/payment-type/online_ordering");
   };
@@ -125,6 +122,7 @@ export const OnlineOrderingBasket = () => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     dispatch(updateCustomerDetails({ name: userName, phone, streetAddress }));
+
     handleCloseDeliveryModal();
     navigate("/demo/payment-type/online_ordering");
   };
@@ -605,7 +603,7 @@ export const OnlineOrderingBasket = () => {
           <div className="w-full py-[32px] px-[16px] absolute bottom-0 bg-white rounded-tr-[20px] rounded-tl-[20px]">
             <div
               className=" cursor-pointer flex items-center justify-end"
-              onClick={handleCloseDeliveryModal}
+              onClick={() => setPickupModal(false)}
             >
               <img src={Back} alt="" />
             </div>

@@ -16,6 +16,7 @@ export interface Option {
   label?: string;
   value?: string;
 }
+
 interface MenuItem {
   _id: string;
   id?: string;
@@ -32,10 +33,19 @@ interface MenuItem {
 }
 
 interface CustomerDetailsUpdate {
+  email?: string;
   name?: string;
   phone?: string;
+  postalCode?: string;
   streetAddress?: string;
+  state?: string;
+  postCode?: string;
   town?: string;
+}
+
+interface DeliveryDetailsUpdate {
+  date?: string;
+  time?: string;
 }
 
 export interface BasketItem {
@@ -54,6 +64,8 @@ interface BasketState {
   customerName: string;
   customerPhone: string;
   cutomerStreetAddress: string;
+  deliveryTime: string;
+  deliveryDate: string;
   cutomerTown: string;
   customerTableNumber: string;
   totalQuantity: number;
@@ -67,6 +79,8 @@ const initialState: BasketState = {
   totalPrice: 0,
   customerName: "",
   cutomerStreetAddress: "",
+  deliveryTime: "",
+  deliveryDate: "",
   cutomerTown: "",
   customerTableNumber: "",
   totalQuantity: 0,
@@ -144,6 +158,11 @@ const BasketSlice = createSlice({
       if (town !== undefined) state.cutomerTown = town;
     },
 
+    updateDeliveryDetails(state, action: PayloadAction<DeliveryDetailsUpdate>) {
+      const { time, date } = action.payload;
+      if (time !== undefined) state.deliveryTime = time;
+      if (date !== undefined) state.deliveryDate = date;
+    },
     updateCustomerAddress(state, action: PayloadAction<string>) {
       state.cutomerStreetAddress = action.payload;
       state.cutomerTown = action.payload;
@@ -207,6 +226,7 @@ export const {
   updateCustomerTableNumber,
   updateCustomerAddress,
   updateCustomerDetails,
+  updateDeliveryDetails,
   updateItemQuantity,
   updateItemInBasket,
   setTip,
