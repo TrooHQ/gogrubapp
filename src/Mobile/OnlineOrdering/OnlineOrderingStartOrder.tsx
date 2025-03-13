@@ -13,8 +13,7 @@ import {
 import { RootState } from "../../store/store";
 import NotFound from "../NotFound";
 import Logo from "../assets/goGrubLOGO.svg";
-import Sample1 from "../assets/sampleImage.png";
-import Sample2 from "../assets/sampleImage1.png";
+import Bg from "../assets/image_Bck.png";
 
 const OnlineOrderingStartOrder = () => {
   const location = useLocation();
@@ -77,40 +76,44 @@ const OnlineOrderingStartOrder = () => {
 
   return (
     <div
-      className={`mx-[22px] relative mt-[100px]`}
+      className={`  relative mt-[70px]`}
       style={{ color: color || "#606060" }}
     >
-      <div className="flex flex-col items-center justify-center  ">
-        <div className=" space-y-[8px]">
-          <div className=" max-w-[100px] h-[100px]">
+      <div className="flex flex-col items-center justify-center ">
+        <div className=" space-y-[8px] mb-[10px]">
+          <p className=" font-[400] font-GeneralSans text-[18px] text-center text-[#000000]">
+            {businessDetails?.business_name}{" "}
+          </p>
+          <div className=" max-w-[100px] h-[100px] rounded overflow-hidden">
             <img
               src={businessDetails?.business_logo}
               alt=""
               className=" w-full object-cover h-full"
             />
           </div>
-          <p className=" font-[400] font-GeneralSans text-[18px] text-center text-[#000000]">
-            {businessDetails?.business_name}{" "}
-          </p>
         </div>
-        <p className="my-[34px] text-[16px] font-[400] text-center">
-          Food ready in <span className="font-[600]">8-13 minutes</span> after
-          placing order
-        </p>
+
+        <div className="relative flex flex-col items-center w-full">
+          <p className=" px-[42px] my-[34px] text-[18px] font-[400] text-center absolute top-[20px] text-[#FFFFFF] ">
+            Food ready in <span className="font-[600]">8-13 minutes</span> after
+            placing order
+          </p>
+          <img src={Bg} alt="Bg-Image" className="w-full object-cover" />
+        </div>
 
         <div className=" flex flex-col items-center justify-center">
           <Link
             to={`/demo/${businessDetails?.business_name}/items/online_ordering`}
           >
             <p
-              className="cursor-pointer text-white px-[40px] py-[10px] rounded-[5px] font-[500] inline "
+              className="cursor-pointer text-white px-[22px] py-[10px] rounded-[5px] font-[500] inline "
               style={{ backgroundColor: color || "#606060" }}
             >
               Start Your Order
             </p>
           </Link>
 
-          <p className=" font-[400] text-center text-[12px] mt-[32px]">
+          <p className=" font-[400] text-center text-[12px] mt-[32px] max-w-[296px] mx-auto">
             By clicking “Start Your Order” you agree to our{" "}
             <a href="">
               <span
@@ -125,12 +128,7 @@ const OnlineOrderingStartOrder = () => {
         </div>
       </div>
 
-      <div className="fixed bottom-[5px] inset-x-0 -z-20 flex justify-between items-end mt-[20px]">
-        <img src={Sample2} alt="" className="-ml-0" />
-        <img src={Sample1} alt="" className="-mr-0" />
-      </div>
-
-      <div className="fixed bottom-[20px] inset-x-0 flex justify-center">
+      <div className="my-[20px] inset-x-0 flex justify-center">
         <div className="flex flex-wrap items-center gap-[2px] mt-[32px]">
           <p className="font-[400] text-center text-[12px] text-[#000000]">
             Powered By
