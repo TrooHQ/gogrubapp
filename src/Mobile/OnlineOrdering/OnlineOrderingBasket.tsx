@@ -601,7 +601,10 @@ export const OnlineOrderingBasket = () => {
         </form>
       </MenuModal>
 
-      <MenuModal isOpen={pickupModal} onClose={handleCloseDeliveryModal}>
+      <MenuModal
+        isOpen={pickupModal}
+        onClose={() => () => setPickupModal(false)}
+      >
         <form action="" onSubmit={handleSubmit}>
           <div className="w-full py-[32px] px-[16px] absolute bottom-0 bg-white rounded-tr-[20px] rounded-tl-[20px]">
             <div
@@ -632,7 +635,7 @@ export const OnlineOrderingBasket = () => {
               <div className="mt-[24px] flex items-center justify-center gap-[16px]">
                 <p
                   className="cursor-pointer font-[500] border border-[#B11111] rounded-[5px] text-[16px] text-[#B11111] py-[10px] px-[24px]"
-                  onClick={handleCloseDeliveryModal}
+                  onClick={() => setPickupModal(false)}
                 >
                   Cancel
                 </p>
