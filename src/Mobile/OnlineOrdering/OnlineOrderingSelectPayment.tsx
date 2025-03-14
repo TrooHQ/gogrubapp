@@ -23,6 +23,8 @@ export const OnlineOrderingSelectPayment = () => {
   const basketDetails = useSelector((state: RootState) => state.basket);
 
   const business = useSelector((state: RootState) => state.business);
+  console.log(basketDetails);
+
   const branchId = useSelector((state: RootState) => state.business?.branchID);
 
   const totalPrice = basketDetails?.totalPrice ?? 0;
@@ -65,10 +67,10 @@ export const OnlineOrderingSelectPayment = () => {
     ordered_by: basketDetails.customerName || "User",
     customerTableNumber: business?.tableNo,
     customerData: {
-      email: "trooEmails@gmail",
+      email: "",
       phoneNumber: basketDetails.customerPhone,
       customerName: basketDetails.customerName,
-      address: basketDetails.cutomerStreetAddress,
+      address: basketDetails.cutomerStreetAddress ?? basketDetails.cutomerTown,
     },
     items: items,
     menu_items: items,

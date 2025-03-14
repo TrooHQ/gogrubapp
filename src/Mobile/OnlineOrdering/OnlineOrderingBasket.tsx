@@ -11,6 +11,7 @@ import {
   removeItemFromBasket,
   setDeliveryFee,
   updateCustomerAddress,
+  // updateCustomerAddress,
   updateCustomerDetails,
   updateCustomerName,
   updateDeliveryDetails,
@@ -35,21 +36,32 @@ export const OnlineOrderingBasket = () => {
   const [time, setTime] = useState("");
   const [date, setDate] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
-
+  const [isFormValid, setIsFormValid] = useState(false);
   const [userName, setUserName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
+  const [postCode, setPostCode] = useState("");
 
   useEffect(() => {
     dispatch(updateCustomerName(userName));
   }, [userName, dispatch]);
-  const [phone, setPhone] = useState("");
-  const [streetAddress, setStreetAddress] = useState("");
-  const [postCode, setPostCode] = useState("");
+
+  useEffect(() => {
+    setIsFormValid(
+      userName.trim() !== "" &&
+        phone.trim() !== "" &&
+        streetAddress.trim() !== ""
+    );
+  }, [userName, phone, streetAddress]);
 
   const handleDeliveryOptionChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const value = event.target.value;
     setSelectedOption(value);
+
+    dispatch(updateCustomerDetails({ name: "", phone: "", streetAddress: "" }));
+    dispatch(updateCustomerAddress(""));
 
     if (value === "delivery") {
       dispatch(setDeliveryFee(DELIVERY_PRICE ?? null));
@@ -79,7 +91,7 @@ export const OnlineOrderingBasket = () => {
     if (Array.isArray(deliveryDetails?.pickUpLoacation)) {
       setOptions(
         deliveryDetails.pickUpLoacation.map(
-          (location: { state: string }) => location.state
+          (location: { address: string }) => location.address
         )
       );
     }
@@ -102,6 +114,7 @@ export const OnlineOrderingBasket = () => {
 
   const handleAddressSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    if (!isFormValid) return;
     dispatch(updateCustomerDetails({ name: userName, phone, streetAddress }));
 
     {
@@ -369,40 +382,38 @@ export const OnlineOrderingBasket = () => {
       )}
 
       <MenuModal isOpen={cancelModal} onClose={() => setCancelModal(false)}>
-        <form action="" onSubmit={handleAddressSubmit}>
-          <div className="w-full py-[32px] px-[16px] absolute bottom-0 bg-white rounded-tr-[20px] rounded-tl-[20px]">
-            <div>
+        <div className="w-full py-[32px] px-[16px] absolute bottom-0 bg-white rounded-tr-[20px] rounded-tl-[20px]">
+          <div>
+            <p
+              className=" text-center text-[18px] font-[500]"
+              style={{
+                color: colorScheme || "#121212",
+              }}
+            >
+              Are you sure you want to cancel this order?
+            </p>
+
+            <div className="mt-[44px] flex items-center justify-center gap-[16px]">
               <p
-                className=" text-center text-[18px] font-[500]"
-                style={{
-                  color: colorScheme || "#121212",
-                }}
+                className=" w-full text-center cursor-pointer font-[500] border border-[#B11111] rounded-[5px] text-[16px] text-[#B11111] py-[10px] px-[24px]"
+                onClick={handleCancelModal}
               >
-                Are you sure you want to cancel this order?
+                Yes
               </p>
 
-              <div className="mt-[44px] flex items-center justify-center gap-[16px]">
-                <p
-                  className=" w-full text-center cursor-pointer font-[500] border border-[#B11111] rounded-[5px] text-[16px] text-[#B11111] py-[10px] px-[24px]"
-                  onClick={handleCancelModal}
-                >
-                  Yes
-                </p>
-
-                <button
-                  onClick={() => setCancelModal(false)}
-                  className="text-center w-full font-[500] text-[16px] border  rounded-[5px]  text-white py-[10px] px-[24px]"
-                  style={{
-                    backgroundColor: colorScheme || "#11AE16",
-                    borderColor: colorScheme || "#11AE16",
-                  }}
-                >
-                  No
-                </button>
-              </div>
+              <button
+                onClick={() => setCancelModal(false)}
+                className="text-center w-full font-[500] text-[16px] border  rounded-[5px]  text-white py-[10px] px-[24px]"
+                style={{
+                  backgroundColor: colorScheme || "#11AE16",
+                  borderColor: colorScheme || "#11AE16",
+                }}
+              >
+                No
+              </button>
             </div>
           </div>
-        </form>
+        </div>
       </MenuModal>
 
       <MenuModal isOpen={deliveryModal} onClose={() => setDeliveryModal(false)}>
@@ -467,16 +478,6 @@ export const OnlineOrderingBasket = () => {
                   readOnly
                 />
 
-                {/* <CustomSelect3
-                  options={
-                    deliveryDetails?.deliveryDetails?.state
-                      ? [deliveryDetails.deliveryDetails.state]
-                      : []
-                  }
-                  placeholder="LGA"
-                  onSelect={handleAddress}
-                /> */}
-
                 <input
                   type="text"
                   id="name"
@@ -496,7 +497,8 @@ export const OnlineOrderingBasket = () => {
 
                 <button
                   type="submit"
-                  disabled={!addressvalue}
+                  // disabled={!addressvalue}
+                  disabled={!isFormValid}
                   className=" font-[500] text-[16px] border  rounded-[5px]  text-white py-[10px] px-[24px]"
                   style={{
                     backgroundColor: colorScheme || "#11AE16",

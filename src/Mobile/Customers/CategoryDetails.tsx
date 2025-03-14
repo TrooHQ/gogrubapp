@@ -21,6 +21,7 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { HiMinusSm, HiPlusSm } from "react-icons/hi";
 
 interface MenuItem {
+  is_frozen: boolean;
   _id: string;
   menu_item_name: string;
   menu_group_name: string;
@@ -33,6 +34,7 @@ interface MenuItem {
 }
 
 interface Details extends MenuItem {
+  is_frozen: boolean;
   name: string;
   _id: string;
   business_name: string;
@@ -65,8 +67,10 @@ export const CategoryDetails = () => {
   };
   const filteredMenuItems =
     selectedGroup === "All"
-      ? menuItems
-      : menuItems.filter((menu) => menu.menu_group_name === selectedGroup);
+      ? menuItems.filter((menu) => !menu.is_frozen)
+      : menuItems.filter(
+          (menu) => menu.menu_group_name === selectedGroup && !menu.is_frozen
+        );
 
   const groupedMenuItems: GroupedMenuItems = filteredMenuItems.reduce(
     (acc: GroupedMenuItems, item: MenuItem) => {
@@ -143,7 +147,9 @@ export const CategoryDetails = () => {
         `${SERVER_DOMAIN}/menu/getAllMenuItem/?business_identifier=${business_identifier}&branch=${branchId}`,
         headers
       );
-      setMenuItems(response?.data?.data);
+      setMenuItems(
+        response?.data?.data?.filter((menu: MenuItem) => !menu.is_frozen) || []
+      );
     } catch (error) {
       console.error("Error getting Menu Items:", error);
     } finally {
