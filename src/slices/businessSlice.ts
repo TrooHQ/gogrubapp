@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface BusinessDetails {
+  orderingDescription: string;
+  orderingInstruction: string;
   name: string;
   id: number;
   business_name?: string;
