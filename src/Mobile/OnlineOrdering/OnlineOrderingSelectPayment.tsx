@@ -58,6 +58,7 @@ export const OnlineOrderingSelectPayment = () => {
     })),
     tableNumber: item.tableNumber,
   }));
+
   const payload = {
     is_paid: "true",
     channel: "GoGrub",

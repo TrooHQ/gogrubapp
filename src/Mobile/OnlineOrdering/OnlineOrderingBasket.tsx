@@ -279,7 +279,7 @@ export const OnlineOrderingBasket = () => {
                   color: colorScheme || "#121212",
                 }}
               >
-                &#x20A6;{basketDetails?.totalPrice}
+                &#x20A6;{basketDetails?.totalPrice.toLocaleString()}
               </p>
             </div>
           </div>
