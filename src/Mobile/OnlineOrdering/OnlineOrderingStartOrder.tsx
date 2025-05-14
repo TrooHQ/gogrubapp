@@ -94,11 +94,11 @@ const OnlineOrderingStartOrder = () => {
         </div>
 
         <div className="relative flex flex-col items-center w-full space-y-[10px]">
-          <p className=" px-[42px] my-[34px] text-[18px] font-[400] text-center absolute top-[20px] text-[#FFFFFF] ">
+          <p className=" capitalize px-[42px] my-[34px] text-[18px] font-[400] text-center absolute top-[20px] text-[#FFFFFF] ">
             {businessDetails?.orderingDescription}
           </p>
 
-          <p className=" px-[42px] my-[34px] text-[18px] font-[400] text-center absolute top-[20px] text-[#FFFFFF] ">
+          <p className=" capitalize px-[42px] my-[34px] text-[18px] font-[400] text-center absolute top-[20px] text-[#FFFFFF] ">
             {businessDetails?.orderingInstruction}
             {/* Food ready in <span className="font-[600]">8-13 minutes</span> after
             placing order */}
