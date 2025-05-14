@@ -95,7 +95,7 @@ const OnlineOrderingMenuDetails = () => {
     (state: RootState) => state.basket.items
   ) as BasketItem[];
 
-  const businessIdentifier = userDetails?._id;
+  const businessIdentifier = userDetails?.uniqueIdentifier;
   const branchId = useSelector((state: RootState) => state.business?.branchID);
 
   const handleCheckboxChange = (option: Modifier) => {

@@ -19,7 +19,7 @@ export const OnlineOrderingMenuPage = () => {
     (state: RootState) => state.business?.businessDetails
   );
 
-  const business_identifier = businessDetails?._id;
+  const business_identifier = businessDetails?.uniqueIdentifier;
   const business_name = businessDetails?.business_name;
 
   const getCategories = async () => {

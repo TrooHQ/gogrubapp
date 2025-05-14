@@ -64,7 +64,7 @@ export const OnlineOrderingSelectPayment = () => {
     // channel: "GoGrub",
     channel: "Online",
     branch_id: branchId,
-    businessIdentifier: business?.businessIdentifier,
+    businessIdentifier: business?.businessDetails?.uniqueIdentifier,
     customerName: basketDetails.customerName,
     ordered_by: basketDetails.customerName || "User",
     customerTableNumber: business?.tableNo,

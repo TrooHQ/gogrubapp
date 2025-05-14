@@ -143,7 +143,7 @@ export const OnlineOrderingCategoryDetails = () => {
 
   const branchId = useSelector((state: RootState) => state.business?.branchID);
 
-  const business_identifier = businessDetails?._id;
+  const business_identifier = businessDetails?.uniqueIdentifier;
 
   const getItems = async () => {
     setLoading(true);
