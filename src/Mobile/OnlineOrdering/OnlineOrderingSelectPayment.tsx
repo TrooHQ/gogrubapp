@@ -61,7 +61,8 @@ export const OnlineOrderingSelectPayment = () => {
 
   const payload = {
     is_paid: "true",
-    channel: "GoGrub",
+    // channel: "GoGrub",
+    channel: "Online",
     branch_id: branchId,
     businessIdentifier: business?.businessIdentifier,
     customerName: basketDetails.customerName,
@@ -127,7 +128,7 @@ export const OnlineOrderingSelectPayment = () => {
       setLoading(true);
 
       const response = await axios.post(
-        `${SERVER_DOMAIN}/order/uploadBranchUserOrder`,
+        `${SERVER_DOMAIN}/order/uploadGogrubBranchUserOrder`,
         payload
       );
 

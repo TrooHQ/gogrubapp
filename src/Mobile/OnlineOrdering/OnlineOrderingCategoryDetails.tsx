@@ -154,7 +154,7 @@ export const OnlineOrderingCategoryDetails = () => {
     };
     try {
       const response = await axios.get(
-        `${SERVER_DOMAIN}/menu/getAllMenuItem/?business_identifier=${business_identifier}&branch=${branchId}`,
+        `${SERVER_DOMAIN}/menu/getAllGogrubMenuItem/?business_identifier=${business_identifier}&branch=${branchId}`,
         headers
       );
       setMenuItems(

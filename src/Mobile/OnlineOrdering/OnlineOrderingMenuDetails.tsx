@@ -127,7 +127,7 @@ const OnlineOrderingMenuDetails = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `${SERVER_DOMAIN}/menu/getMenuItemByID/?business_identifier=${businessIdentifier}&menu_item_id=${id}`
+        `${SERVER_DOMAIN}/menu/getGogrubMenuItemByID/?business_identifier=${businessIdentifier}&menu_item_id=${id}`
       );
       setMenuItem(response.data.data);
     } catch (error) {
@@ -141,7 +141,7 @@ const OnlineOrderingMenuDetails = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `${SERVER_DOMAIN}/menu/getbusinessMenuModifierGroupByItem/?business_identifier=${businessIdentifier}&attach_to=item&name=${menuItem?.menu_item_name}&branch=${branchId}`
+        `${SERVER_DOMAIN}/menu/getgorGrubBusinessMenuModifierGroupByItem/?business_identifier=${businessIdentifier}&attach_to=item&name=${menuItem?.menu_item_name}&branch=${branchId}`
       );
       setMenuModifiers(response.data.data);
     } catch (error) {
@@ -170,7 +170,7 @@ const OnlineOrderingMenuDetails = () => {
     };
     try {
       const response = await axios.get(
-        `${SERVER_DOMAIN}/menu/getAllMenuItem/?business_identifier=${businessIdentifier}&branch=${branchId}`,
+        `${SERVER_DOMAIN}/menu/getAllGogrubMenuItem/?business_identifier=${businessIdentifier}&branch=${branchId}`,
         headers
       );
       setMenuItems(response?.data?.data);

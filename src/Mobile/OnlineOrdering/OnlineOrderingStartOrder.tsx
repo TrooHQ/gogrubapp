@@ -53,7 +53,7 @@ const OnlineOrderingStartOrder = () => {
     };
     try {
       const response = await axios.get(
-        `${SERVER_DOMAIN}/business/getBusinessDetails/?business_identifier=${business_identifier}&branch=${BranchId}`,
+        `${SERVER_DOMAIN}/menu/getGogrubBusinessDetails/?business_identifier=${business_identifier}&branch=${BranchId}`,
         headers
       );
 

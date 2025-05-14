@@ -66,10 +66,9 @@ const StartOrder = () => {
     };
     try {
       const response = await axios.get(
-        `${SERVER_DOMAIN}/business/getBusinessDetails/?business_identifier=${business_identifier}`,
+        `${SERVER_DOMAIN}/menu/getGogrubBusinessDetails/?business_identifier=${business_identifier}`,
         headers
       );
-
       dispatch(setBusinessDetails(response.data.data));
     } catch (error) {
       console.error("Error getting Business Details:", error);

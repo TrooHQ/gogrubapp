@@ -31,7 +31,7 @@ export const OnlineOrderingMenuPage = () => {
     };
     try {
       const response = await axios.get(
-        `${SERVER_DOMAIN}/menu/getCustomerMenuCategory/?business_identifier=${business_identifier}`,
+        `${SERVER_DOMAIN}/menu/getGogrubCustomerMenuCategory/?business_identifier=${business_identifier}`,
         headers
       );
       setMenuCategory(response.data.data);
