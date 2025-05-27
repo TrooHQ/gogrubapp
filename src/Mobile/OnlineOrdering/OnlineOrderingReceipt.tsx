@@ -3,6 +3,7 @@ import TopMenuNav from "./OnlineOrderingTopMenuNav";
 import html2canvas from "html2canvas";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 interface MenuItem {
   menu_item_name: string;
@@ -30,10 +31,19 @@ export const OnlineOrderingReceipt = () => {
   const navigate = useNavigate();
   const receiptRef = useRef<HTMLDivElement>(null);
 
-  const storedOrderDetails = sessionStorage.getItem("OrderDetails");
-  const orderDetails: OrderDetails | null = storedOrderDetails
-    ? JSON.parse(storedOrderDetails)
-    : null;
+  const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
+
+  useEffect(() => {
+    const fetchOrderDetails = () => {
+      const storedOrderDetails = sessionStorage.getItem("OrderDetails");
+      if (storedOrderDetails) {
+        setOrderDetails(JSON.parse(storedOrderDetails));
+      } else {
+        setTimeout(fetchOrderDetails, 2000);
+      }
+    };
+    fetchOrderDetails();
+  }, []);
 
   console.log(orderDetails);
 
