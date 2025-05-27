@@ -1,20 +1,21 @@
 import TopMenuNav from "./OnlineOrderingTopMenuNav";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { PAYMENT_DOMAIN, SERVER_DOMAIN } from "../../Api/Api";
+import { PAYMENT_DOMAIN } from "../../Api/Api";
+import { SERVER_DOMAIN } from "../../Api/Api";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import Loader from "../../components/Loader";
 import Customer from "../assets/streamline_customer-support-1-solid.svg";
 import { TiArrowRight } from "react-icons/ti";
-import { usePaystackPayment } from "react-paystack";
 
 export const OnlineOrderingSelectPayment = () => {
-  const storedOrderID = sessionStorage.getItem("OrderDetails");
-  const storedOrderDetails = storedOrderID ? JSON.parse(storedOrderID) : null;
+  const searchParams = new URLSearchParams(window.location.search);
+  const reference =
+    searchParams.get("reference") || sessionStorage.getItem("reference");
 
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -23,21 +24,11 @@ export const OnlineOrderingSelectPayment = () => {
   const basketDetails = useSelector((state: RootState) => state.basket);
 
   const business = useSelector((state: RootState) => state.business);
-  console.log(basketDetails);
 
   const branchId = useSelector((state: RootState) => state.business?.branchID);
 
   const totalPrice = basketDetails?.totalPrice ?? 0;
   const deliveryFee = basketDetails?.deliveryFee ?? 0;
-
-  const config = {
-    reference: new Date().getTime().toString(),
-    email: "trooemail@gmail.com",
-    publicKey: "pk_test_55e93b1ed22dbcc8b11fcafa99638414975a6b49",
-    amount: basketDetails.totalPrice > 0 ? basketDetails.totalPrice * 100 : 100,
-  };
-
-  const initializePayment = usePaystackPayment(config);
 
   const items = basketDetails.items.map((item) => ({
     id: item.id,
@@ -64,7 +55,7 @@ export const OnlineOrderingSelectPayment = () => {
     // channel: "GoGrub",
     channel: "Online",
     branch_id: branchId,
-    businessIdentifier: business?.businessDetails?.uniqueIdentifier,
+    businessIdentifier: business?.businessIdentifier,
     customerName: basketDetails.customerName,
     ordered_by: basketDetails.customerName || "User",
     customerTableNumber: business?.tableNo,
@@ -89,39 +80,39 @@ export const OnlineOrderingSelectPayment = () => {
     (state: RootState) => state.business?.businessDetails?.colour_scheme
   );
 
-  const onSuccess = async (reference: { reference: string }) => {
+  const verifyPayment = async () => {
     try {
       setLoading(true);
 
       const response = await axios.post(
-        `${PAYMENT_DOMAIN}/transaction/confirm_paystack_transaction/`,
-        { reference: reference.reference }
+        `${PAYMENT_DOMAIN}/transaction/confirm_transaction_by_ref/`,
+        { reference: reference }
       );
 
-      if (response.data.success) {
+      if (response.data) {
         toast.success("Payment Successful!");
-        sessionStorage.setItem(
-          "OrderDetails1",
-          JSON.stringify(response.data.data)
-        );
-
-        navigate(`/demo/receipt/online_ordering/${storedOrderDetails._id}`);
+        sessionStorage.removeItem("reference");
+        navigate(`/demo/receipt/online_ordering/`);
       } else {
         toast.error("Payment verification failed. Contact support.");
-        navigate(`/demo/receipt/online_ordering/${storedOrderDetails._id}`);
+        navigate(`/demo/payment-type/online_ordering/`);
       }
     } catch (error) {
       console.error("Error confirming payment:", error);
       toast.error("An error occurred. Please try again.");
-      navigate(`/demo/receipt/online_ordering/${storedOrderDetails._id}`);
+      navigate(`/demo/payment-type/online_ordering/`);
     } finally {
       setLoading(false);
     }
   };
 
-  const onClose = () => {
-    toast.info("Payment process was cancelled.");
-  };
+  useEffect(() => {
+    if (!reference) {
+      return;
+    }
+
+    verifyPayment();
+  }, []);
 
   const handlePayment = async () => {
     try {
@@ -137,9 +128,50 @@ export const OnlineOrderingSelectPayment = () => {
         JSON.stringify(response.data.data)
       );
 
-      initializePayment({ onSuccess, onClose });
+      IntiatePayment();
     } catch (error) {
       console.error("Error occurred:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const IntiatePayment = async () => {
+    setLoading(true);
+
+    try {
+      const headers = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "",
+        },
+      };
+      const response = await axios.post(
+        `https://payment.trootab.com/api/v1/transaction/initiate_paystack_transaction/`,
+        {
+          business_id: business?.businessDetails?._id,
+          name: basketDetails.customerName || "User",
+          platform: "Online",
+          amount: basketDetails.totalPrice,
+          email: "user@example.com",
+          callback_url:
+            "https://gogrubapp.netlify.app/demo/payment-type/online_ordering",
+          menu_items: items,
+        },
+        headers
+      );
+
+      toast.success(
+        response.data.paystack_data.message || "Payment Initiated successfully!"
+      );
+      sessionStorage.setItem(
+        "reference",
+        response.data.paystack_data.data.reference
+      );
+      window.location.href = response.data.paystack_data.data.authorization_url;
+    } catch (error) {
+      console.error("Error initiating payment:", error);
+      setLoading(false);
     } finally {
       setLoading(false);
     }

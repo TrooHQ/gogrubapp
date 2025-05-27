@@ -475,7 +475,7 @@ export const CategoryDetails = () => {
                                 className=" flex items-center justify-end cursor-pointer rounded-full"
                                 style={{
                                   backgroundColor: color || "#414141",
-                                  color: "#ffffff" || "#414141",
+                                  color: "#ffffff",
                                 }}
                                 onClick={() => decrementCount(menu)}
                               >
@@ -490,7 +490,7 @@ export const CategoryDetails = () => {
                                 className=" flex items-center justify-end cursor-pointer rounded-full"
                                 style={{
                                   backgroundColor: color || "#414141",
-                                  color: "#ffffff" || "#414141",
+                                  color: "#ffffff",
                                 }}
                                 onClick={() => incrementCount(menu)}
                               >
