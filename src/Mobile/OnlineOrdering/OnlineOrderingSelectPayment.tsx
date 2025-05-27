@@ -2,7 +2,7 @@ import TopMenuNav from "./OnlineOrderingTopMenuNav";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { RootState } from "../../store/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { PAYMENT_DOMAIN } from "../../Api/Api";
 import { SERVER_DOMAIN } from "../../Api/Api";
@@ -11,8 +11,11 @@ import { toast } from "react-toastify";
 import Loader from "../../components/Loader";
 import Customer from "../assets/streamline_customer-support-1-solid.svg";
 import { TiArrowRight } from "react-icons/ti";
+import { clearBasket } from "../../slices/BasketSlice";
 
 export const OnlineOrderingSelectPayment = () => {
+  const dispatch = useDispatch();
+
   const searchParams = new URLSearchParams(window.location.search);
   const reference =
     searchParams.get("reference") || sessionStorage.getItem("reference");
@@ -90,6 +93,7 @@ export const OnlineOrderingSelectPayment = () => {
       );
 
       if (response.data) {
+        handlePayment();
         toast.success("Payment Successful!");
         sessionStorage.removeItem("reference");
         navigate(`/demo/receipt/online_ordering/`);
@@ -127,8 +131,7 @@ export const OnlineOrderingSelectPayment = () => {
         "OrderDetails",
         JSON.stringify(response.data.data)
       );
-
-      IntiatePayment();
+      dispatch(clearBasket());
     } catch (error) {
       console.error("Error occurred:", error);
     } finally {
@@ -211,7 +214,7 @@ export const OnlineOrderingSelectPayment = () => {
       <div className=" flex items-center  justify-center mt-[90px]">
         <p
           className=" cursor-pointer inline-flex items-center gap-[5px] font-[500] text-[18px] rounded-[5px] border   text-white py-[11px] px-[20px]"
-          onClick={handlePayment}
+          onClick={IntiatePayment}
           style={{
             backgroundColor: colorScheme || "#606060",
             borderColor: colorScheme || "#606060",
