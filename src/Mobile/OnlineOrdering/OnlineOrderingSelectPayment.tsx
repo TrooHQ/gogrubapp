@@ -12,6 +12,7 @@ import Loader from "../../components/Loader";
 import Customer from "../assets/streamline_customer-support-1-solid.svg";
 import { TiArrowRight } from "react-icons/ti";
 import { clearBasket } from "../../slices/BasketSlice";
+import dayjs from "dayjs";
 
 export const OnlineOrderingSelectPayment = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,9 @@ export const OnlineOrderingSelectPayment = () => {
   const business = useSelector((state: RootState) => state.business);
 
   const branchId = useSelector((state: RootState) => state.business?.branchID);
+
+  // console.log("branchId", branchId);
+  // console.log("business", business);
 
   const totalPrice = basketDetails?.totalPrice ?? 0;
   const deliveryFee = basketDetails?.deliveryFee ?? 0;
@@ -74,9 +78,10 @@ export const OnlineOrderingSelectPayment = () => {
     totalPrice: basketDetails.totalPrice,
     totalQuantity: basketDetails.totalQuantity,
     isScheduledOrder: basketDetails.deliveryDate ? true : false,
-    scheduledDate: basketDetails?.deliveryDate
-      ? new Date(basketDetails.deliveryDate).toLocaleDateString("en-GB")
-      : null,
+    scheduledDate: dayjs(basketDetails?.deliveryDate).format("DD-MM-YYYY"),
+    // scheduledDate: basketDetails?.deliveryDate
+    //   ? new Date(basketDetails.deliveryDate).toLocaleDateString("en-GB")
+    //   : null,
   };
 
   const colorScheme = useSelector(
@@ -96,7 +101,7 @@ export const OnlineOrderingSelectPayment = () => {
         handlePayment();
         toast.success("Payment Successful!");
         sessionStorage.removeItem("reference");
-        navigate(`/demo/receipt/online_ordering/`);
+        // navigate(`/demo/receipt/online_ordering/`);
       } else {
         toast.error("Payment verification failed. Contact support.");
         navigate(`/demo/payment-type/online_ordering/`);
@@ -122,6 +127,11 @@ export const OnlineOrderingSelectPayment = () => {
     try {
       setLoading(true);
 
+
+      console.log("payload", payload);
+
+
+      // return;
       const response = await axios.post(
         `${SERVER_DOMAIN}/order/uploadGogrubBranchUserOrder`,
         payload
@@ -132,6 +142,7 @@ export const OnlineOrderingSelectPayment = () => {
         JSON.stringify(response.data.data)
       );
       dispatch(clearBasket());
+      navigate(`/demo/receipt/online_ordering/`);
     } catch (error) {
       console.error("Error occurred:", error);
     } finally {
@@ -155,18 +166,20 @@ export const OnlineOrderingSelectPayment = () => {
           business_id: business?.businessDetails?._id,
           name: basketDetails.customerName || "User",
           platform: "Online",
+          // amount: parseInt(totalPrice.toString()) + parseInt(deliveryFee.toString()),
           amount: basketDetails.totalPrice,
           email: "user@example.com",
           callback_url:
             "https://gogrub-app.netlify.app/demo/payment-type/online_ordering",
+          // "https://f9ed-105-112-125-160.ngrok-free.app/demo/payment-type/online_ordering",
           menu_items: items,
         },
         headers
       );
 
-      toast.success(
-        response.data.paystack_data.message || "Payment Initiated successfully!"
-      );
+      // toast.success(
+      //   response.data.paystack_data.message || "Payment Initiated successfully!"
+      // );
       sessionStorage.setItem(
         "reference",
         response.data.paystack_data.data.reference

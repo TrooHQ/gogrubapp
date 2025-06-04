@@ -67,8 +67,8 @@ export const OnlineOrderingCategoryDetails = () => {
     selectedGroup === "All"
       ? menuItems.filter((menu) => !menu.is_frozen)
       : menuItems.filter(
-          (menu) => menu.menu_group_name === selectedGroup && !menu.is_frozen
-        );
+        (menu) => menu.menu_group_name === selectedGroup && !menu.is_frozen
+      );
 
   // const groupedMenuItems: GroupedMenuItems = filteredMenuItems.reduce(
   //   (acc: GroupedMenuItems, item: MenuItem) => {
@@ -169,6 +169,7 @@ export const OnlineOrderingCategoryDetails = () => {
 
   useEffect(() => {
     getItems();
+    localStorage.setItem("merc_url", JSON.stringify(window.location.pathname));
   }, []);
 
   const settings = {
@@ -246,20 +247,20 @@ export const OnlineOrderingCategoryDetails = () => {
   const colorScheme = businessDetails?.colour_scheme;
 
   return (
-    <div className=" relative ">
+    <div className="relative ">
       {loading && <Loader />}
-      <div className="  ">
+      <div className="">
         <TopMenuNav />
         <div className=" mb-[100px]">
           <div className=" bg-white pb-[20px]">
             <div className="text-[16px] flex items-center gap-[20px] justify-between pt-[10px] px-[24px]">
               <MdKeyboardArrowLeft
-                className=" cursor-pointer"
+                className="cursor-pointer "
                 onClick={handlePrevGroupClick}
               />
 
               <MdKeyboardArrowRight
-                className=" cursor-pointer"
+                className="cursor-pointer "
                 onClick={handleNextGroupClick}
               />
             </div>
@@ -278,11 +279,10 @@ export const OnlineOrderingCategoryDetails = () => {
               >
                 <p
                   ref={(el) => (groupRefs.current[0] = el)}
-                  className={`cursor-pointer px-[12px] py-[8px] rounded-[4px] ${
-                    selectedGroup === "All"
-                      ? `font-[600] text-[#FFFFFF] border border-[#929292]`
-                      : "text-grey300 font-[400] border border-grey100"
-                  }`}
+                  className={`cursor-pointer px-[12px] py-[8px] rounded-[4px] ${selectedGroup === "All"
+                    ? `font-[600] text-[#FFFFFF] border border-[#929292]`
+                    : "text-grey300 font-[400] border border-grey100"
+                    }`}
                   style={{
                     backgroundColor:
                       selectedGroup === "All"
@@ -353,11 +353,11 @@ export const OnlineOrderingCategoryDetails = () => {
                             <img
                               src={menu?.menu_item_image}
                               alt=""
-                              className="w-full object-cover h-full"
+                              className="object-cover w-full h-full"
                             />
 
                             <div
-                              className="absolute -bottom-4 text-white right-0 rounded-full"
+                              className="absolute right-0 text-white rounded-full -bottom-4"
                               style={{
                                 backgroundColor: colorScheme || "#414141",
                               }}
@@ -432,7 +432,7 @@ export const OnlineOrderingCategoryDetails = () => {
                             <img
                               src={menu.menu_item_image}
                               alt={menu.menu_item_name}
-                              className="w-full h-full object-cover"
+                              className="object-cover w-full h-full"
                             />
                           </div>
                         </Link>
@@ -447,7 +447,7 @@ export const OnlineOrderingCategoryDetails = () => {
                           {ids.find((item) => item.id === menu._id) ? (
                             <div className="flex items-center justify-end gap-[12px]">
                               <div
-                                className="cursor-pointer text-white rounded-full"
+                                className="text-white rounded-full cursor-pointer"
                                 onClick={() => decrement(menu)}
                                 style={{
                                   backgroundColor: colorScheme || "#414141",
@@ -462,7 +462,7 @@ export const OnlineOrderingCategoryDetails = () => {
                               </p>
 
                               <div
-                                className="cursor-pointer text-white rounded-full"
+                                className="text-white rounded-full cursor-pointer"
                                 onClick={() => increment(menu)}
                                 style={{
                                   backgroundColor: colorScheme || "#414141",
@@ -478,7 +478,7 @@ export const OnlineOrderingCategoryDetails = () => {
                               >
                                 <div className="flex items-center justify-end">
                                   <div
-                                    className="inline-flex cursor-pointer text-white rounded-full"
+                                    className="inline-flex text-white rounded-full cursor-pointer"
                                     style={{
                                       backgroundColor: colorScheme || "#414141",
                                     }}

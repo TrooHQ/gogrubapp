@@ -11,7 +11,7 @@ export const OnlineOrderingGetReceipt = () => {
     (state: RootState) => state.business?.businessDetails
   );
   return (
-    <div className="  ">
+    <div className="">
       <TopMenuNav exploreMenuText="Get Receipt" />
 
       <div className=" mt-[68px] mx-[16px] ">
@@ -29,20 +29,20 @@ export const OnlineOrderingGetReceipt = () => {
               being processed
             </p>
             <p className="  text-grey500 text-[14px] font-[500] text-center mt-[24px]">
-              ETA - Less 15 mins
+              {/* ETA - Less 15 mins */}
             </p>
           </div>
         </div>
         <div className="grid gap-[16px] items-center justify-center">
           {/* <Link to="/"> */}
-          <div className=" flex items-center justify-center">
+          {/* <div className="flex items-center justify-center ">
             <p className="bg-[#11AE16] rounded-[5px] py-[10px] px-[24px] text-center cursor-pointer inline text-[16px] font-[500] text-white">
               Get an eReceipt
             </p>
-          </div>
+          </div> */}
           {/* </Link> */}
           <Link to={`${url}`}>
-            <div className=" flex items-center justify-center">
+            <div className="flex items-center justify-center ">
               <p className=" border border-grey300 rounded-[5px] py-[10px] px-[41px] text-center cursor-pointer inline text-[16px] font-[500] text-grey500">
                 Order more
               </p>

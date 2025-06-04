@@ -18,6 +18,7 @@ interface SelectedOption {
 interface Menu {
   menuItem: MenuItem;
   selectedOptions: SelectedOption[];
+  quantity: number;
 }
 
 interface OrderDetails {
@@ -34,16 +35,31 @@ export const OnlineOrderingReceipt = () => {
   const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
 
   useEffect(() => {
+
+    const orderDetails = sessionStorage.getItem("OrderDetails");
+    if (!orderDetails) {
+      const mercUrl = localStorage.getItem("merc_url") ?? "/";
+      console.log(mercUrl)
+      navigate(JSON.parse(mercUrl));
+    }
+
+  }, [navigate]);
+
+
+  useEffect(() => {
     const fetchOrderDetails = () => {
       const storedOrderDetails = sessionStorage.getItem("OrderDetails");
       if (storedOrderDetails) {
         setOrderDetails(JSON.parse(storedOrderDetails));
+        console.log(setOrderDetails(JSON.parse(storedOrderDetails)))
       } else {
         setTimeout(fetchOrderDetails, 2000);
       }
     };
     fetchOrderDetails();
   }, []);
+
+
 
   console.log(orderDetails);
 
@@ -73,8 +89,8 @@ export const OnlineOrderingReceipt = () => {
           <p className="text-grey500 text-[14px] font-[400] text-center">
             {orderDetails?.createdAt
               ? dayjs(orderDetails.createdAt).format(
-                  "HH:mm:ss dddd, DD MMM YYYY"
-                )
+                "HH:mm:ss dddd, DD MMM YYYY"
+              )
               : "08:02:27 Wednesday, 30 Apr 2020"}
           </p>
         </div>
@@ -84,7 +100,10 @@ export const OnlineOrderingReceipt = () => {
             <div key={index}>
               <div className="space-y-[8px] pb-[24px]">
                 <div className="font-[400] text-[16px] text-grey500 flex items-center justify-between">
-                  <p>{menu?.menuItem?.menu_item_name || ""}</p>
+                  <div className="flex items-center gap-[8px]">
+                    <p>{menu?.menuItem?.menu_item_name || ""}</p>
+                    <span>({menu?.quantity})</span>
+                  </div>
 
                   <p>
                     ₦{menu?.menuItem?.menu_item_price?.toLocaleString() || "0"}

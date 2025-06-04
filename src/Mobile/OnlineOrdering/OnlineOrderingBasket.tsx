@@ -23,6 +23,7 @@ import Back from "../assets/Cancel.svg";
 import { useEffect, useState } from "react";
 import { HiMinusSm, HiPlusSm } from "react-icons/hi";
 import RadioInput from "../inputFields/RadioInput";
+import dayjs from "dayjs";
 
 export const OnlineOrderingBasket = () => {
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ export const OnlineOrderingBasket = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
   const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [postCode, setPostCode] = useState("");
@@ -49,10 +51,11 @@ export const OnlineOrderingBasket = () => {
   useEffect(() => {
     setIsFormValid(
       userName.trim() !== "" &&
-        phone.trim() !== "" &&
-        streetAddress.trim() !== ""
+      phone.trim() !== "" &&
+      streetAddress.trim() !== "" &&
+      userEmail.trim() !== ""
     );
-  }, [userName, phone, streetAddress]);
+  }, [userName, phone, streetAddress, userEmail]);
 
   const handleDeliveryOptionChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -115,7 +118,7 @@ export const OnlineOrderingBasket = () => {
   const handleAddressSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     if (!isFormValid) return;
-    dispatch(updateCustomerDetails({ name: userName, phone, streetAddress }));
+    dispatch(updateCustomerDetails({ name: userName, phone, streetAddress, email: userEmail }));
 
     {
       deliveryDetails?.canScheduledDelivery === false
@@ -157,7 +160,7 @@ export const OnlineOrderingBasket = () => {
   const colorScheme = userDetails?.colour_scheme;
 
   return (
-    <div className=" ">
+    <div className="">
       <TopMenuNav exploreMenuText="Basket" />
 
       <div className="mt-[68px]">
@@ -166,67 +169,71 @@ export const OnlineOrderingBasket = () => {
             <>
               <div key={index}>
                 <div className="mx-[24px]  border-b pb-[16px] border-grey40 mt-[16px]">
-                  <div className="grid gap-[8px]">
-                    <div className="  flex items-start justify-between gap-[20px] place-items-center">
-                      <Link
-                        to={`/demo/menu-details/${item.id}/online_ordering`}
-                      >
-                        <p className="text-[16px] text-grey500 font-[500] max-w-[100px] ">
-                          <span className="pr-2">{item.quantity}x</span>
-                          {item?.name?.length > 12
-                            ? `${item.name.slice(0, 8)}...`
-                            : item.name}
-                        </p>
-                      </Link>
-                      <div className="flex items-center mr-[10px] max-w-[100px]">
-                        <div
-                          className="  cursor-pointer text-white   rounded-full"
-                          onClick={() =>
-                            handleDecreaseQuantity(item.id, item.quantity)
-                          }
-                          style={{
-                            backgroundColor: colorScheme || "#414141",
-                          }}
+                  <div className="">
+                    <div className="flex justify-between w-full">
+                      <div className="w-full">
+                        <Link
+                          to={`/demo/menu-details/${item.id}/online_ordering`}
                         >
-                          <HiMinusSm className=" text-[20px]" />
-                        </div>
+                          <p className="text-xl font-semibold text-gray-700">
+                            <span className="">{item.quantity}x</span>
+                            {item?.name?.length > 12
+                              ? `${item.name.slice(0, 8)}...`
+                              : item.name}
+                          </p>
+                        </Link>
+                        <div className="flex items-center">
+                          <div
+                            className="text-white rounded-full cursor-pointer "
+                            onClick={() =>
+                              handleDecreaseQuantity(item.id, item.quantity)
+                            }
+                            style={{
+                              backgroundColor: colorScheme || "#414141",
+                            }}
+                          >
+                            <HiMinusSm className="text-[16px]" />
+                          </div>
 
-                        <p className="text-[18px] text-[#000000] font-[500] mx-[10px]">
-                          x{item?.quantity}
-                        </p>
+                          <p className="text-[18px] text-[#000000] font-[500] mx-[10px]">
+                            x{item?.quantity}
+                          </p>
 
-                        <div
-                          className="  cursor-pointer text-white   rounded-full"
-                          onClick={() =>
-                            handleIncreaseQuantity(item.id, item.quantity)
-                          }
-                          style={{
-                            backgroundColor: colorScheme || "#414141",
-                          }}
-                        >
-                          <HiPlusSm className=" text-[20px]" />
+                          <div
+                            className="text-white rounded-full cursor-pointer "
+                            onClick={() =>
+                              handleIncreaseQuantity(item.id, item.quantity)
+                            }
+                            style={{
+                              backgroundColor: colorScheme || "#414141",
+                            }}
+                          >
+                            <HiPlusSm className="text-[16px]" />
+                          </div>
                         </div>
                       </div>
-                      {item.menuItem && (
-                        <p className="text-grey500">
-                          &#x20A6;
-                          {(
-                            item.menuItem.menu_item_price * item.quantity
-                          ).toLocaleString()}
-                        </p>
-                      )}
+                      <div className="flex items-center justify-between gap-[6px]">
+                        {item.menuItem && (
+                          <p className="font-medium text-gray-500">
+                            &#x20A6;
+                            {(
+                              item.menuItem.menu_item_price * item.quantity
+                            ).toLocaleString()}
+                          </p>
+                        )}
 
-                      <p
-                        className=" text-[30px] "
-                        onClick={() =>
-                          dispatch(removeItemFromBasket({ id: item.id }))
-                        }
-                        style={{
-                          color: colorScheme || "#606060",
-                        }}
-                      >
-                        <TiDelete />
-                      </p>
+                        <p
+                          className=" text-[24px] "
+                          onClick={() =>
+                            dispatch(removeItemFromBasket({ id: item.id }))
+                          }
+                          style={{
+                            color: colorScheme || "#606060",
+                          }}
+                        >
+                          <TiDelete />
+                        </p>
+                      </div>
                     </div>
                     {item.selectedOptions &&
                       item.selectedOptions.length > 0 && (
@@ -271,10 +278,10 @@ export const OnlineOrderingBasket = () => {
         )}
         {basketDetails?.items.length > 0 && (
           <div className="py-[16px] mx-[24px]">
-            <div className="flex items-start justify-between gap-[20px]">
+            <div className="flex items-start justify-between ">
               <p className="text-[16px] text-grey500 font-[500]">Total:</p>
               <p
-                className="text-[16px] font-[500] w-[100px]"
+                className="text-[16px] font-[500]"
                 style={{
                   color: colorScheme || "#121212",
                 }}
@@ -284,11 +291,11 @@ export const OnlineOrderingBasket = () => {
             </div>
           </div>
         )}
-      </div>
+      </div >
 
       {basketDetails?.items.length > 0 && (
         <>
-          <div className="mt-[40px]">
+          <div className="">
             <div className="py-[20px] mx-[24px] grid gap-[10px] border-t-grey40 border-t">
               <p
                 className="font-[400] text-[14px]"
@@ -364,9 +371,8 @@ export const OnlineOrderingBasket = () => {
                   setPickupModal(true);
                 }
               }}
-              className={` w-full text-center font-[500] text-[16px]   rounded-[5px]  text-white py-[10px] px-[24px] ${
-                selectedOption === "" ? " bg-grey100" : "border"
-              }`}
+              className={` w-full text-center font-[500] text-[16px]   rounded-[5px]  text-white py-[10px] px-[24px] ${selectedOption === "" ? " bg-grey100" : "border"
+                }`}
               style={{
                 backgroundColor:
                   selectedOption == ""
@@ -420,7 +426,7 @@ export const OnlineOrderingBasket = () => {
         <form action="" onSubmit={handleAddressSubmit}>
           <div className="w-full py-[32px] px-[16px] absolute bottom-0 bg-white rounded-tr-[20px] rounded-tl-[20px]">
             <div
-              className=" cursor-pointer flex items-center justify-end"
+              className="flex items-center justify-end cursor-pointer "
               onClick={() => setDeliveryModal(false)}
             >
               <img src={Back} alt="" />
@@ -458,6 +464,14 @@ export const OnlineOrderingBasket = () => {
                   placeholder="WhatsApp Number"
                   className="bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-4 w-full"
                   inputMode="tel"
+                />
+                <input
+                  type="email"
+                  id="email"
+                  value={userEmail}
+                  onChange={(e) => setUserEmail(e.target.value)}
+                  placeholder="Email Address"
+                  className={`bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-4 w-full `}
                 />
                 <input
                   type="text"
@@ -546,15 +560,14 @@ export const OnlineOrderingBasket = () => {
                   type="date"
                   id="date"
                   value={date}
-                  onChange={(e) => setDate(e.target.value)}
+                  onChange={(e) => setDate(dayjs(e.target.value).format("DD-MM-YYYY"))}
                   placeholder="Set Date"
                   disabled={!scheduleDelivery}
                   min={new Date().toISOString().split("T")[0]}
-                  className={` ${
-                    !scheduleDelivery
-                      ? " placeholder:text-[#1212123D] text-[#1212123D]"
-                      : ""
-                  } bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-4 w-full 
+                  className={` ${!scheduleDelivery
+                    ? " placeholder:text-[#1212123D] text-[#1212123D]"
+                    : ""
+                    } bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-4 w-full 
                   `}
                 />
 
@@ -565,11 +578,10 @@ export const OnlineOrderingBasket = () => {
                   onChange={(e) => setTime(e.target.value)}
                   placeholder="Set Time"
                   disabled={!scheduleDelivery}
-                  className={` ${
-                    !scheduleDelivery
-                      ? " placeholder:text-[#1212123D] text-[#1212123D]"
-                      : ""
-                  } bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-4 w-full `}
+                  className={` ${!scheduleDelivery
+                    ? " placeholder:text-[#1212123D] text-[#1212123D]"
+                    : ""
+                    } bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-4 w-full `}
                 />
               </div>
               <div className="mt-[24px] flex items-center justify-center gap-[16px]">
@@ -608,7 +620,7 @@ export const OnlineOrderingBasket = () => {
         <form action="" onSubmit={handleSubmit}>
           <div className="w-full py-[32px] px-[16px] absolute bottom-0 bg-white rounded-tr-[20px] rounded-tl-[20px]">
             <div
-              className=" cursor-pointer flex items-center justify-end"
+              className="flex items-center justify-end cursor-pointer "
               onClick={() => setPickupModal(false)}
             >
               <img src={Back} alt="" />

@@ -37,6 +37,7 @@ const OnlineOrderingTopMenuNav: React.FC<TopMenuNavProps> = ({
     location.pathname.startsWith(path)
   );
 
+
   useEffect(() => {
     const handleScroll = () => {
       const offset = window.scrollY;
@@ -54,6 +55,18 @@ const OnlineOrderingTopMenuNav: React.FC<TopMenuNavProps> = ({
     };
   }, []);
 
+  const handleBackClick = () => {
+    const mercUrl = localStorage.getItem("merc_url");
+    // const path = new URL(url).pathname;
+    const mercPath = mercUrl ?? "/";
+
+    if (location.pathname.includes("receipt")) {
+      sessionStorage.removeItem("OrderDetails");
+      window.location.replace(mercPath);
+    } else {
+      navigate(-1); // go back one page
+    }
+  };
   const businessDetails = useSelector(
     (state: RootState) => state.business?.businessDetails
   );
@@ -82,14 +95,13 @@ const OnlineOrderingTopMenuNav: React.FC<TopMenuNavProps> = ({
 
   return (
     <div
-      className={`${
-        isSticky
-          ? "fixed top-0 left-0 right-0 shadow-md shadow-slate-400"
-          : "shadow "
-      } z-10 transition-all duration-300 ease-in-out`}
+      className={`${isSticky
+        ? "fixed top-0 left-0 right-0 shadow-md shadow-slate-400"
+        : "shadow "
+        } z-10 transition-all duration-300 ease-in-out`}
     >
       <div
-        className="grid grid-cols-3 items-center py-4"
+        className="grid items-center grid-cols-3 py-4"
         style={{ backgroundColor: colorScheme }}
       >
         <div className="justify-self-start">
@@ -99,7 +111,7 @@ const OnlineOrderingTopMenuNav: React.FC<TopMenuNavProps> = ({
               color: textColor,
               cursor: "pointer",
             }}
-            onClick={() => navigate(-1)}
+            onClick={handleBackClick}
           >
             <span className="text-4xl" style={{ color: textColor }}>
               <img src={BackArrow} alt="Go back" />
@@ -111,7 +123,7 @@ const OnlineOrderingTopMenuNav: React.FC<TopMenuNavProps> = ({
             {exploreMenuText}
           </p>
         </div>
-        <div className="justify-self-end px-4">
+        <div className="px-4 justify-self-end">
           {!hideCart && (
             <Link to="/demo/basket/online_ordering">
               {id && id.length !== 0 ? (
