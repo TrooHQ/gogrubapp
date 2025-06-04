@@ -58,11 +58,12 @@ const OnlineOrderingTopMenuNav: React.FC<TopMenuNavProps> = ({
   const handleBackClick = () => {
     const mercUrl = localStorage.getItem("merc_url");
     // const path = new URL(url).pathname;
-    const mercPath = mercUrl ?? "/";
+    const mercPath = mercUrl ? JSON.parse(mercUrl) : "/";
 
     if (location.pathname.includes("receipt")) {
       sessionStorage.removeItem("OrderDetails");
-      window.location.replace(mercPath);
+      // window.location.replace(mercPath);
+      navigate(mercPath);
     } else {
       navigate(-1); // go back one page
     }
