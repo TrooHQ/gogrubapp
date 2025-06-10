@@ -184,8 +184,8 @@ export const OnlineOrderingSelectPayment = () => {
       sessionStorage.setItem("reference", response?.data?.transaction?.ref);
       console.log("reference", response?.data?.transaction?.ref);
       // route this to a blank page
-      // window.location.href = response.data.paystack_data.data.authorization_url; 
-      window.open(response.data.paystack_data.data.authorization_url, "_blank")
+      window.location.href = response.data.paystack_data.data.authorization_url;
+      // window.open(response.data.paystack_data.data.authorization_url, "_blank")
       // window.location.href = response.data.paystack_data.data.authorization_url;
     } catch (error) {
       console.error("Error initiating payment:", error);
