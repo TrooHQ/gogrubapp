@@ -63,6 +63,7 @@ interface BasketState {
   totalPrice: number;
   customerName: string;
   customerPhone: string;
+  customerEmail: string;
   cutomerStreetAddress: string;
   deliveryTime: string;
   deliveryDate: string;
@@ -78,6 +79,7 @@ const initialState: BasketState = {
   customerPhone: "",
   totalPrice: 0,
   customerName: "",
+  customerEmail: "",
   cutomerStreetAddress: "",
   deliveryTime: "",
   deliveryDate: "",
@@ -150,9 +152,10 @@ const BasketSlice = createSlice({
     },
 
     updateCustomerDetails(state, action: PayloadAction<CustomerDetailsUpdate>) {
-      const { name, phone, streetAddress, town } = action.payload;
+      const { name, phone, streetAddress, town, email } = action.payload;
       if (name !== undefined) state.customerName = name;
       if (phone !== undefined) state.customerPhone = phone;
+      if (email !== undefined) state.customerEmail = email;
       if (streetAddress !== undefined)
         state.cutomerStreetAddress = streetAddress;
       if (town !== undefined) state.cutomerTown = town;

@@ -67,7 +67,7 @@ export const OnlineOrderingSelectPayment = () => {
     ordered_by: basketDetails.customerName || "User",
     customerTableNumber: business?.tableNo,
     customerData: {
-      email: "",
+      email: basketDetails.customerEmail,
       phoneNumber: basketDetails.customerPhone,
       customerName: basketDetails.customerName,
       address: basketDetails.cutomerStreetAddress ?? basketDetails.cutomerTown,
@@ -79,6 +79,7 @@ export const OnlineOrderingSelectPayment = () => {
     totalQuantity: basketDetails.totalQuantity,
     isScheduledOrder: basketDetails.deliveryDate ? true : false,
     scheduledDate: dayjs(basketDetails?.deliveryDate).format("DD-MM-YYYY"),
+    transactionRef: sessionStorage.getItem("reference") || reference,
     // scheduledDate: basketDetails?.deliveryDate
     //   ? new Date(basketDetails.deliveryDate).toLocaleDateString("en-GB")
     //   : null,
@@ -100,7 +101,7 @@ export const OnlineOrderingSelectPayment = () => {
       if (response.data) {
         handlePayment();
         toast.success("Payment Successful!");
-        sessionStorage.removeItem("reference");
+        // sessionStorage.removeItem("reference");
         // navigate(`/demo/receipt/online_ordering/`);
       } else {
         toast.error("Payment verification failed. Contact support.");
@@ -166,8 +167,8 @@ export const OnlineOrderingSelectPayment = () => {
           business_id: business?.businessDetails?._id,
           name: basketDetails.customerName || "User",
           platform: "Online",
-          // amount: parseInt(totalPrice.toString()) + parseInt(deliveryFee.toString()),
-          amount: basketDetails.totalPrice,
+          amount: parseInt(totalPrice.toString()) + parseInt(deliveryFee.toString()),
+          // amount: basketDetails.totalPrice,
           email: "user@example.com",
           callback_url:
             "https://gogrub-app.netlify.app/demo/payment-type/online_ordering",
@@ -180,11 +181,12 @@ export const OnlineOrderingSelectPayment = () => {
       // toast.success(
       //   response.data.paystack_data.message || "Payment Initiated successfully!"
       // );
-      sessionStorage.setItem(
-        "reference",
-        response.data.paystack_data.data.reference
-      );
-      window.location.href = response.data.paystack_data.data.authorization_url;
+      sessionStorage.setItem("reference", response?.data?.transaction?.ref);
+      console.log("reference", response?.data?.transaction?.ref);
+      // route this to a blank page
+      // window.location.href = response.data.paystack_data.data.authorization_url; 
+      window.open(response.data.paystack_data.data.authorization_url, "_blank")
+      // window.location.href = response.data.paystack_data.data.authorization_url;
     } catch (error) {
       console.error("Error initiating payment:", error);
       setLoading(false);
