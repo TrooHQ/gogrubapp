@@ -33,6 +33,17 @@ export const OnlineOrderingReceipt = () => {
   const receiptRef = useRef<HTMLDivElement>(null);
 
   const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
+  const [deliveryFee, setDeliveryFee] = useState<number>(0);
+
+
+  useEffect(() => {
+    const df = sessionStorage.getItem("deliveryFee");
+    if (df) {
+      setDeliveryFee(Number(df));
+    }
+  }, [])
+
+  console.log("deliveryFee", deliveryFee);
 
   useEffect(() => {
 
@@ -51,7 +62,7 @@ export const OnlineOrderingReceipt = () => {
       const storedOrderDetails = sessionStorage.getItem("OrderDetails");
       if (storedOrderDetails) {
         setOrderDetails(JSON.parse(storedOrderDetails));
-        console.log(setOrderDetails(JSON.parse(storedOrderDetails)))
+        console.log(JSON.parse(storedOrderDetails));
       } else {
         setTimeout(fetchOrderDetails, 2000);
       }
@@ -140,13 +151,23 @@ export const OnlineOrderingReceipt = () => {
           </div>
 
           <div className="font-[400] text-[16px] text-grey500 flex items-center justify-between">
+            <p className="">Delivery Fee</p>
+            <p>₦{deliveryFee?.toLocaleString()}</p>
+          </div>
+
+          <div className="font-[400] text-[16px] text-grey500 flex items-center justify-between">
             <p className="">VAT</p>
             <p>₦0</p>
           </div>
 
           <div className="font-[500] text-[18px] text-grey500 flex items-center justify-between">
             <p className="">Paid</p>
-            <p>₦{orderDetails?.total_price?.toLocaleString()}</p>
+            <p>
+              ₦
+              {(
+                (orderDetails?.total_price ?? 0) + (deliveryFee ?? 0)
+              ).toLocaleString()}
+            </p>
           </div>
         </div>
       </div>
