@@ -169,7 +169,7 @@ export const OnlineOrderingCategoryDetails = () => {
 
   useEffect(() => {
     sessionStorage.removeItem("reference");
-
+    sessionStorage.removeItem("deliveryFee");
     getItems();
     localStorage.setItem("merc_url", JSON.stringify(window.location.pathname));
   }, []);

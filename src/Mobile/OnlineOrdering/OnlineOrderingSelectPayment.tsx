@@ -161,6 +161,9 @@ export const OnlineOrderingSelectPayment = () => {
           Authorization: "",
         },
       };
+
+      sessionStorage.setItem("deliveryFee", deliveryFee.toString());
+
       const response = await axios.post(
         `https://payment.trootab.com/api/v1/transaction/initiate_paystack_transaction/`,
         {
