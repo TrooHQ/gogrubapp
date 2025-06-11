@@ -168,6 +168,8 @@ export const OnlineOrderingCategoryDetails = () => {
   };
 
   useEffect(() => {
+    sessionStorage.removeItem("reference");
+
     getItems();
     localStorage.setItem("merc_url", JSON.stringify(window.location.pathname));
   }, []);

@@ -61,7 +61,7 @@ export const OnlineOrderingReceipt = () => {
 
 
 
-  console.log(orderDetails);
+  console.log("orderDetails", orderDetails);
 
   const handleDownloadImage = async () => {
     const element = receiptRef.current;
