@@ -84,11 +84,11 @@ const OnlineOrderingStartOrder = () => {
           <p className=" font-[400] font-GeneralSans text-[18px] text-center text-[#000000]">
             {businessDetails?.business_name}{" "}
           </p>
-          <div className=" max-w-[100px] h-[100px] rounded overflow-hidden">
+          <div className=" w-[100px] h-[100px] rounded overflow-hidden border border-red-500 mx-auto flex items-center justify-center">
             <img
               src={businessDetails?.business_logo}
               alt=""
-              className=" w-full object-cover h-full"
+              className="flex items-center justify-center object-cover w-full h-full mx-auto"
             />
           </div>
         </div>
@@ -103,10 +103,10 @@ const OnlineOrderingStartOrder = () => {
             {/* Food ready in <span className="font-[600]">8-13 minutes</span> after
             placing order */}
           </p>
-          <img src={Bg} alt="Bg-Image" className="w-full object-cover" />
+          <img src={Bg} alt="Bg-Image" className="object-cover w-full" />
         </div>
 
-        <div className=" flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center ">
           <Link
             to={`/demo/${businessDetails?.business_name}/items/online_ordering`}
           >
