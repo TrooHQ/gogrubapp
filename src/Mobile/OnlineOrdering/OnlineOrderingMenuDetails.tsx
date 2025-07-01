@@ -60,6 +60,11 @@ export interface BasketItem {
   tableNumber: string;
 }
 
+interface GroupedModifier {
+  modifier_group_name: string;
+  modifiers: Option[];
+}
+
 interface Details extends MenuItem {
   is_recommended: boolean;
   name: string;
@@ -79,7 +84,7 @@ const OnlineOrderingMenuDetails = () => {
   const [menuItems, setMenuItems] = useState<Details[]>([]);
 
   const [menuItem, setMenuItem] = useState<MenuItem | null>(null);
-  const [menuModifiers, setMenuModifiers] = useState<Option[]>([]);
+  const [menuModifiers, setMenuModifiers] = useState<GroupedModifier[]>([]);
   const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
 
   const [itemCount, setItemCount] = useState<number>(1);
@@ -129,7 +134,31 @@ const OnlineOrderingMenuDetails = () => {
       const response = await axios.get(
         `${SERVER_DOMAIN}/menu/getGogrubMenuItemByID/?business_identifier=${businessIdentifier}&menu_item_id=${id}`
       );
+      console.log("resp", response)
       setMenuItem(response.data.data);
+
+      // interface GroupedModifier {
+      //   modifier_group_name: string;
+      //   items: Option[];
+      // }
+
+      const groupedArray: GroupedModifier[] = Object.values(
+        (response.data.modifiers as Option[]).reduce<Record<string, GroupedModifier>>((acc, curr) => {
+          const group = curr.modifier_group_name as string;
+          if (!acc[group]) {
+            acc[group] = {
+              modifier_group_name: group,
+              modifiers: []
+            };
+          }
+          acc[group].modifiers.push(curr);
+          return acc;
+        }, {})
+      );
+
+      console.log(groupedArray)
+
+      setMenuModifiers(groupedArray || []);
     } catch (error) {
       console.error("Error getting Business Details:", error);
     } finally {
@@ -137,29 +166,29 @@ const OnlineOrderingMenuDetails = () => {
     }
   };
 
-  const getModifiers = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        `${SERVER_DOMAIN}/menu/getgorGrubBusinessMenuModifierGroupByItem/?business_identifier=${businessIdentifier}&attach_to=item&name=${menuItem?.menu_item_name}&branch=${branchId}`
-      );
-      setMenuModifiers(response.data.data);
-    } catch (error) {
-      console.error("Error getting Modifiers", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const getModifiers = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const response = await axios.get(
+  //       `${SERVER_DOMAIN}/menu/getgorGrubBusinessMenuModifierGroupByItem/?business_identifier=${businessIdentifier}&attach_to=item&name=${menuItem?.menu_item_name}&branch=${branchId}`
+  //     );
+  //     setMenuModifiers(response.data.data);
+  //   } catch (error) {
+  //     console.error("Error getting Modifiers", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   useEffect(() => {
     getItems();
   }, [id]);
 
-  useEffect(() => {
-    if (menuItem?.menu_item_name) {
-      getModifiers();
-    }
-  }, [menuItem?.menu_item_name]);
+  // useEffect(() => {
+  //   if (menuItem?.menu_item_name) {
+  //     getModifiers();
+  //   }
+  // }, [menuItem?.menu_item_name]);
 
   const getRecommendedItems = async () => {
     setLoading(true);
@@ -296,17 +325,17 @@ const OnlineOrderingMenuDetails = () => {
   };
 
   return (
-    <div className="menu-description relative">
+    <div className="relative menu-description">
       {loading && <Loader />}
 
       <TopMenuNav />
       {menuItem && (
-        <div className=" relative">
+        <div className="relative ">
           <div className="menu-item-image-container mx-[24px] mt-[32px] max-w-[400px] h-[300px] rounded-[20px] overflow-hidden">
             <img
               src={menuItem.menu_item_image}
               alt={menuItem.menu_item_name}
-              className="w-full object-cover"
+              className="object-cover w-full"
             />
           </div>
 
@@ -352,13 +381,12 @@ const OnlineOrderingMenuDetails = () => {
                               (opt) => opt.name === option.modifier_name
                             )}
                             onChange={() => handleCheckboxChange(option)}
-                            className={`h-5 w-5 ${
-                              selectedOptions.some(
-                                (opt) => opt.name === option.modifier_name
-                              )
-                                ? "bg-red-600"
-                                : "bg-white"
-                            }`}
+                            className={`h-5 w-5 ${selectedOptions.some(
+                              (opt) => opt.name === option.modifier_name
+                            )
+                              ? "bg-red-600"
+                              : "bg-white"
+                              }`}
                           />
                         </div>
                       </div>
@@ -393,15 +421,15 @@ const OnlineOrderingMenuDetails = () => {
             {menuItems.some(
               (menu) => menu.is_recommended && menu._id !== id
             ) && (
-              <div className="flex items-center justify-between my-[20px]">
-                <p className="text-[16px] text-grey500 font-[500]">
-                  Recommended Items
-                </p>
-                <div className="text-[16px]">
-                  <MdKeyboardArrowRight />
+                <div className="flex items-center justify-between my-[20px]">
+                  <p className="text-[16px] text-grey500 font-[500]">
+                    Recommended Items
+                  </p>
+                  <div className="text-[16px]">
+                    <MdKeyboardArrowRight />
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
             <div className="flex items-center gap-[50px] overflow-x-scroll py-[11px] border-t border-grey40 cursor-pointer">
               {menuItems.map(
@@ -438,7 +466,7 @@ const OnlineOrderingMenuDetails = () => {
                           {ids.find((item) => item.id === menu._id) ? (
                             <div className="flex items-center justify-end gap-[10px]">
                               <div
-                                className="inline-flex cursor-pointer text-white rounded-full"
+                                className="inline-flex text-white rounded-full cursor-pointer"
                                 onClick={() => decrement(menu)}
                                 style={{
                                   backgroundColor: colorScheme || "#414141",
@@ -452,7 +480,7 @@ const OnlineOrderingMenuDetails = () => {
                                   ?.quantity || 1}
                               </p>
                               <div
-                                className="inline-flex cursor-pointer text-white rounded-full"
+                                className="inline-flex text-white rounded-full cursor-pointer"
                                 onClick={() => increment(menu)}
                                 style={{
                                   backgroundColor: colorScheme || "#414141",
@@ -468,7 +496,7 @@ const OnlineOrderingMenuDetails = () => {
                               >
                                 <div className="flex items-center justify-end">
                                   <div
-                                    className="inline-flex cursor-pointer text-white rounded-full"
+                                    className="inline-flex text-white rounded-full cursor-pointer"
                                     style={{
                                       backgroundColor: colorScheme || "#414141",
                                     }}
@@ -489,12 +517,12 @@ const OnlineOrderingMenuDetails = () => {
 
           <div className=" mx-[24px] mb-[150px] mt-[16px]">
             <div className=" flex items-center justify-between py-[16px] ">
-              <p className=" text-[16px] font-[500] text-grey500">
+              <p className=" text-[16px] font-semibold text-gray-500">
                 Add Special Instructions
               </p>
             </div>
 
-            <div className=" ">
+            <div className="">
               <div className="">
                 <textarea
                   className=" text-[16px] w-full h-[153px] border  font-[400] text-[#929292] border-gray-300 rounded-md p-2 shadow-md"

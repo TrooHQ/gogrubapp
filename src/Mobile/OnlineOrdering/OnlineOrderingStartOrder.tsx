@@ -84,7 +84,7 @@ const OnlineOrderingStartOrder = () => {
           <p className=" font-[400] font-GeneralSans text-[18px] text-center text-[#000000]">
             {businessDetails?.business_name}{" "}
           </p>
-          <div className=" w-[100px] h-[100px] rounded overflow-hidden border border-red-500 mx-auto flex items-center justify-center">
+          <div className=" w-[100px] h-[100px] rounded-md overflow-hidden mx-auto flex items-center justify-center drop-shadow-md">
             <img
               src={businessDetails?.business_logo}
               alt=""
@@ -93,17 +93,19 @@ const OnlineOrderingStartOrder = () => {
           </div>
         </div>
 
-        <div className="relative flex flex-col items-center w-full space-y-[10px]">
-          <p className=" capitalize px-[42px] my-[34px] text-[18px] font-[400] text-center absolute top-[20px] text-[#FFFFFF] ">
-            {businessDetails?.orderingDescription}
-          </p>
+        <div className="relative flex flex-col items-center w-full h-[360px]"
+          style={{ backgroundImage: `url(${Bg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+        >
+          <div className="mt-16">
+            <p className=" capitalize text-xl text-center font-semibold  text-[#FFFFFF] ">
+              {businessDetails?.orderingDescription}
+            </p>
 
-          <p className=" capitalize px-[42px] my-[34px] text-[18px] font-[400] text-center absolute top-[20px] text-[#FFFFFF] ">
-            {businessDetails?.orderingInstruction}
-            {/* Food ready in <span className="font-[600]">8-13 minutes</span> after
-            placing order */}
-          </p>
-          <img src={Bg} alt="Bg-Image" className="object-cover w-full" />
+            <p className=" capitalize text-base font-[400] mt-2 text-center  text-[#FFFFFF] ">
+              {businessDetails?.orderingInstruction}
+            </p>
+          </div>
+          {/* <img src={Bg} alt="Bg-Image" className="object-cover w-full" /> */}
         </div>
 
         <div className="flex flex-col items-center justify-center ">
