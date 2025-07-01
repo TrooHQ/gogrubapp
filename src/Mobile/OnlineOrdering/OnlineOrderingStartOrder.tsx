@@ -84,7 +84,7 @@ const OnlineOrderingStartOrder = () => {
           <p className=" font-[400] font-GeneralSans text-[18px] text-center text-[#000000]">
             {businessDetails?.business_name}{" "}
           </p>
-          <div className=" w-[100px] h-[100px] rounded overflow-hidden border border-red-500 mx-auto flex items-center justify-center">
+          <div className=" w-[100px] h-[100px] rounded-md overflow-hidden mx-auto flex items-center justify-center drop-shadow-md">
             <img
               src={businessDetails?.business_logo}
               alt=""
