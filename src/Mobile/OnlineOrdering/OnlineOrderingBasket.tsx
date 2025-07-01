@@ -62,6 +62,8 @@ export const OnlineOrderingBasket = () => {
   ) => {
     const value = event.target.value;
     setSelectedOption(value);
+    // selDelOpt is short for selected delivery option
+    localStorage.setItem("selDelOpt", value);
 
     dispatch(updateCustomerDetails({ name: "", phone: "", streetAddress: "" }));
     dispatch(updateCustomerAddress(""));
@@ -113,6 +115,8 @@ export const OnlineOrderingBasket = () => {
   const handleAddress = (addressLocation: string) => {
     setAddressvalue(addressLocation);
     dispatch(updateCustomerAddress(addressLocation));
+    // delAdd is short for delivery address
+    localStorage.setItem("delAdd", addressLocation);
   };
 
   const handleAddressSubmit = (event: React.FormEvent) => {
