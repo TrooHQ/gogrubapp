@@ -72,6 +72,7 @@ export const OnlineOrderingSelectPayment = () => {
       customerName: basketDetails.customerName,
       address: basketDetails.cutomerStreetAddress ?? basketDetails.cutomerTown,
     },
+    orderType: localStorage.getItem("selDelOpt"),
     items: items,
     menu_items: items,
     total_price: basketDetails.totalPrice,

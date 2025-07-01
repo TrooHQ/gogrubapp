@@ -58,6 +58,8 @@ export interface BasketItem {
   totalPrice: number;
   name: string;
   tableNumber: string;
+  specialInstructions?: string;
+  orderType?: string;
 }
 
 interface GroupedModifier {
@@ -86,6 +88,8 @@ const OnlineOrderingMenuDetails = () => {
   const [menuItem, setMenuItem] = useState<MenuItem | null>(null);
   const [menuModifiers, setMenuModifiers] = useState<GroupedModifier[]>([]);
   const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
+
+  const [specialInstructions, setSpecialInstructions] = useState<string>("");
 
   const [itemCount, setItemCount] = useState<number>(1);
   const dispatch = useDispatch();
@@ -306,7 +310,10 @@ const OnlineOrderingMenuDetails = () => {
         totalPrice,
         name: menuItem.menu_item_name,
         tableNumber: userDetails?.tableNumber ?? "",
+        specialInstructions,
       };
+
+      console.log("selectedOptions", selectedOptions);
 
       if (itemCount === 0) {
         if (existingItem) {
@@ -527,6 +534,9 @@ const OnlineOrderingMenuDetails = () => {
                 <textarea
                   className=" text-[16px] w-full h-[153px] border  font-[400] text-[#929292] border-gray-300 rounded-md p-2 shadow-md"
                   placeholder="Enter message here "
+                  maxLength={256}
+                  value={specialInstructions}
+                  onChange={(e) => setSpecialInstructions(e.target.value)}
                 />
               </div>
               <div className=" mt-[10px] flex items-center justify-end">
