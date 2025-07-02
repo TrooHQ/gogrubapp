@@ -41,6 +41,7 @@ export const OnlineOrderingSelectPayment = () => {
     id: item.id,
     quantity: item.quantity,
     totalPrice: item.totalPrice,
+    specialInstructions: item.specialInstructions,
     menuItem: {
       _id: item.menuItem?._id,
       menu_category_name: item.menuItem?.menu_category_name,
@@ -125,12 +126,14 @@ export const OnlineOrderingSelectPayment = () => {
     verifyPayment();
   }, []);
 
+  console.log("payload", payload);
+  console.log("basketDetails", basketDetails);
+
   const handlePayment = async () => {
     try {
       setLoading(true);
 
 
-      console.log("payload", payload);
 
 
       // return;
