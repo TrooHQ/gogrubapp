@@ -53,6 +53,7 @@ export interface BasketItem {
   quantity: number;
   menuItem?: MenuItem;
   selectedOptions: Option[];
+  specialInstructions?: string;
   totalPrice: number;
   name: string;
   tableNumber: string | number;
