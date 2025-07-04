@@ -125,7 +125,7 @@ export const OnlineOrderingBasket = () => {
     dispatch(updateCustomerDetails({ name: userName, phone, streetAddress, email: userEmail }));
 
     {
-      deliveryDetails?.canScheduledDelivery === false
+      deliveryDetails?.canScheduledDelivery
         ? handleCloseDeliveryModal()
         : navigate("/demo/payment-type/online_ordering");
     }

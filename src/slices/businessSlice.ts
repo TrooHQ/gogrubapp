@@ -42,6 +42,7 @@ interface DeliveryDetails {
   tableNumber: string;
   URL: string;
   colour_scheme: string;
+  support_link?: string | undefined;
 }
 
 interface BusinessState {
