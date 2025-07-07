@@ -35,7 +35,7 @@ export const OnlineOrderingBasket = () => {
   const [pickupModal, setPickupModal] = useState(false);
   const [cancelModal, setCancelModal] = useState(false);
   const [time, setTime] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(dayjs().format("DD-MM-YYYY"));
   const [selectedOption, setSelectedOption] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
   const [userName, setUserName] = useState("");
@@ -43,6 +43,7 @@ export const OnlineOrderingBasket = () => {
   const [phone, setPhone] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [postCode, setPostCode] = useState("");
+
 
   useEffect(() => {
     dispatch(updateCustomerName(userName));
@@ -563,7 +564,7 @@ export const OnlineOrderingBasket = () => {
                 <input
                   type="date"
                   id="date"
-                  value={date}
+                  value={dayjs(date).format("YYYY-MM-DD")}
                   onChange={(e) => setDate(dayjs(e.target.value).format("DD-MM-YYYY"))}
                   placeholder="Set Date"
                   disabled={!scheduleDelivery}

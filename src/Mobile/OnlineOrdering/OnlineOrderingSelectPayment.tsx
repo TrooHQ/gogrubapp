@@ -35,7 +35,7 @@ export const OnlineOrderingSelectPayment = () => {
     (state: RootState) => state.business?.deliveryDetails
   );
 
-  // console.log("branchId", branchId);
+  console.log("deliveryDetails", deliveryDetails);
   // console.log("business", business);
 
   const totalPrice = basketDetails?.totalPrice ?? 0;
@@ -153,6 +153,7 @@ export const OnlineOrderingSelectPayment = () => {
         JSON.stringify(response.data.data)
       );
       dispatch(clearBasket());
+      sessionStorage.removeItem("reference");
       navigate(`/demo/receipt/online_ordering/`);
     } catch (error) {
       console.error("Error occurred:", error);
@@ -256,7 +257,7 @@ export const OnlineOrderingSelectPayment = () => {
       <div className="fixed bottom-[30px] left-1/2 -translate-x-1/2 flex justify-center">
         <div className="flex flex-wrap items-center gap-[2px]">
           <img src={Customer} alt="Customer" />
-          <Link to={deliveryDetails?.support_link ?? "#"} className="font-[400] text-center text-[12px] text-[#000000]">
+          <Link to={deliveryDetails?.deliveryDetails?.support_link ?? "#"} className="font-[400] text-center text-[12px] text-[#000000]">
             Contact Support
           </Link>
         </div>
