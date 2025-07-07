@@ -106,13 +106,15 @@ export const OnlineOrderingSelectPayment = () => {
         { reference: reference }
       );
 
-      if (response.data) {
+
+      if (response.data?.status !== false) {
+        console.log("Payment verification response:", response);
         handlePayment();
         toast.success("Payment Successful!");
-        // sessionStorage.removeItem("reference");
-        // navigate(`/demo/receipt/online_ordering/`);
+        sessionStorage.removeItem("reference");
+        navigate(`/demo/receipt/online_ordering/`);
       } else {
-        toast.error("Payment verification failed. Contact support.");
+        toast.error("Payment could not be verified.");
         navigate(`/demo/payment-type/online_ordering/`);
       }
     } catch (error) {
