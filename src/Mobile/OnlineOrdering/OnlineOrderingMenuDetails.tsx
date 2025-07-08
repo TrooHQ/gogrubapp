@@ -59,11 +59,13 @@ export interface BasketItem {
   name: string;
   tableNumber: string;
   specialInstructions?: string;
+  complimentary?: string[];
   orderType?: string;
 }
 
 interface GroupedModifier {
   modifier_group_name: string;
+  modifier_name?: string;
   modifiers: Option[];
 }
 
@@ -87,6 +89,7 @@ const OnlineOrderingMenuDetails = () => {
 
   const [menuItem, setMenuItem] = useState<MenuItem | null>(null);
   const [menuModifiers, setMenuModifiers] = useState<GroupedModifier[]>([]);
+  const [complimentaryMenu, setComplimentaryMenu] = useState<GroupedModifier[]>([]);
   const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
 
   const [specialInstructions, setSpecialInstructions] = useState<string>("");
@@ -132,6 +135,17 @@ const OnlineOrderingMenuDetails = () => {
   };
   const [loading, setLoading] = useState(false);
 
+  const [selectedComplimentary, setSelectedComplimentary] = useState<string>("");
+  const [selectedComplimentaryArr, setSelectedComplimentaryArr] = useState<string[]>([]);
+  const handleComplimentaryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = event.target.value;
+    console.log("selectedValue", selectedValue);
+    setSelectedComplimentary(selectedValue);
+    setSelectedComplimentaryArr([selectedValue]);
+  };
+
+  console.log("selectedComplimentary", selectedComplimentary);
+
   const getItems = async () => {
     setLoading(true);
     try {
@@ -163,6 +177,7 @@ const OnlineOrderingMenuDetails = () => {
       console.log(groupedArray)
 
       setMenuModifiers(groupedArray || []);
+      setComplimentaryMenu(response?.data?.complimentary || []);
     } catch (error) {
       console.error("Error getting Business Details:", error);
     } finally {
@@ -170,19 +185,8 @@ const OnlineOrderingMenuDetails = () => {
     }
   };
 
-  // const getModifiers = async () => {
-  //   setLoading(true);
-  //   try {
-  //     const response = await axios.get(
-  //       `${SERVER_DOMAIN}/menu/getgorGrubBusinessMenuModifierGroupByItem/?business_identifier=${businessIdentifier}&attach_to=item&name=${menuItem?.menu_item_name}&branch=${branchId}`
-  //     );
-  //     setMenuModifiers(response.data.data);
-  //   } catch (error) {
-  //     console.error("Error getting Modifiers", error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  console.log("complimentaryMenu", complimentaryMenu)
+
 
   useEffect(() => {
     getItems();
@@ -307,6 +311,7 @@ const OnlineOrderingMenuDetails = () => {
         quantity: itemCount,
         menuItem,
         selectedOptions,
+        complimentary: selectedComplimentaryArr,
         totalPrice,
         name: menuItem.menu_item_name,
         tableNumber: userDetails?.tableNumber ?? "",
@@ -357,9 +362,29 @@ const OnlineOrderingMenuDetails = () => {
             </p>
           </div>
 
+
+          {complimentaryMenu?.length > 0 && (
+            <div className="w-full">
+              <p className="text-grey300 mx-[24px] font-[500] text-[18px] pb-[16px] pt-[24px]">
+                Complimentary
+              </p>
+
+              <select value={selectedComplimentary} onChange={handleComplimentaryChange} className="w-[90%] py-3 px-2 mx-4 text-center border border-gray-300 rounded-md">
+                {complimentaryMenu.map((menu, index) => (
+                  <option key={index} value={menu.modifier_name}>
+                    {menu.modifier_name}
+                  </option>
+                ))}
+              </select>
+
+            </div>
+
+
+          )}
+
           {menuModifiers?.length > 0 && (
             <div className="menu-item-modifiers pb-[16px] border-b">
-              <p className="text-grey300 mx-[24px] font-[500] text-[18px] pb-[16px] pt-[24px]">
+              <p className="text-grey300 mx-[24px] font-[500] text-[18px]  pt-[24px]">
                 Customize
               </p>
               <>
