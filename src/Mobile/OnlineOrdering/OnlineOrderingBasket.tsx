@@ -44,6 +44,8 @@ export const OnlineOrderingBasket = () => {
   const [streetAddress, setStreetAddress] = useState("");
   const [postCode, setPostCode] = useState("");
 
+  // console.log("date", date);
+  // console.log("format date", dayjs(date).format("DD-MM-YYYY"));
 
   useEffect(() => {
     dispatch(updateCustomerName(userName));
@@ -134,7 +136,7 @@ export const OnlineOrderingBasket = () => {
 
   const handleScheduleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    dispatch(updateDeliveryDetails({ time, date }));
+    dispatch(updateDeliveryDetails({ time, date: dayjs(date).format("DD-MM-YYYY") }));
 
     handleCloseDeliveryModal();
     navigate("/demo/payment-type/online_ordering");
@@ -564,8 +566,10 @@ export const OnlineOrderingBasket = () => {
                 <input
                   type="date"
                   id="date"
-                  value={dayjs(date).format("YYYY-MM-DD")}
-                  onChange={(e) => setDate(dayjs(e.target.value).format("DD-MM-YYYY"))}
+                  // value={dayjs(date).format("YYYY-MM-DD")}
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  // onChange={(e) => setDate(dayjs(e.target.value).format("DD-MM-YYYY"))}
                   placeholder="Set Date"
                   disabled={!scheduleDelivery}
                   min={new Date().toISOString().split("T")[0]}
