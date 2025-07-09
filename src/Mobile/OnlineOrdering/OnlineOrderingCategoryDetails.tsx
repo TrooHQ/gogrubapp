@@ -222,6 +222,7 @@ export const OnlineOrderingCategoryDetails = () => {
           id: menuItem._id,
           quantity: 1,
           selectedOptions: [],
+          complimentary: [],
           totalPrice: menuItem.menu_item_price,
           name: menuItem.menu_item_name,
           tableNumber: 1,

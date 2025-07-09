@@ -14,12 +14,12 @@ import {
 } from "../slices/BasketSlice";
 import Header2 from "./Header2";
 import { TiDelete } from "react-icons/ti";
-import MenuDetailsModal from "./MenuDetails";
+// import MenuDetailsModal from "./MenuDetails";
 
 export const Basket = () => {
   const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedMenuItemId, setSelectedMenuItemId] = useState("");
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [selectedMenuItemId, setSelectedMenuItemId] = useState("");
   const backetDetails = useSelector((state: RootState) => state.basket);
   const tip = useSelector((state: RootState) => state.basket?.tip);
   const tipPercentages = [0.1, 0.125, 0.15];
@@ -94,14 +94,14 @@ export const Basket = () => {
 
   const color = userDetails?.colour_scheme || "#FF0000";
 
-  const openModal = (menuItemId: string) => {
-    setSelectedMenuItemId(menuItemId);
-    setIsModalOpen(true);
-  };
+  // const openModal = (menuItemId: string) => {
+  //   setSelectedMenuItemId(menuItemId);
+  //   setIsModalOpen(true);
+  // };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  // const closeModal = () => {
+  //   setIsModalOpen(false);
+  // };
 
   return (
     <div className=" ">
@@ -115,15 +115,14 @@ export const Basket = () => {
         <div className=" shadow-xl shadow-grey40 border border-grey40 my-[40px]  max-w-[960px] mx-[5%] rounded-[10px]">
           {backetDetails?.items.map((item, index) => (
             <div
-              className={`border-grey40 grid items-center mb-[10px]  px-[40px] py-[36px]  ${
-                index % 2 === 0 ? "bg-[#f0f0f0]" : ""
-              }`}
+              className={`border-grey40 grid items-center mb-[10px]  px-[40px] py-[36px]  ${index % 2 === 0 ? "bg-[#f0f0f0]" : ""
+                }`}
               key={index}
             >
               <div className=" flex  justify-between place-items-center text-start items-center">
                 <p
                   className="text-[25px] text-grey500 font-[400] max-w-[200px]"
-                  onClick={() => openModal(item?.id)}
+                // onClick={() => openModal(item?.id)}
                 >
                   {item?.name?.length > 12
                     ? `${item.name.slice(0, 10)}...`
@@ -262,11 +261,11 @@ export const Basket = () => {
         )}
       </div>
 
-      <MenuDetailsModal
+      {/* <MenuDetailsModal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
         menuItemId={selectedMenuItemId}
-      />
+      /> */}
 
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <div className=" p-[32px]">
@@ -290,11 +289,10 @@ export const Basket = () => {
                 {tipPercentages.map((tip, index) => (
                   <div
                     key={index}
-                    className={`py-[39px] px-[134px] flex items-center  justify-center text-center cursor-pointer rounded-[10px] text-grey500 text-[36px] font-[500] ${
-                      selectedPercentage === tip
+                    className={`py-[39px] px-[134px] flex items-center  justify-center text-center cursor-pointer rounded-[10px] text-grey500 text-[36px] font-[500] ${selectedPercentage === tip
                         ? " text-white"
                         : "border-2 border-grey300 "
-                    }`}
+                      }`}
                     onClick={() => handlePercentageClick(tip)}
                     style={{
                       backgroundColor:
@@ -363,9 +361,8 @@ export const Basket = () => {
                   Cancel
                 </p>
                 <p
-                  className={`px-[24px] py-[10px] ${
-                    !tip ? "bg-[#85C0BE]" : "cursor-pointer"
-                  } inline rounded-[5px] text-white text-[16px] font-[500]`}
+                  className={`px-[24px] py-[10px] ${!tip ? "bg-[#85C0BE]" : "cursor-pointer"
+                    } inline rounded-[5px] text-white text-[16px] font-[500]`}
                   onClick={tip ? handleNext : undefined}
                   style={{
                     backgroundColor: tip ? color || "#FF0000" : "#85C0BE",

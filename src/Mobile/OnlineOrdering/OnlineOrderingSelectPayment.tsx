@@ -35,7 +35,7 @@ export const OnlineOrderingSelectPayment = () => {
     (state: RootState) => state.business?.deliveryDetails
   );
 
-  console.log("deliveryDetails", deliveryDetails);
+  console.log("basketDetails from onlineOrderingSelectPayment", basketDetails);
   // console.log("business", business);
 
   const totalPrice = basketDetails?.totalPrice ?? 0;
@@ -59,8 +59,16 @@ export const OnlineOrderingSelectPayment = () => {
       name: option.name,
       price: option.price,
     })),
+    // complimentary: item.complimentary.map((option) => ({
+    //   name: option.name,
+    //   price: option.price,
+    // })),
+    complimentary: item.complimentary,
     tableNumber: item.tableNumber,
   }));
+
+  console.log("items", items);
+
 
   const payload = {
     is_paid: "true",
@@ -78,15 +86,16 @@ export const OnlineOrderingSelectPayment = () => {
       address: basketDetails.cutomerStreetAddress ?? basketDetails.cutomerTown,
     },
     orderType: localStorage.getItem("selDelOpt"),
-    order_type:
-      localStorage.getItem("selDelOpt"),
+    order_type: localStorage.getItem("selDelOpt"),
     items: items,
     menu_items: items,
     total_price: basketDetails.totalPrice,
     totalPrice: basketDetails.totalPrice,
     totalQuantity: basketDetails.totalQuantity,
-    isScheduledOrder: basketDetails.deliveryDate ? true : false,
-    scheduledDate: dayjs(basketDetails?.deliveryDate).format("DD-MM-YYYY"),
+    // isScheduledOrder: basketDetails.deliveryDate ? true : false,
+    isScheduledOrder: !!basketDetails.deliveryDate && !dayjs(basketDetails.deliveryDate).isBefore(dayjs(), "day"),
+    // scheduledDate: dayjs(basketDetails?.deliveryDate).format("DD-MM-YYYY"),
+    scheduledDate: dayjs(basketDetails?.deliveryDate).isBefore(dayjs(), "day") ? "" : dayjs(basketDetails?.deliveryDate).format("DD-MM-YYYY"),
     transactionRef: sessionStorage.getItem("reference") || reference,
     // scheduledDate: basketDetails?.deliveryDate
     //   ? new Date(basketDetails.deliveryDate).toLocaleDateString("en-GB")
@@ -142,8 +151,6 @@ export const OnlineOrderingSelectPayment = () => {
       setLoading(true);
 
 
-
-
       // return;
       const response = await axios.post(
         `${SERVER_DOMAIN}/order/uploadGogrubBranchUserOrder`,
@@ -166,7 +173,7 @@ export const OnlineOrderingSelectPayment = () => {
 
   const IntiatePayment = async () => {
     setLoading(true);
-
+    // sessionStorage.removeItem("reference");
     try {
       const headers = {
         headers: {

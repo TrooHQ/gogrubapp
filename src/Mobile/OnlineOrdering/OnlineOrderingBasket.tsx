@@ -31,11 +31,11 @@ export const OnlineOrderingBasket = () => {
   const dispatch = useDispatch();
   const [deliveryModal, setDeliveryModal] = useState(false);
   const [scheduleModal, setScheduleModal] = useState(false);
-  const [scheduleDelivery, setSheduleDelivery] = useState(true);
+  const [scheduleDelivery, setSheduleDelivery] = useState(false);
   const [pickupModal, setPickupModal] = useState(false);
   const [cancelModal, setCancelModal] = useState(false);
   const [time, setTime] = useState("");
-  const [date, setDate] = useState(dayjs().format("DD-MM-YYYY"));
+  const [date, setDate] = useState(dayjs().add(1, 'day').format('YYYY-MM-DD'));
   const [selectedOption, setSelectedOption] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
   const [userName, setUserName] = useState("");
@@ -44,11 +44,12 @@ export const OnlineOrderingBasket = () => {
   const [streetAddress, setStreetAddress] = useState("");
   const [postCode, setPostCode] = useState("");
 
-  // console.log("date", date);
+  console.log("basketDetails on view", basketDetails);
   // console.log("format date", dayjs(date).format("DD-MM-YYYY"));
 
   useEffect(() => {
     dispatch(updateCustomerName(userName));
+    sessionStorage.removeItem("reference");
   }, [userName, dispatch]);
 
   useEffect(() => {
@@ -144,6 +145,7 @@ export const OnlineOrderingBasket = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+
     dispatch(updateCustomerDetails({ name: userName, phone, streetAddress }));
 
     handleCloseDeliveryModal();
@@ -572,7 +574,8 @@ export const OnlineOrderingBasket = () => {
                   // onChange={(e) => setDate(dayjs(e.target.value).format("DD-MM-YYYY"))}
                   placeholder="Set Date"
                   disabled={!scheduleDelivery}
-                  min={new Date().toISOString().split("T")[0]}
+                  // min={new Date().toISOString().split("T")[0]}
+                  min={dayjs().add(1, 'day').format('YYYY-MM-DD')}
                   className={` ${!scheduleDelivery
                     ? " placeholder:text-[#1212123D] text-[#1212123D]"
                     : ""

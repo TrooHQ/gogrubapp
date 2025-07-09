@@ -32,7 +32,7 @@ export const Basket = () => {
   };
 
   return (
-    <div className=" ">
+    <div className="">
       <TopMenuNav exploreMenuText="Basket" />
 
       <div className="mt-[68px]">
@@ -68,7 +68,7 @@ export const Basket = () => {
                       </Link>
                       <div className="flex items-center justify-center w-full max-w-[100px] ">
                         <div
-                          className="  cursor-pointer text-white   rounded-full"
+                          className="text-white rounded-full cursor-pointer "
                           onClick={() =>
                             handleDecreaseQuantity(item.id, item.quantity)
                           }
@@ -88,7 +88,7 @@ export const Basket = () => {
                           x{item?.quantity}
                         </p>
                         <div
-                          className="  cursor-pointer text-white   rounded-full"
+                          className="text-white rounded-full cursor-pointer "
                           onClick={() =>
                             handleIncreaseQuantity(item.id, item.quantity)
                           }
@@ -146,7 +146,7 @@ export const Basket = () => {
           ))
         ) : (
           <div className="py-[20px] mx-[24px] text-center text-[16px] text-grey500 font-[500] grid place-items-center items-center">
-            <p className=" text-7xl font-bold text-black">
+            <p className="font-bold text-black  text-7xl">
               {/* <GiShoppingCart /> */}
             </p>
             <p>Your cart is empty.</p>
