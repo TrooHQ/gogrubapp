@@ -59,7 +59,7 @@ export interface BasketItem {
   name: string;
   tableNumber: string;
   specialInstructions?: string;
-  complimentary?: string[];
+  complimentary: string[];
   orderType?: string;
 }
 
@@ -226,8 +226,10 @@ const OnlineOrderingMenuDetails = () => {
 
   useEffect(() => {
     if (existingItem) {
+      console.log("existing", existingItem)
       setMenuItem(existingItem.menuItem);
       setSelectedOptions(existingItem.selectedOptions);
+      setSelectedComplimentary(existingItem.complimentary[0]);
       setItemCount(existingItem.quantity);
     }
   }, [existingItem]);
@@ -255,6 +257,7 @@ const OnlineOrderingMenuDetails = () => {
           id: menuItem._id,
           quantity: 1,
           selectedOptions: [],
+          complimentary: [],
           totalPrice: menuItem.menu_item_price,
           name: menuItem.menu_item_name,
           tableNumber: 1,
@@ -318,7 +321,7 @@ const OnlineOrderingMenuDetails = () => {
         specialInstructions,
       };
 
-      console.log("selectedOptions", selectedOptions);
+      console.log("basketItem on item", basketItem);
 
       if (itemCount === 0) {
         if (existingItem) {

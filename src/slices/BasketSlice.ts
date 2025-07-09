@@ -53,6 +53,7 @@ export interface BasketItem {
   quantity: number;
   menuItem?: MenuItem;
   selectedOptions: Option[];
+  complimentary: string[] | Option[];
   specialInstructions?: string;
   totalPrice: number;
   name: string;

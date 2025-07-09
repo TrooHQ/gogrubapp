@@ -3,7 +3,7 @@ import NotFound from "./Mobile/NotFound";
 import Login from "./Mobile/authPages/Login";
 import RegistrationStepForm from "./Mobile/Components/RegistrationStepForm";
 import MenuSetupForm from "./Mobile/Components/MenuSetupForm";
-import ScrollToTop from "./components/ScrollToTop";
+// import ScrollToTop from "./components/ScrollToTop";
 import TableSetupForm from "./Mobile/Components/TableSetupForm";
 import Dashboard from "./Mobile/authPages/Dashboard";
 import Tickets from "./Mobile/Components/Tickets";
@@ -16,19 +16,19 @@ import EnterPassword from "./Mobile/authPages/EnterPassword";
 import CreatePassword from "./Mobile/authPages/CreatePassword";
 import ListofRestaurants from "./Mobile/Customers/ListofRestaurants";
 import StartOrder from "./Mobile/Customers/StartOrder";
-import MenuDetails from "./Mobile/Customers/MenuDetails";
+// import MenuDetails from "./Mobile/Customers/MenuDetails";
 import { MenuPage } from "./Mobile/Customers/MenuPage";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import { Basket } from "./Mobile/Customers/Basket";
-import { Tip } from "./Mobile/Customers/Tip";
-import { SelectPayment } from "./Mobile/Customers/SelectPayment";
-import { Receipt } from "./Mobile/Customers/Receipt";
-import { GetReceipt } from "./Mobile/Customers/GetReceipt";
+// import { Basket } from "./Mobile/Customers/Basket";
+// import { Tip } from "./Mobile/Customers/Tip";
+// import { SelectPayment } from "./Mobile/Customers/SelectPayment";
+// import { Receipt } from "./Mobile/Customers/Receipt";
+// import { GetReceipt } from "./Mobile/Customers/GetReceipt";
 import VerifyAccount from "./Mobile/Components/VerifyAccount";
 import ForgotPassword from "./Mobile/authPages/ForgotPassword";
 import VerifyAccount2 from "./Mobile/Components/VerifyAccount2";
-import { CategoryDetails } from "./Mobile/Customers/CategoryDetails";
+// import { CategoryDetails } from "./Mobile/Customers/CategoryDetails";
 import RoomSetupForm from "./Mobile/Components/RoomSetupForm";
 
 import OnlineOrderingStartOrder from "./Mobile/OnlineOrdering/OnlineOrderingStartOrder";
@@ -46,10 +46,10 @@ import AccountVerified from "./Mobile/Components/AccountVerified";
 
 const MobileLayout = () => {
   return (
-    <div className=" font-GeneralSans overflow-hidden">
+    <div className="overflow-hidden font-GeneralSans">
       <ToastContainer />
       <Router>
-        <ScrollToTop />
+        {/* <ScrollToTop /> */}
         <Routes>
           <Route path="/digi-input" element={<VerifyAccount2 />} />
 
@@ -60,15 +60,15 @@ const MobileLayout = () => {
             path="/demo/:id/explore-menu/orderandpay"
             element={<MenuPage />}
           />
-          <Route
+          {/* <Route
             path="demo/:id?/category-details/:id?/orderandpay"
             element={<CategoryDetails />}
-          />
-          <Route
+          /> */}
+          {/* <Route
             path="/demo/menu-details/:id/orderandpay"
             element={<MenuDetails />}
-          />
-          <Route path="/demo/basket/orderandpay" element={<Basket />} />
+          /> */}
+          {/* <Route path="/demo/basket/orderandpay" element={<Basket />} />
           <Route path="/demo/tip/orderandpay" element={<Tip />} />
           <Route
             path="/demo/payment-type/orderandpay"
@@ -78,7 +78,7 @@ const MobileLayout = () => {
           <Route
             path="/demo/get-receipt/orderandpay"
             element={<GetReceipt />}
-          />
+          /> */}
 
           <Route
             path="demo/online_ordering/:id/:branchId"
