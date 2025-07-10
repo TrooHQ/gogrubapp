@@ -94,8 +94,8 @@ export const OnlineOrderingSelectPayment = () => {
     totalQuantity: basketDetails.totalQuantity,
     // isScheduledOrder: basketDetails.deliveryDate ? true : false,
     isScheduledOrder: !!basketDetails.deliveryDate && !dayjs(basketDetails.deliveryDate).isBefore(dayjs(), "day"),
-    // scheduledDate: dayjs(basketDetails?.deliveryDate).format("DD-MM-YYYY"),
-    scheduledDate: dayjs(basketDetails?.deliveryDate).isBefore(dayjs(), "day") ? "" : dayjs(basketDetails?.deliveryDate).format("DD-MM-YYYY"),
+    scheduledDate: basketDetails?.deliveryDate,
+    // scheduledDate: dayjs(basketDetails?.deliveryDate).isBefore(dayjs(), "day") ? "" : dayjs(basketDetails?.deliveryDate).format("DD-MM-YYYY"),
     transactionRef: sessionStorage.getItem("reference") || reference,
     // scheduledDate: basketDetails?.deliveryDate
     //   ? new Date(basketDetails.deliveryDate).toLocaleDateString("en-GB")
@@ -118,13 +118,11 @@ export const OnlineOrderingSelectPayment = () => {
 
       if (response.data?.status !== false) {
         console.log("Payment verification response:", response);
-        handlePayment();
+        handleOrderUpload();
         toast.success("Payment Successful!");
         sessionStorage.removeItem("reference");
-        navigate(`/demo/receipt/online_ordering/`);
       } else {
         toast.error("Payment could not be verified.");
-        navigate(`/demo/payment-type/online_ordering/`);
       }
     } catch (error) {
       console.error("Error confirming payment:", error);
@@ -137,6 +135,7 @@ export const OnlineOrderingSelectPayment = () => {
 
   useEffect(() => {
     if (!reference) {
+      localStorage.removeItem("order_srjhh");
       return;
     }
 
@@ -146,15 +145,19 @@ export const OnlineOrderingSelectPayment = () => {
   console.log("payload", payload);
   console.log("basketDetails", basketDetails);
 
-  const handlePayment = async () => {
+  const handleOrderUpload = async () => {
     try {
       setLoading(true);
 
+      const _order = localStorage.getItem("order_srjhh")
+
+      const order = _order ? JSON.parse(_order) : null;
 
       // return;
       const response = await axios.post(
         `${SERVER_DOMAIN}/order/uploadGogrubBranchUserOrder`,
-        payload
+        payload?.items.length > 0 ? payload : order
+        // payload
       );
 
       sessionStorage.setItem(
@@ -163,6 +166,7 @@ export const OnlineOrderingSelectPayment = () => {
       );
       dispatch(clearBasket());
       sessionStorage.removeItem("reference");
+      // localStorage.removeItem("order_srjhh");
       navigate(`/demo/receipt/online_ordering/`);
     } catch (error) {
       console.error("Error occurred:", error);
@@ -181,6 +185,8 @@ export const OnlineOrderingSelectPayment = () => {
           Authorization: "",
         },
       };
+
+      localStorage.setItem("order_srjhh", JSON.stringify(payload));
 
       sessionStorage.setItem("deliveryFee", deliveryFee.toString());
 
