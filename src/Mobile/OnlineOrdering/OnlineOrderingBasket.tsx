@@ -41,6 +41,9 @@ export const OnlineOrderingBasket = () => {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [houseNumber, setHouseNumber] = useState("");
+  const [street, setStreet] = useState("");
+  const [town_city, setTown_city] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [postCode, setPostCode] = useState("");
 
@@ -51,6 +54,11 @@ export const OnlineOrderingBasket = () => {
     dispatch(updateCustomerName(userName));
     sessionStorage.removeItem("reference");
   }, [userName, dispatch]);
+
+  useEffect(() => {
+    setStreetAddress(`${houseNumber}, ${street}, ${town_city}, ${postCode}`);
+  }, [houseNumber, street, town_city, postCode]);
+
 
   useEffect(() => {
     setIsFormValid(
@@ -457,7 +465,7 @@ export const OnlineOrderingBasket = () => {
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
                   placeholder="Enter Full Name"
-                  className={`bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-4 w-full `}
+                  className={`bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-3 w-full `}
                 />
 
                 <input
@@ -471,7 +479,7 @@ export const OnlineOrderingBasket = () => {
                     }
                   }}
                   placeholder="WhatsApp Number"
-                  className="bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-4 w-full"
+                  className="bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-3 w-full"
                   inputMode="tel"
                 />
                 <input
@@ -480,24 +488,47 @@ export const OnlineOrderingBasket = () => {
                   value={userEmail}
                   onChange={(e) => setUserEmail(e.target.value)}
                   placeholder="Email Address"
-                  className={`bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-4 w-full `}
+                  required
+                  className={`bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-3 w-full `}
                 />
-                <input
-                  type="text"
-                  id="name"
-                  value={streetAddress}
-                  onChange={(e) => setStreetAddress(e.target.value)}
-                  placeholder="Street Address"
-                  className={`bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-4 w-full `}
-                />
+                <div className="grid grid-cols-3 gap-2">
+                  <input
+                    type="text"
+                    id="house_number"
+                    value={houseNumber}
+                    onChange={(e) => setHouseNumber(e.target.value)}
+                    placeholder="House Number"
+                    required
+                    className={`bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-3 col-span-1`}
+                  />
+
+                  <input
+                    type="text"
+                    id="street"
+                    value={street}
+                    onChange={(e) => setStreet(e.target.value)}
+                    placeholder="Street "
+                    required
+                    className={`bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-3 col-span-2`}
+                  />
+                  <input
+                    type="text"
+                    id="town_city"
+                    value={town_city}
+                    onChange={(e) => setTown_city(e.target.value)}
+                    placeholder="Town/City"
+                    required
+                    className={`bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-3 col-span-3`}
+                  />
+                </div>
 
                 <input
                   type="text"
                   id="name"
                   value={deliveryDetails?.deliveryDetails?.state}
-                  placeholder="LGA"
+                  placeholder="State"
                   onChange={(e) => handleAddress(e.target.value)}
-                  className={`bg-transparent  placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-4 w-full `}
+                  className={`bg-transparent  placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-3 w-full `}
                   readOnly
                 />
 
@@ -507,7 +538,7 @@ export const OnlineOrderingBasket = () => {
                   value={postCode}
                   onChange={(e) => setPostCode(e.target.value)}
                   placeholder="Post Code (Optional)"
-                  className={`bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-4 w-full `}
+                  className={`bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-3 w-full `}
                 />
               </div>
               <div className="mt-[24px] flex items-center justify-center gap-[16px]">
@@ -579,7 +610,7 @@ export const OnlineOrderingBasket = () => {
                   className={` ${!scheduleDelivery
                     ? " placeholder:text-[#1212123D] text-[#1212123D]"
                     : ""
-                    } bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-4 w-full 
+                    } bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-3 w-full 
                   `}
                 />
 
@@ -593,7 +624,7 @@ export const OnlineOrderingBasket = () => {
                   className={` ${!scheduleDelivery
                     ? " placeholder:text-[#1212123D] text-[#1212123D]"
                     : ""
-                    } bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-4 w-full `}
+                    } bg-transparent placeholder:text-[14px] border border-black border-opacity-35 rounded-md pl-2 pr-2 py-3 w-full `}
                 />
               </div>
               <div className="mt-[24px] flex items-center justify-center gap-[16px]">
