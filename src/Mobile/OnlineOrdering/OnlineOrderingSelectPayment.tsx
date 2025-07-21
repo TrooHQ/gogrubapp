@@ -277,7 +277,7 @@ export const OnlineOrderingSelectPayment = () => {
 
         <div className="flex items-center justify-between w-full px-4">
           <p className=" text-[#000000] text-[16px] my-1 font-semibold ">
-            VAT:{" "}
+            Service Fee:{" "}
           </p>
           <p className="text-sm font-bold text-gray-500">
             ₦ {tax ? tax.toLocaleString() : "0"}
@@ -301,7 +301,7 @@ export const OnlineOrderingSelectPayment = () => {
             Balance Due:{" "}
           </p>
           <p className="font-semibold text-gray-500">
-            ₦{(pricePlusTax + (deliveryFee ?? 0)).toLocaleString()}
+            ₦{(pricePlusTax + deliveryFee).toLocaleString()}
           </p>
         </div>
       </div>
