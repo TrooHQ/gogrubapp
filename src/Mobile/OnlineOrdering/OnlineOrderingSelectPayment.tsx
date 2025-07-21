@@ -35,10 +35,38 @@ export const OnlineOrderingSelectPayment = () => {
     (state: RootState) => state.business?.deliveryDetails
   );
 
-  console.log("basketDetails from onlineOrderingSelectPayment", basketDetails);
-  // console.log("business", business);
+  const [pricePlusTax, setPricePlusTax] = useState(0);
+  const [tax, setTax] = useState(0);
 
-  const totalPrice = basketDetails?.totalPrice ?? 0;
+
+  useEffect(() => {
+
+    const paymentPlusTax = async () => {
+      // https://troox-backend.onrender.com/api
+      try {
+        const response = await axios.post(
+          `${SERVER_DOMAIN}/order/calculateTotalAmount`,
+          { "amount": basketDetails.totalPrice }
+
+        );
+        setPricePlusTax(response.data.total);
+        setTax(response.data.tax);
+        // console.log(response)
+      } catch (error) {
+        console.error("Something went wrong", error);
+        // navigate(`/demo/payment-type/online_ordering/`);
+      }
+    }
+
+    if (basketDetails?.totalPrice) {
+      paymentPlusTax();
+    }
+  }, [basketDetails?.totalPrice]);
+
+  // console.log("basketDetails from onlineOrderingSelectPayment", basketDetails);
+  console.log("pricePlusTax", pricePlusTax);
+
+  // const totalPrice = basketDetails?.totalPrice ?? 0;
   const deliveryFee = basketDetails?.deliveryFee ?? 0;
 
   const items = basketDetails.items.map((item) => ({
@@ -89,8 +117,8 @@ export const OnlineOrderingSelectPayment = () => {
     order_type: localStorage.getItem("selDelOpt"),
     items: items,
     menu_items: items,
-    total_price: basketDetails.totalPrice,
-    totalPrice: basketDetails.totalPrice,
+    total_price: pricePlusTax,
+    totalPrice: pricePlusTax,
     totalQuantity: basketDetails.totalQuantity,
     // isScheduledOrder: basketDetails.deliveryDate ? true : false,
     isScheduledOrder: !!basketDetails.deliveryDate && !dayjs(basketDetails.deliveryDate).isBefore(dayjs(), "day"),
@@ -133,6 +161,8 @@ export const OnlineOrderingSelectPayment = () => {
     }
   };
 
+
+
   useEffect(() => {
     if (!reference) {
       localStorage.removeItem("order_srjhh");
@@ -156,7 +186,8 @@ export const OnlineOrderingSelectPayment = () => {
       // return;
       const response = await axios.post(
         `${SERVER_DOMAIN}/order/uploadGogrubBranchUserOrder`,
-        payload?.items.length > 0 ? payload : order
+        { ...order, transactionRef: reference }
+        // payload?.items.length > 0 ? payload : order
         // payload
       );
 
@@ -174,6 +205,9 @@ export const OnlineOrderingSelectPayment = () => {
       setLoading(false);
     }
   };
+
+
+
 
   const IntiatePayment = async () => {
     setLoading(true);
@@ -196,8 +230,8 @@ export const OnlineOrderingSelectPayment = () => {
           business_id: business?.businessDetails?._id,
           name: basketDetails.customerName || "User",
           platform: "Online",
-          amount: parseInt(totalPrice.toString()) + parseInt(deliveryFee.toString()),
-          // amount: basketDetails.totalPrice,
+          amount: parseInt(pricePlusTax.toString()) + parseInt(deliveryFee.toString()),
+          // amount: pricePlusTax,
           email: "user@example.com",
           callback_url: window.location.href.includes("netlify.app") ?
             "https://gogrub-app.netlify.app/demo/payment-type/online_ordering" : "https://order.gogrub.co/demo/payment-type/online_ordering",
@@ -229,30 +263,47 @@ export const OnlineOrderingSelectPayment = () => {
       <TopMenuNav exploreMenuText="Select Payment" />
       {loading && <Loader />}
 
-      <div className=" text-center mt-[7px] w-full mx-[10px]">
-        <p className=" text-[#000000] text-[18px] font-[400] mt-[36px]">
-          Balance Due:{" "}
-          <span className=" text-grey500">
-            ₦ {totalPrice ? totalPrice.toLocaleString() : "0"}
-          </span>
-        </p>
+      <div className=" text-center w-full mx-[10px] mt-[44px]">
+
+
+        <div className="flex items-center justify-between w-full px-4">
+          <p className=" text-[#000000] text-[16px] my-1 font-semibold ">
+            Order Total:{" "}
+          </p>
+          <p className="text-sm font-bold text-gray-500">
+            ₦ {basketDetails.totalPrice ? basketDetails.totalPrice.toLocaleString() : "0"}
+          </p>
+        </div>
+
+        <div className="flex items-center justify-between w-full px-4">
+          <p className=" text-[#000000] text-[16px] my-1 font-semibold ">
+            VAT:{" "}
+          </p>
+          <p className="text-sm font-bold text-gray-500">
+            ₦ {tax ? tax.toLocaleString() : "0"}
+          </p>
+        </div>
 
         {deliveryFee !== 0 && (
-          <p className=" text-[#000000] text-[14px] font-[400] ">
-            Delivery Fee:{" "}
-            <span className=" text-grey500">
+          <div className="flex items-center justify-between w-full px-4">
+            <p className=" text-[#000000] text-[16px] my-1 font-semibold ">
+              Delivery Fee:{" "}
+            </p>
+            <p className="text-sm font-bold text-gray-500">
               ₦ {deliveryFee ? deliveryFee.toLocaleString() : "0"}
-            </span>
-          </p>
+            </p>
+          </div>
         )}
 
         <hr className=" border border-[#414141] mb-[16px] mt-[24px]" />
-        <p className="text-[#000000] text-[18px] font-[600]">
-          Pay:{" "}
-          <span className="text-grey500">
-            ₦{(totalPrice + (deliveryFee ?? 0)).toLocaleString()}
-          </span>
-        </p>
+        <div className="flex items-center justify-between w-full px-4">
+          <p className=" text-[#000000] text-[16px] my-1 font-semibold ">
+            Balance Due:{" "}
+          </p>
+          <p className="font-semibold text-gray-500">
+            ₦{(pricePlusTax + (deliveryFee ?? 0)).toLocaleString()}
+          </p>
+        </div>
       </div>
 
       <div className=" flex items-center  justify-center mt-[90px]">
