@@ -145,23 +145,23 @@ export const OnlineOrderingReceipt = () => {
         </div>
 
         <div className="mt-[8px] space-y-[8px]">
-          <div className="font-[400] text-[16px] text-grey500 flex items-center justify-between">
+          {/* <div className="font-[400] text-[16px] text-grey500 flex items-center justify-between">
             <p className="">Sub-Total</p>
             <p>₦{orderDetails?.total_price?.toLocaleString()}</p>
-          </div>
+          </div> */}
 
-          <div className="font-[400] text-[16px] text-grey500 flex items-center justify-between">
+          {/* <div className="font-[400] text-[16px] text-grey500 flex items-center justify-between">
             <p className="">Delivery Fee</p>
             <p>₦{deliveryFee?.toLocaleString()}</p>
-          </div>
+          </div> */}
 
-          <div className="font-[400] text-[16px] text-grey500 flex items-center justify-between">
+          {/* <div className="font-[400] text-[16px] text-grey500 flex items-center justify-between">
             <p className="">VAT</p>
             <p>₦0</p>
-          </div>
+          </div> */}
 
           <div className="font-[500] text-[18px] text-grey500 flex items-center justify-between">
-            <p className="">Paid</p>
+            <p className="">Total Paid</p>
             <p>
               ₦
               {(
