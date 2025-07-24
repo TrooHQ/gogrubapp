@@ -19,6 +19,7 @@ interface Menu {
   menuItem: MenuItem;
   selectedOptions: SelectedOption[];
   quantity: number;
+  complimentary?: string[];
 }
 
 interface OrderDetails {
@@ -42,8 +43,6 @@ export const OnlineOrderingReceipt = () => {
       setDeliveryFee(Number(df));
     }
   }, [])
-
-  console.log("deliveryFee", deliveryFee);
 
   useEffect(() => {
 
@@ -93,11 +92,11 @@ export const OnlineOrderingReceipt = () => {
 
       <div className="py-[28px] mx-[16px]" ref={receiptRef}>
         <div className="mb-[20px]">
-          <p className="text-[18px] font-[500] text-grey500 text-center">
-            Order - {orderDetails?.order_number || "CR201"}
+          <p className="text-[18px] font-semibold text-gray-900 text-center">
+            Order - {orderDetails?.order_number || ""}
           </p>
 
-          <p className="text-grey500 text-[14px] font-[400] text-center">
+          <p className="text-gray-500 text-[14px] font-[400] text-center">
             {orderDetails?.createdAt
               ? dayjs(orderDetails.createdAt).format(
                 "HH:mm:ss dddd, DD MMM YYYY"
@@ -110,10 +109,9 @@ export const OnlineOrderingReceipt = () => {
           {orderDetails?.menu_items?.map((menu, index) => (
             <div key={index}>
               <div className="space-y-[8px] pb-[24px]">
-                <div className="font-[400] text-[16px] text-grey500 flex items-center justify-between">
-                  <div className="flex items-center gap-[8px]">
-                    <p>{menu?.menuItem?.menu_item_name || ""}</p>
-                    <span>({menu?.quantity})</span>
+                <div className="flex items-center justify-between text-base font-normal text-gray-800">
+                  <div className=" gap-[8px] font-semibold relative">
+                    <p>{menu?.menuItem?.menu_item_name || ""} <span className="p-1 text-xs border border-gray-500 rounded-full -right-3 -top-3" >{menu?.quantity}</span></p>
                   </div>
 
                   <p>
@@ -121,15 +119,24 @@ export const OnlineOrderingReceipt = () => {
                   </p>
                 </div>
 
+                <div className="flex w-full gap-4 p-2 my-1 bg-white border border-gray-500 rounded-md">
+                  <p className="text-xs font-normal text-gray-600">
+                    Complimentary:
+                  </p>
+                  <p className="text-xs font-semibold text-gray-600">
+                    {menu?.complimentary || ""}
+                  </p>
+                </div>
+
                 {menu?.selectedOptions?.length > 0 && (
                   <div>
-                    <p className="font-[500] text-[10px] text-grey300">
+                    <p className="text-xs font-semibold text-gray-600 underline">
                       MODIFIERS
                     </p>
                     {menu.selectedOptions.map((item, index) => (
-                      <div className="space-y-[8px]" key={index}>
-                        <div className="flex items-center justify-between text-[16px] font-[400] text-grey300">
-                          <p>{item?.name || ""}</p>
+                      <div className="" key={index}>
+                        <div className="flex items-center justify-between ml-4 space-y-2 text-xs font-bold text-gray-500">
+                          <p>{item?.name}</p>
 
                           <p>₦{item?.price?.toLocaleString() || "0"}</p>
                         </div>
@@ -145,20 +152,6 @@ export const OnlineOrderingReceipt = () => {
         </div>
 
         <div className="mt-[8px] space-y-[8px]">
-          {/* <div className="font-[400] text-[16px] text-grey500 flex items-center justify-between">
-            <p className="">Sub-Total</p>
-            <p>₦{orderDetails?.total_price?.toLocaleString()}</p>
-          </div> */}
-
-          {/* <div className="font-[400] text-[16px] text-grey500 flex items-center justify-between">
-            <p className="">Delivery Fee</p>
-            <p>₦{deliveryFee?.toLocaleString()}</p>
-          </div> */}
-
-          {/* <div className="font-[400] text-[16px] text-grey500 flex items-center justify-between">
-            <p className="">VAT</p>
-            <p>₦0</p>
-          </div> */}
 
           <div className="font-[500] text-[18px] text-grey500 flex items-center justify-between">
             <p className="">Total Paid</p>

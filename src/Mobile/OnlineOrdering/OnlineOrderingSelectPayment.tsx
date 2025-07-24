@@ -38,6 +38,7 @@ export const OnlineOrderingSelectPayment = () => {
   const [pricePlusTax, setPricePlusTax] = useState(0);
   const [tax, setTax] = useState(0);
 
+  console.log("fixedPrice", deliveryDetails?.deliveryDetails?.fixedPrice)
 
   useEffect(() => {
 
@@ -67,7 +68,18 @@ export const OnlineOrderingSelectPayment = () => {
   console.log("pricePlusTax", pricePlusTax);
 
   // const totalPrice = basketDetails?.totalPrice ?? 0;
-  const deliveryFee = basketDetails?.deliveryFee ?? 0;
+  // const deliveryFee = basketDetails?.deliveryFee ?? 0;
+  const deliveryFee = deliveryDetails?.deliveryDetails?.fixedPrice;
+  console.log("deliveryFee", deliveryFee);
+
+  const [totalDue, setTotalDue] = useState(pricePlusTax);
+  // console.log("totalDue", totalDue);
+
+  useEffect(() => {
+    if (deliveryFee) {
+      setTotalDue(parseFloat(pricePlusTax.toString()) + parseFloat(deliveryFee.toString()));
+    }
+  }, [deliveryFee, pricePlusTax]);
 
   const items = basketDetails.items.map((item) => ({
     id: item.id,
@@ -138,6 +150,8 @@ export const OnlineOrderingSelectPayment = () => {
     try {
       setLoading(true);
 
+      // `${PAYMENT_DOMAIN}/transaction/confirm_transaction_by_ref/`,
+      // `https://staging.troopay.co/api/v1/transaction/confirm_transaction_by_ref/`,
       const response = await axios.post(
         `${PAYMENT_DOMAIN}/transaction/confirm_transaction_by_ref/`,
         { reference: reference }
@@ -172,8 +186,8 @@ export const OnlineOrderingSelectPayment = () => {
     verifyPayment();
   }, []);
 
-  console.log("payload", payload);
-  console.log("basketDetails", basketDetails);
+  // console.log("payload", payload);
+  // console.log("basketDetails", basketDetails);
 
   const handleOrderUpload = async () => {
     try {
@@ -222,15 +236,17 @@ export const OnlineOrderingSelectPayment = () => {
 
       localStorage.setItem("order_srjhh", JSON.stringify(payload));
 
-      sessionStorage.setItem("deliveryFee", deliveryFee.toString());
+      deliveryFee && sessionStorage.setItem("deliveryFee", deliveryFee.toString());
 
+      // `https://payment.trootab.com/api/v1/transaction/initiate_paystack_transaction/`,
+      // `https://staging.troopay.co/api/v1/transaction/initiate_paystack_transaction/`,
       const response = await axios.post(
-        `https://payment.trootab.com/api/v1/transaction/initiate_paystack_transaction/`,
+        `${PAYMENT_DOMAIN}/transaction/initiate_paystack_transaction/`,
         {
           business_id: business?.businessDetails?._id,
           name: basketDetails.customerName || "User",
           platform: "Online",
-          amount: parseInt(pricePlusTax.toString()) + parseInt(deliveryFee.toString()),
+          amount: parseInt(pricePlusTax.toString()) + parseInt(deliveryFee ? deliveryFee.toString() : "0"),
           // amount: pricePlusTax,
           email: "user@example.com",
           callback_url: window.location.href.includes("netlify.app") ?
@@ -301,7 +317,8 @@ export const OnlineOrderingSelectPayment = () => {
             Balance Due:{" "}
           </p>
           <p className="font-semibold text-gray-500">
-            ₦{(pricePlusTax + deliveryFee).toLocaleString()}
+            {/* ₦{deliveryFee ? (pricePlusTax + deliveryFee) : pricePlusTax} */}
+            ₦{totalDue}
           </p>
         </div>
       </div>
