@@ -272,8 +272,8 @@ export const OnlineOrderingSelectPayment = () => {
           business_id: business?.businessDetails?._id,
           name: basketDetails.customerName || "User",
           platform: "Online",
-          amount: parseInt(pricePlusTax.toString()) + parseInt(deliveryFee ? deliveryFee.toString() : "0"),
-          // amount: pricePlusTax,
+          // amount: parseInt(pricePlusTax.toString()) + parseInt(deliveryFee ? deliveryFee.toString() : "0"),
+          amount: totalDue,
           email: "user@example.com",
           callback_url: window.location.href.includes("netlify.app") ?
             "https://gogrub-app.netlify.app/demo/payment-type/online_ordering" : "https://order.gogrub.co/demo/payment-type/online_ordering",
