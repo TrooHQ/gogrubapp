@@ -35,6 +35,18 @@ export const OnlineOrderingSelectPayment = () => {
     (state: RootState) => state.business?.deliveryDetails
   );
 
+  const [uniqueId, setuniqueId] = useState<string>("");
+  useEffect(() => {
+    const getBizId = () => {
+      const url = sessionStorage.getItem("url")?.split("/");
+
+      url ? setuniqueId(url[url.length - 2]) : setuniqueId("");
+    }
+
+    getBizId();
+  }, [])
+
+
   const [pricePlusTax, setPricePlusTax] = useState(0);
   const [tax, setTax] = useState(0);
 
@@ -72,14 +84,24 @@ export const OnlineOrderingSelectPayment = () => {
   const deliveryFee = deliveryDetails?.deliveryDetails?.fixedPrice;
   console.log("deliveryFee", deliveryFee);
 
+  const [delOpt, setDelOpt] = useState<string>("pickup");
+  useEffect(() => {
+
+    const storedDelOpt = localStorage.getItem("selDelOpt");
+    if (storedDelOpt) {
+      setDelOpt(storedDelOpt);
+    }
+  }, []);
+
+
   const [totalDue, setTotalDue] = useState(pricePlusTax);
   // console.log("totalDue", totalDue);
 
   useEffect(() => {
     if (deliveryFee) {
-      setTotalDue(parseFloat(pricePlusTax.toString()) + parseFloat(deliveryFee.toString()));
+      setTotalDue(parseFloat(pricePlusTax.toString()) + (delOpt === "delivery" ? parseFloat(deliveryFee.toString()) : 0));
     }
-  }, [deliveryFee, pricePlusTax]);
+  }, [deliveryFee, pricePlusTax, delOpt]);
 
   const items = basketDetails.items.map((item) => ({
     id: item.id,
@@ -125,8 +147,10 @@ export const OnlineOrderingSelectPayment = () => {
       customerName: basketDetails.customerName,
       address: basketDetails.cutomerStreetAddress ?? basketDetails.cutomerTown,
     },
-    orderType: localStorage.getItem("selDelOpt"),
-    order_type: localStorage.getItem("selDelOpt"),
+    orderType: delOpt,
+    order_type: delOpt,
+    // orderType: localStorage.getItem("selDelOpt"),
+    // order_type: localStorage.getItem("selDelOpt"),
     items: items,
     menu_items: items,
     total_price: pricePlusTax,
@@ -153,9 +177,11 @@ export const OnlineOrderingSelectPayment = () => {
       // `${PAYMENT_DOMAIN}/transaction/confirm_transaction_by_ref/`,
       // `https://staging.troopay.co/api/v1/transaction/confirm_transaction_by_ref/`,
       const response = await axios.post(
-        `${PAYMENT_DOMAIN}/transaction/confirm_transaction_by_ref/`,
-        { reference: reference }
-      );
+        // `${PAYMENT_DOMAIN}/transaction/confirm_transaction_by_ref/`,
+        // https://troox-backend.onrender.com/api/order/confirmOrderPayment/
+        `${SERVER_DOMAIN}/order/confirmOrderPayment/`,
+        { reference: reference, businessId: uniqueId });
+      // { reference: reference, businessId: uniqueId?.split("_").join(" ") });
 
 
       if (response.data?.status !== false) {
@@ -183,8 +209,8 @@ export const OnlineOrderingSelectPayment = () => {
       return;
     }
 
-    verifyPayment();
-  }, []);
+    uniqueId && verifyPayment();
+  }, [uniqueId]);
 
   // console.log("payload", payload);
   // console.log("basketDetails", basketDetails);
@@ -300,7 +326,7 @@ export const OnlineOrderingSelectPayment = () => {
           </p>
         </div>
 
-        {deliveryFee !== 0 && (
+        {(deliveryFee !== 0 && delOpt === "delivery") && (
           <div className="flex items-center justify-between w-full px-4">
             <p className=" text-[#000000] text-[16px] my-1 font-semibold ">
               Delivery Fee:{" "}
