@@ -27,6 +27,7 @@ interface OrderDetails {
   createdAt: string;
   menu_items: Menu[];
   total_price: number;
+  order_type: string; // e.g., "delivery", "pickup"
 }
 
 export const OnlineOrderingReceipt = () => {
@@ -159,8 +160,7 @@ export const OnlineOrderingReceipt = () => {
               ₦
               {(
                 // (orderDetails?.total_price ?? 0) + (deliveryFee ?? 0)
-                (orderDetails?.total_price ?? 0)
-              ).toLocaleString()}
+                (orderDetails?.order_type === "delivery" ? (orderDetails?.total_price ? orderDetails?.total_price + deliveryFee : orderDetails?.total_price) : orderDetails?.total_price) || 0).toLocaleString()}
             </p>
           </div>
         </div>
