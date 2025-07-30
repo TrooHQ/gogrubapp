@@ -35,7 +35,7 @@ export const OnlineOrderingReceipt = () => {
 
   const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
   const [deliveryFee, setDeliveryFee] = useState<number>(0);
-
+  console.log("Delivery Fee:", deliveryFee);
 
   useEffect(() => {
     const df = sessionStorage.getItem("deliveryFee");
@@ -158,7 +158,8 @@ export const OnlineOrderingReceipt = () => {
             <p>
               ₦
               {(
-                (orderDetails?.total_price ?? 0) + (deliveryFee ?? 0)
+                // (orderDetails?.total_price ?? 0) + (deliveryFee ?? 0)
+                (orderDetails?.total_price ?? 0)
               ).toLocaleString()}
             </p>
           </div>
