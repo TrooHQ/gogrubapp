@@ -276,7 +276,7 @@ export const OnlineOrderingSelectPayment = () => {
           amount: totalDue,
           email: "user@example.com",
           callback_url: window.location.href.includes("netlify.app") ?
-            "https://gogrub-app.netlify.app/demo/payment-type/online_ordering" : "https://order.gogrub.co/demo/payment-type/online_ordering",
+            "https://gogrub-app.netlify.app/demo/payment-type/online_ordering" : "https://gogrub.shop/demo/payment-type/online_ordering",
 
           menu_items: items,
         },
