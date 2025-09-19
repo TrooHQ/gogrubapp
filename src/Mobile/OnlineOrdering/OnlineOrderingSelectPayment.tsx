@@ -63,6 +63,7 @@ export const OnlineOrderingSelectPayment = () => {
 
         );
         setPricePlusTax(response.data.total);
+
         setTax(response.data.tax);
         // console.log(response)
       } catch (error) {
@@ -226,7 +227,7 @@ export const OnlineOrderingSelectPayment = () => {
       // return;
       const response = await axios.post(
         `${SERVER_DOMAIN}/order/uploadGogrubBranchUserOrder`,
-        { ...order, transactionRef: reference }
+        { ...order, transactionRef: reference, totalPrice: totalDue }
         // payload?.items.length > 0 ? payload : order
         // payload
       );
