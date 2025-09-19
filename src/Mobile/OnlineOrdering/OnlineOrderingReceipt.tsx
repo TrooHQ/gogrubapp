@@ -157,10 +157,10 @@ export const OnlineOrderingReceipt = () => {
           <div className="font-[500] text-[18px] text-grey500 flex items-center justify-between">
             <p className="">Total Paid</p>
             <p>
-              ₦
-              {(
+              ₦{orderDetails?.total_price ?? 0}
+              {/* {(
                 // (orderDetails?.total_price ?? 0) + (deliveryFee ?? 0)
-                (orderDetails?.order_type === "delivery" ? (orderDetails?.total_price ? orderDetails?.total_price + deliveryFee : orderDetails?.total_price) : orderDetails?.total_price) || 0).toLocaleString()}
+                (orderDetails?.order_type === "delivery" ? (orderDetails?.total_price ? orderDetails?.total_price + deliveryFee : orderDetails?.total_price) : orderDetails?.total_price) || 0).toLocaleString()} */}
             </p>
           </div>
         </div>
