@@ -40,12 +40,14 @@ export const OnlineOrderingSelectPayment = () => {
     const getBizId = () => {
       const url = sessionStorage.getItem("url")?.split("/");
 
+      console.log("url", url);
       url ? setuniqueId(url[url.length - 2]) : setuniqueId("");
     }
 
     getBizId();
   }, [])
 
+  console.log("uniqueId", uniqueId);
 
   const [pricePlusTax, setPricePlusTax] = useState(0);
   const [tax, setTax] = useState(0);
@@ -154,8 +156,10 @@ export const OnlineOrderingSelectPayment = () => {
     // order_type: localStorage.getItem("selDelOpt"),
     items: items,
     menu_items: items,
-    total_price: pricePlusTax,
-    totalPrice: pricePlusTax,
+    total_price: totalDue,
+    totalPrice: totalDue,
+    // total_price: pricePlusTax,
+    // totalPrice: pricePlusTax,
     totalQuantity: basketDetails.totalQuantity,
     // isScheduledOrder: basketDetails.deliveryDate ? true : false,
     isScheduledOrder: !!basketDetails.deliveryDate && !dayjs(basketDetails.deliveryDate).isBefore(dayjs(), "day"),
@@ -211,7 +215,7 @@ export const OnlineOrderingSelectPayment = () => {
     }
 
     uniqueId && verifyPayment();
-  }, [uniqueId]);
+  }, [uniqueId, reference]);
 
   // console.log("payload", payload);
   // console.log("basketDetails", basketDetails);
@@ -227,7 +231,7 @@ export const OnlineOrderingSelectPayment = () => {
       // return;
       const response = await axios.post(
         `${SERVER_DOMAIN}/order/uploadGogrubBranchUserOrder`,
-        { ...order, transactionRef: reference, totalPrice: totalDue }
+        { ...order, transactionRef: reference, }
         // payload?.items.length > 0 ? payload : order
         // payload
       );
