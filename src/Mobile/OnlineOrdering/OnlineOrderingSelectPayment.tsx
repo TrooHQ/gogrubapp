@@ -1,5 +1,5 @@
 import TopMenuNav from "./OnlineOrderingTopMenuNav";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { RootState } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -371,11 +371,26 @@ export const OnlineOrderingSelectPayment = () => {
       <div className="fixed bottom-[30px] left-1/2 -translate-x-1/2 flex justify-center">
         <div className="flex flex-wrap items-center gap-[2px]">
           <img src={Customer} alt="Customer" />
+          <a
+            href={deliveryDetails?.deliveryDetails?.support_link ?? "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-[400] text-center text-[12px] text-[#000000]"
+          >
+            Contact Support
+          </a>
+        </div>
+      </div>
+      {/* <div className="fixed bottom-[30px] left-1/2 -translate-x-1/2 flex justify-center">
+        <div className="flex flex-wrap items-center gap-[2px]">
+          <img src={Customer} alt="Customer" />
           <Link to={deliveryDetails?.deliveryDetails?.support_link ?? "#"} className="font-[400] text-center text-[12px] text-[#000000]">
             Contact Support
           </Link>
         </div>
-      </div>
+      </div> */}
+
+
     </div>
   );
 };

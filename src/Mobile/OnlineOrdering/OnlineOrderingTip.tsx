@@ -71,7 +71,7 @@ export const OnlineOrderingTip = () => {
   }, [basketDetails]);
 
   return (
-    <div className="  ">
+    <div className="">
       <TopMenuNav exploreMenuText="Tip" />
 
       <div className=" mt-[68px] ">
@@ -83,9 +83,8 @@ export const OnlineOrderingTip = () => {
             {tipPercentages.map((tip, index) => (
               <div
                 key={index}
-                className={`flex flex-col items-center px-[36px] py-[8px] border border-grey100 rounded-[3px] cursor-pointer ${
-                  selectedTip === tip ? "bg-[#E0E0E0]" : ""
-                }`}
+                className={`flex flex-col items-center px-[36px] py-[8px] border border-grey100 rounded-[3px] cursor-pointer ${selectedTip === tip ? "bg-[#E0E0E0]" : ""
+                  }`}
                 onClick={() => handleTipClick(tip)}
               >
                 <p className=" text-grey500 text-[16px] font-[500]">
@@ -99,7 +98,7 @@ export const OnlineOrderingTip = () => {
           </div>
         </div>
 
-        <div className=" flex  items-center justify-center">
+        <div className="flex items-center justify-center ">
           <label htmlFor="">&#x20A6;</label>
           <input
             className="border-b border-[#929292] outline-none focus:border-grey500 pb-[8px] text-center"
@@ -127,9 +126,14 @@ export const OnlineOrderingTip = () => {
         <div className="fixed bottom-[20px] inset-x-0 flex justify-center">
           <div className="flex flex-wrap items-center gap-[2px] mt-[32px]">
             <img src={Customer} alt="Customer" />
-            <p className="font-[400] text-center text-[12px] text-[#000000]">
+            <a
+              href={"#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-[400] text-center text-[12px] text-[#000000]"
+            >
               Contact Support
-            </p>
+            </a>
           </div>
         </div>
       </div>
