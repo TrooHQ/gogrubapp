@@ -83,7 +83,7 @@ export const OnlineOrderingReceipt = () => {
       link.href = dataUrl;
       link.download = "receipt.png";
       link.click();
-      navigate("/demo/get-receipt/online_ordering");
+      // navigate("/demo/get-receipt/online_ordering");
     }
   };
 
