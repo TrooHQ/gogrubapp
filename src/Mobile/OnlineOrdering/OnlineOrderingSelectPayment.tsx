@@ -7,7 +7,7 @@ import axios from "axios";
 import { PAYMENT_DOMAIN } from "../../Api/Api";
 import { SERVER_DOMAIN } from "../../Api/Api";
 import "react-toastify/dist/ReactToastify.css";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import Loader from "../../components/Loader";
 import Customer from "../assets/streamline_customer-support-1-solid.svg";
 import { TiArrowRight } from "react-icons/ti";
@@ -192,14 +192,14 @@ export const OnlineOrderingSelectPayment = () => {
       if (response.data?.status !== false) {
         console.log("Payment verification response:", response);
         handleOrderUpload();
-        toast.success("Payment Successful!");
+        // toast.success("Payment Successful!");
         sessionStorage.removeItem("reference");
       } else {
-        toast.error("Payment could not be verified.");
+        // toast.error("Payment could not be verified.");
       }
     } catch (error) {
       console.error("Error confirming payment:", error);
-      toast.error("An error occurred. Please try again.");
+      // toast.error("An error occurred. Please try again.");
       navigate(`/demo/payment-type/online_ordering/`);
     } finally {
       setLoading(false);
