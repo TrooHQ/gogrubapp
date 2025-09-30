@@ -185,8 +185,6 @@ const OnlineOrderingMenuDetails = () => {
     }
   };
 
-  console.log("complimentaryMenu", complimentaryMenu)
-
 
   useEffect(() => {
     getItems();
