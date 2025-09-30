@@ -199,7 +199,7 @@ export const OnlineOrderingSelectPayment = () => {
       }
     } catch (error) {
       console.error("Error confirming payment:", error);
-      toast.error("An error occurred. Please try again.");
+      // toast.error("An error occurred. Please try again.");
       navigate(`/demo/payment-type/online_ordering/`);
     } finally {
       setLoading(false);
