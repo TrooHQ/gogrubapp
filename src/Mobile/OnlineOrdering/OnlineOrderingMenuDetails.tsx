@@ -144,7 +144,7 @@ const OnlineOrderingMenuDetails = () => {
     setSelectedComplimentaryArr([selectedValue]);
   };
 
-  console.log("selectedComplimentary", selectedComplimentary);
+  // console.log("selectedComplimentary", selectedComplimentary);
 
   const getItems = async () => {
     setLoading(true);
