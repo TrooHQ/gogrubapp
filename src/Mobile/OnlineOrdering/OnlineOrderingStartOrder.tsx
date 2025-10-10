@@ -14,6 +14,7 @@ import { RootState } from "../../store/store";
 import NotFound from "../NotFound";
 import Logo from "../assets/goGrubLOGO.svg";
 import Bg from "../assets/image_Bck.png";
+import { clearBasket } from "../../slices/BasketSlice";
 
 const OnlineOrderingStartOrder = () => {
   const location = useLocation();
@@ -39,10 +40,16 @@ const OnlineOrderingStartOrder = () => {
       dispatch(setBusinessIdentifier(business_identifier));
       dispatch(setBranchID(BranchId));
       dispatch(setURL(fullUrl));
+
+      dispatch(clearBasket());
     }
 
     getBusinessDetails();
   }, [business_identifier, BranchId]);
+
+  const basketDetails = useSelector((state: RootState) => state.basket);
+
+  console.log("start", basketDetails);
 
   const getBusinessDetails = async () => {
     const headers = {
