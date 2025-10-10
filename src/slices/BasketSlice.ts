@@ -147,6 +147,7 @@ const BasketSlice = createSlice({
       state.customerTableNumber = "";
       state.tip = null;
       state.deliveryFee = null;
+      state.deliveryDate = "";
       state.customerEmail = "";
       state.customerTown = "";
     },
