@@ -176,6 +176,7 @@ export const OnlineOrderingSelectPayment = () => {
   );
 
   const verifyPayment = async () => {
+
     try {
       setLoading(true);
 
@@ -227,7 +228,7 @@ export const OnlineOrderingSelectPayment = () => {
       const _order = localStorage.getItem("order_srjhh")
 
       const order = _order ? JSON.parse(_order) : null;
-
+      console.log("order", order);
       // return;
       const response = await axios.post(
         `${SERVER_DOMAIN}/order/uploadGogrubBranchUserOrder`,
@@ -236,6 +237,8 @@ export const OnlineOrderingSelectPayment = () => {
         // payload
       );
 
+      console.log("Order upload response:", response.data.data);
+      // return;
       sessionStorage.setItem(
         "OrderDetails",
         JSON.stringify(response.data.data)
@@ -267,6 +270,9 @@ export const OnlineOrderingSelectPayment = () => {
 
       localStorage.setItem("order_srjhh", JSON.stringify(payload));
 
+      console.log("payload", payload);
+      // return;
+
       deliveryFee && sessionStorage.setItem("deliveryFee", deliveryFee.toString());
 
       // `https://payment.trootab.com/api/v1/transaction/initiate_paystack_transaction/`,
@@ -280,8 +286,8 @@ export const OnlineOrderingSelectPayment = () => {
           // amount: parseInt(pricePlusTax.toString()) + parseInt(deliveryFee ? deliveryFee.toString() : "0"),
           amount: totalDue,
           email: "user@example.com",
-          callback_url: window.location.href.includes("netlify.app") ?
-            "https://gogrub-app.netlify.app/demo/payment-type/online_ordering" : "https://gogrub.shop/demo/payment-type/online_ordering",
+          callback_url: window.location.href,
+          // callback_url: window.location.href.includes("netlify.app") ?            "https://gogrub-app.netlify.app/demo/payment-type/online_ordering" : "https://gogrub.shop/demo/payment-type/online_ordering",
 
           menu_items: items,
         },
