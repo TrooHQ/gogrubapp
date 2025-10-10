@@ -69,7 +69,7 @@ interface BasketState {
   cutomerStreetAddress: string;
   deliveryTime: string;
   deliveryDate: string;
-  cutomerTown: string;
+  customerTown: string;
   customerTableNumber: string;
   totalQuantity: number;
   tip: number | null;
@@ -84,8 +84,8 @@ const initialState: BasketState = {
   customerEmail: "",
   cutomerStreetAddress: "",
   deliveryTime: "",
+  customerTown: "",
   deliveryDate: "",
-  cutomerTown: "",
   customerTableNumber: "",
   totalQuantity: 0,
   tip: null,
@@ -147,6 +147,8 @@ const BasketSlice = createSlice({
       state.customerTableNumber = "";
       state.tip = null;
       state.deliveryFee = null;
+      state.customerEmail = "";
+      state.customerTown = "";
     },
 
     updateCustomerName(state, action: PayloadAction<string>) {
@@ -160,7 +162,7 @@ const BasketSlice = createSlice({
       if (email !== undefined) state.customerEmail = email;
       if (streetAddress !== undefined)
         state.cutomerStreetAddress = streetAddress;
-      if (town !== undefined) state.cutomerTown = town;
+      if (town !== undefined) state.customerTown = town;
     },
 
     updateDeliveryDetails(state, action: PayloadAction<DeliveryDetailsUpdate>) {
@@ -170,7 +172,7 @@ const BasketSlice = createSlice({
     },
     updateCustomerAddress(state, action: PayloadAction<string>) {
       state.cutomerStreetAddress = action.payload;
-      state.cutomerTown = action.payload;
+      state.customerTown = action.payload;
     },
 
     updateCustomerTableNumber(state, action: PayloadAction<string>) {

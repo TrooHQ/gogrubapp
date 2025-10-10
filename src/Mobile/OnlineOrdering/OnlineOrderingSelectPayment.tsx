@@ -12,7 +12,7 @@ import Loader from "../../components/Loader";
 import Customer from "../assets/streamline_customer-support-1-solid.svg";
 import { TiArrowRight } from "react-icons/ti";
 import { clearBasket } from "../../slices/BasketSlice";
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 
 export const OnlineOrderingSelectPayment = () => {
   const dispatch = useDispatch();
@@ -132,7 +132,7 @@ export const OnlineOrderingSelectPayment = () => {
     tableNumber: item.tableNumber,
   }));
 
-  console.log("items", items);
+  console.log("basketDetails from here", basketDetails);
 
 
   const payload = {
@@ -148,7 +148,7 @@ export const OnlineOrderingSelectPayment = () => {
       email: basketDetails.customerEmail,
       phoneNumber: basketDetails.customerPhone,
       customerName: basketDetails.customerName,
-      address: basketDetails.cutomerStreetAddress ?? basketDetails.cutomerTown,
+      address: basketDetails.cutomerStreetAddress ?? basketDetails.customerTown,
     },
     orderType: delOpt,
     order_type: delOpt,
@@ -161,9 +161,9 @@ export const OnlineOrderingSelectPayment = () => {
     // total_price: pricePlusTax,
     // totalPrice: pricePlusTax,
     totalQuantity: basketDetails.totalQuantity,
-    // isScheduledOrder: basketDetails.deliveryDate ? true : false,
-    isScheduledOrder: !!basketDetails.deliveryDate && !dayjs(basketDetails.deliveryDate).isBefore(dayjs(), "day"),
-    scheduledDate: basketDetails?.deliveryDate,
+    isScheduledOrder: basketDetails.deliveryDate ? true : false,
+    // isScheduledOrder: !!basketDetails.deliveryDate && !dayjs(basketDetails.deliveryDate).isBefore(dayjs(), "day"),
+    scheduledDate: basketDetails?.deliveryDate ?? null,
     // scheduledDate: dayjs(basketDetails?.deliveryDate).isBefore(dayjs(), "day") ? "" : dayjs(basketDetails?.deliveryDate).format("DD-MM-YYYY"),
     transactionRef: sessionStorage.getItem("reference") || reference,
     // scheduledDate: basketDetails?.deliveryDate
@@ -179,16 +179,9 @@ export const OnlineOrderingSelectPayment = () => {
 
     try {
       setLoading(true);
-
-      // `${PAYMENT_DOMAIN}/transaction/confirm_transaction_by_ref/`,
-      // `https://staging.troopay.co/api/v1/transaction/confirm_transaction_by_ref/`,
       const response = await axios.post(
-        // `${PAYMENT_DOMAIN}/transaction/confirm_transaction_by_ref/`,
-        // https://troox-backend.onrender.com/api/order/confirmOrderPayment/
         `${SERVER_DOMAIN}/order/confirmOrderPayment/`,
         { reference: reference, businessId: uniqueId });
-      // { reference: reference, businessId: uniqueId?.split("_").join(" ") });
-
 
       if (response.data?.status !== false) {
         console.log("Payment verification response:", response);
@@ -272,6 +265,7 @@ export const OnlineOrderingSelectPayment = () => {
 
       console.log("payload", payload);
       // return;
+
 
       deliveryFee && sessionStorage.setItem("deliveryFee", deliveryFee.toString());
 
