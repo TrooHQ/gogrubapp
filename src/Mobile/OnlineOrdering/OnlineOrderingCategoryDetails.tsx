@@ -18,7 +18,7 @@ import { HiMinusSm, HiPlusSm } from "react-icons/hi";
 import Swipe from "../assets/swipe.png";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
-// with this:
+
 import SliderLib from "react-slick";
 import type { Settings } from "react-slick";
 import type { FC } from "react";
