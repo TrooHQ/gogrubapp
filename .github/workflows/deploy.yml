@@ -1,0 +1,136 @@
+name: Deploy React App
+
+on:
+  push:
+    branches:
+      - deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      BASE_SHA: ${{ github.event.before }}
+      HEAD_SHA: ${{ github.sha }}
+      APP_DIR: ${{ secrets.APP_DIR || 'gogrub-app' }}
+      COMPOSE_FILE: ${{ secrets.COMPOSE_FILE || 'docker-compose.deploy.yml' }}
+      SERVICE_NAME: ${{ secrets.SERVICE_NAME || 'assets' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # ---- CI sanity checks (catch TS/build errors early) ----
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
+
+      - name: Install deps
+        run: yarn install --frozen-lockfile
+
+      - name: Typecheck + Build (CI)
+        run: |
+          yarn tsc --noEmit
+          yarn build
+
+      # ---- Determine if a rebuild is needed (frontend-related changes) ----
+      - name: Detect changed files
+        id: changes
+        run: |
+          CHANGED="$(git diff --name-only "${BASE_SHA}" "${HEAD_SHA}")"
+          echo "changed<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGED" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Should rebuild image?
+        id: should_rebuild
+        run: |
+          set -e
+          CHANGED="${{ steps.changes.outputs.changed }}"
+          echo "Changed files:"
+          echo "$CHANGED"
+
+          # Rebuild if app code, assets, config, or Docker bits changed
+          if echo "$CHANGED" | grep -qE '^(src/|public/|package\.json|yarn\.lock|vite\.config\.(ts|js)|tsconfig\.(json|tsconfig\.json)|Dockerfile|react\.Dockerfile|.dockerignore)'; then
+            echo "rebuild=true" >> $GITHUB_OUTPUT
+          else
+            echo "rebuild=false" >> $GITHUB_OUTPUT
+          fi
+
+      # ---- SSH setup ----
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H "${{ secrets.PROD_SERVER_IP }}" >> ~/.ssh/known_hosts
+
+      # ---- Deploy on the server ----
+      - name: Deploy over SSH
+        run: |
+          ssh -i ~/.ssh/id_rsa ${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.PROD_SERVER_IP }} <<'EOF'
+            set -euo pipefail
+
+            APP_DIR="${APP_DIR}"
+            COMPOSE_FILE="${COMPOSE_FILE}"
+            SERVICE="${SERVICE_NAME}"
+
+            echo "→ cd \$APP_DIR"
+            cd "\$APP_DIR"
+
+            echo "→ git pull origin deploy"
+            git pull origin deploy
+
+            if [ "${{ steps.should_rebuild.outputs.rebuild }}" = "true" ]; then
+              echo "🔨 Changes detected in frontend — rebuilding image…"
+              docker compose -f "\$COMPOSE_FILE" build --pull "\$SERVICE"
+            else
+              echo "⚡ No rebuild needed — using existing image."
+            fi
+
+            echo "🚀 Starting/Updating service…"
+            docker compose -f "\$COMPOSE_FILE" up -d "\$SERVICE"
+
+            echo "✅ Deployed \${SERVICE}"
+          EOF
+
+      # ✅ EMAIL NOTIFICATION SECTION
+
+      - name: Send success email
+        if: success()
+        uses: mattn/action-send-mail@v1
+        with:
+          server_address: smtp.zeptomail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "✅ GoGrub Frontend Deployment Successful"
+          to: ${{ secrets.NOTIFY_EMAIL_TO }}
+          from: GoGrub CI <${{ secrets.EMAIL_USERNAME }}>
+          body: |
+            Deployment succeeded for branch: **${{ github.ref_name }}**
+            Repository: ${{ github.repository }}
+            Commit: ${{ github.sha }}
+            Timestamp: $(date)
+            Workflow: ${{ github.workflow }}
+
+      - name: Send failure email
+        if: failure()
+        uses: mattn/action-send-mail@v1
+        with:
+          server_address: smtp.zeptomail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "❌ GoGrub Frontend Deployment Failed"
+          to: ${{ secrets.NOTIFY_EMAIL_TO }}
+          from: GoGrub CI <${{ secrets.EMAIL_USERNAME }}>
+          body: |
+            Deployment FAILED for branch: **${{ github.ref_name }}**
+            Repository: ${{ github.repository }}
+            Commit: ${{ github.sha }}
+            Check the GitHub Actions logs for details.
+

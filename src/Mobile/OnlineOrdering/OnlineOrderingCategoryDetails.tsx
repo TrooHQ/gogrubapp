@@ -11,12 +11,21 @@ import {
   removeItemFromBasket,
   updateItemQuantity,
 } from "../../slices/BasketSlice";
-import Slider from "react-slick";
+// import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { HiMinusSm, HiPlusSm } from "react-icons/hi";
 import Swipe from "../assets/swipe.png";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+
+// with this:
+import SliderLib from "react-slick";
+import type { Settings } from "react-slick";
+import type { FC } from "react";
+
+// react-slick types can be noisy under React 18; cast to a component:
+const Slider = SliderLib as unknown as FC<any>;
+
 
 interface MenuItem {
   is_frozen: boolean;
@@ -174,7 +183,7 @@ export const OnlineOrderingCategoryDetails = () => {
     localStorage.setItem("merc_url", JSON.stringify(window.location.pathname));
   }, []);
 
-  const settings = {
+  const settings: Settings = {
     infinite: true,
     speed: 500,
     slidesToShow: 2,
