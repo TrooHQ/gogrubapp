@@ -25,7 +25,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'yarn'
 
       - name: Install deps
@@ -104,7 +104,7 @@ jobs:
         with:
           server_address: smtp.zeptomail.com
           server_port: 587
-          secure: true
+          secure: false
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: "✅ GoGrub Frontend Deployment Successful (branch: ${{ github.ref_name }})"
@@ -119,6 +119,7 @@ jobs:
             Commit: ${{ github.sha }}
             Workflow: ${{ github.workflow }}
             When: ${{ github.event.head_commit.timestamp }}
+          nodemailerdebug: true 
 
       - name: Send failure email
         if: failure()
@@ -126,7 +127,7 @@ jobs:
         with:
           server_address: smtp.zeptomail.com
           server_port: 587
-          secure: true
+          secure: false
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: "❌ GoGrub Frontend Deployment Failed (branch: ${{ github.ref_name }})"
@@ -140,3 +141,4 @@ jobs:
             Branch: ${{ github.ref_name }}
             Commit: ${{ github.sha }}
             Check the GitHub Actions logs for details.
+          nodemailerdebug: true 

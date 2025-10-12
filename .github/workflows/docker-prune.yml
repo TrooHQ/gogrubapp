@@ -28,36 +28,48 @@ jobs:
             echo "[INFO] Docker prune completed."
           EOF
 
-      - name: Notify Slack of success
+      # ✅ EMAIL NOTIFICATIONS (via dawidd6/action-send-mail)
+      - name: Send success email
         if: success()
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        run: |
-          curl -X POST -H 'Content-type: application/json' --data '{
-            "attachments": [
-              {
-                "color": "#36a64f",
-                "title": "✅ GoGrub App[backend]:Docker Prune Completed",
-                "text": "Weekly Docker cleanup completed successfully on *${{ secrets.PROD_SERVER_IP }}*.",
-                "footer": "GitHub Actions",
-                "ts": '"$(date +%s)"'
-              }
-            ]
-          }' "$SLACK_WEBHOOK_URL"
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.zeptomail.com
+          server_port: 587
+          secure: true
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "✅ GoGrub Frontend Deployment Successful (branch: ${{ github.ref_name }})"
+          to: ${{ secrets.NOTIFY_EMAIL_TO }}
+          from: GoGrub CI <${{ secrets.EMAIL_USERNAME }}>
+          content_type: text/plain
+          body: |
+            Weekly Docker cleanup completed successfully
 
-      - name: Notify Slack of failure
+            Repository: ${{ github.repository }}
+            Branch: ${{ github.ref_name }}
+            Commit: ${{ github.sha }}
+            Workflow: ${{ github.workflow }}
+            When: ${{ github.event.head_commit.timestamp }}
+
+      - name: Send failure email
         if: failure()
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        run: |
-          curl -X POST -H 'Content-type: application/json' --data '{
-            "attachments": [
-              {
-                "color": "#FF0000",
-                "title": "❌ GoGrub App[backend]:Docker Prune Failed",
-                "text": "Docker prune failed on *${{ secrets.PROD_SERVER_IP }}*. Check GitHub Actions logs for details.",
-                "footer": "GitHub Actions",
-                "ts": '"$(date +%s)"'
-              }
-            ]
-          }' "$SLACK_WEBHOOK_URL"
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.zeptomail.com
+          server_port: 587
+          secure: true
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "❌ GoGrub Frontend Deployment Failed (branch: ${{ github.ref_name }})"
+          to: ${{ secrets.NOTIFY_EMAIL_TO }}
+          from: GoGrub CI <${{ secrets.EMAIL_USERNAME }}>
+          content_type: text/plain
+          body: |
+            Weekly Docker cleanup  FAILED.
+
+            Repository: ${{ github.repository }}
+            Branch: ${{ github.ref_name }}
+            Commit: ${{ github.sha }}
+            Check the GitHub Actions logs for details.
+
+      
