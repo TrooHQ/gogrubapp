@@ -74,27 +74,28 @@ jobs:
           ssh -i ~/.ssh/id_rsa ${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.PROD_SERVER_IP }} <<'EOF'
             set -euo pipefail
 
+            # Injected by GitHub Actions before SSH runs:
             APP_DIR="${{ env.APP_DIR }}"
             COMPOSE_FILE="${{ env.COMPOSE_FILE }}"
             SERVICE="${{ env.SERVICE_NAME }}"
 
-            echo "→ cd \$APP_DIR"
-            cd "\$APP_DIR"
+            echo "→ cd $APP_DIR"
+            cd "$APP_DIR"
 
             echo "→ git pull origin deploy"
             git pull origin deploy
 
             if [ "${{ steps.should_rebuild.outputs.rebuild }}" = "true" ]; then
               echo "🔨 Changes detected in frontend — rebuilding image…"
-              docker compose -f "\$COMPOSE_FILE" build --pull "\$SERVICE"
+              docker compose -f "$COMPOSE_FILE" build --pull "$SERVICE"
             else
               echo "⚡ No rebuild needed — using existing image."
             fi
 
             echo "🚀 Starting/Updating service…"
-            docker compose -f "\$COMPOSE_FILE" up -d "\$SERVICE"
+            docker compose -f "$COMPOSE_FILE" up -d "$SERVICE"
 
-            echo "✅ Deployed \${SERVICE}"
+            echo "✅ Deployed $SERVICE"
           EOF
 
       # ✅ EMAIL NOTIFICATIONS (via dawidd6/action-send-mail)
@@ -107,7 +108,7 @@ jobs:
           secure: false
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: "✅ GoGrub Frontend Deployment Successful (branch: ${{ github.ref_name }})"
+          subject: "✅ GoGrub App Deployment Successful (branch: ${{ github.ref_name }})"
           to: ${{ secrets.NOTIFY_EMAIL_TO }}
           from: GoGrub CI <noreply@scriptdeskng.com>
           body: |
@@ -129,7 +130,7 @@ jobs:
           secure: false
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: "❌ GoGrub Frontend Deployment Failed (branch: ${{ github.ref_name }})"
+          subject: "❌ GoGrub App Deployment Failed (branch: ${{ github.ref_name }})"
           to: ${{ secrets.NOTIFY_EMAIL_TO }}
           from: GoGrub CI <noreply@scriptdeskng.com>
           body: |
