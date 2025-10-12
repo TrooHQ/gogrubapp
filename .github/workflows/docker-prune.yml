@@ -35,13 +35,12 @@ jobs:
         with:
           server_address: smtp.zeptomail.com
           server_port: 587
-          secure: true
+          secure: false
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: "✅ GoGrub Frontend Deployment Successful (branch: ${{ github.ref_name }})"
           to: ${{ secrets.NOTIFY_EMAIL_TO }}
-          from: GoGrub CI <${{ secrets.EMAIL_USERNAME }}>
-          content_type: text/plain
+          from: GoGrub CI <noreply@scriptdeskng.com>
           body: |
             Weekly Docker cleanup completed successfully
 
@@ -57,13 +56,12 @@ jobs:
         with:
           server_address: smtp.zeptomail.com
           server_port: 587
-          secure: true
+          secure: false
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: "❌ GoGrub Frontend Deployment Failed (branch: ${{ github.ref_name }})"
           to: ${{ secrets.NOTIFY_EMAIL_TO }}
-          from: GoGrub CI <${{ secrets.EMAIL_USERNAME }}>
-          content_type: text/plain
+          from: GoGrub CI <noreply@scriptdeskng.com>
           body: |
             Weekly Docker cleanup  FAILED.
 

@@ -74,9 +74,9 @@ jobs:
           ssh -i ~/.ssh/id_rsa ${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.PROD_SERVER_IP }} <<'EOF'
             set -euo pipefail
 
-            APP_DIR="${APP_DIR}"
-            COMPOSE_FILE="${COMPOSE_FILE}"
-            SERVICE="${SERVICE_NAME}"
+            APP_DIR="${{ env.APP_DIR }}"
+            COMPOSE_FILE="${{ env.COMPOSE_FILE }}"
+            SERVICE="${{ env.SERVICE_NAME }}"
 
             echo "→ cd \$APP_DIR"
             cd "\$APP_DIR"
@@ -109,8 +109,7 @@ jobs:
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: "✅ GoGrub Frontend Deployment Successful (branch: ${{ github.ref_name }})"
           to: ${{ secrets.NOTIFY_EMAIL_TO }}
-          from: GoGrub CI <${{ secrets.EMAIL_USERNAME }}>
-          content_type: text/plain
+          from: GoGrub CI <noreply@scriptdeskng.com>
           body: |
             Deployment succeeded.
 
@@ -132,8 +131,7 @@ jobs:
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: "❌ GoGrub Frontend Deployment Failed (branch: ${{ github.ref_name }})"
           to: ${{ secrets.NOTIFY_EMAIL_TO }}
-          from: GoGrub CI <${{ secrets.EMAIL_USERNAME }}>
-          content_type: text/plain
+          from: GoGrub CI <noreply@scriptdeskng.com>
           body: |
             Deployment FAILED.
 
