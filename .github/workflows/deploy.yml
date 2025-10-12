@@ -97,40 +97,46 @@ jobs:
             echo "✅ Deployed \${SERVICE}"
           EOF
 
-      # ✅ EMAIL NOTIFICATION SECTION
-
+      # ✅ EMAIL NOTIFICATIONS (via dawidd6/action-send-mail)
       - name: Send success email
         if: success()
-        uses: mattn/action-send-mail@v1
+        uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.zeptomail.com
           server_port: 587
+          secure: true
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: "✅ GoGrub Frontend Deployment Successful"
+          subject: "✅ GoGrub Frontend Deployment Successful (branch: ${{ github.ref_name }})"
           to: ${{ secrets.NOTIFY_EMAIL_TO }}
           from: GoGrub CI <${{ secrets.EMAIL_USERNAME }}>
+          content_type: text/plain
           body: |
-            Deployment succeeded for branch: **${{ github.ref_name }}**
+            Deployment succeeded.
+
             Repository: ${{ github.repository }}
+            Branch: ${{ github.ref_name }}
             Commit: ${{ github.sha }}
-            Timestamp: $(date)
             Workflow: ${{ github.workflow }}
+            When: ${{ github.event.head_commit.timestamp }}
 
       - name: Send failure email
         if: failure()
-        uses: mattn/action-send-mail@v1
+        uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.zeptomail.com
           server_port: 587
+          secure: true
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: "❌ GoGrub Frontend Deployment Failed"
+          subject: "❌ GoGrub Frontend Deployment Failed (branch: ${{ github.ref_name }})"
           to: ${{ secrets.NOTIFY_EMAIL_TO }}
           from: GoGrub CI <${{ secrets.EMAIL_USERNAME }}>
+          content_type: text/plain
           body: |
-            Deployment FAILED for branch: **${{ github.ref_name }}**
+            Deployment FAILED.
+
             Repository: ${{ github.repository }}
+            Branch: ${{ github.ref_name }}
             Commit: ${{ github.sha }}
             Check the GitHub Actions logs for details.
-
