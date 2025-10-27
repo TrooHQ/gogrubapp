@@ -58,6 +58,7 @@ export const OnlineOrderingSelectPayment = () => {
 
     const paymentPlusTax = async () => {
       // https://troox-backend.onrender.com/api
+      setLoading(true);
       try {
         const response = await axios.post(
           `${SERVER_DOMAIN}/order/calculateTotalAmount`,
@@ -67,8 +68,10 @@ export const OnlineOrderingSelectPayment = () => {
         setPricePlusTax(response.data.total);
 
         setTax(response.data.tax);
+        setLoading(false);
         // console.log(response)
       } catch (error) {
+        setLoading(false);
         console.error("Something went wrong", error);
         // navigate(`/demo/payment-type/online_ordering/`);
       }
