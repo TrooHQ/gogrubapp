@@ -1,0 +1,73 @@
+name: Docker System Prune
+
+on:
+  schedule:
+    - cron: '0 3 * * 0'  # Every Sunday at 3 AM UTC
+  workflow_dispatch:
+
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.PROD_SERVER_IP }} >> ~/.ssh/known_hosts
+
+      - name: Run Docker system prune on server
+        run: |
+          ssh -i ~/.ssh/id_rsa ${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.PROD_SERVER_IP }} << 'EOF'
+            echo "[INFO] Running Docker system prune..."
+            docker system prune -af --filter "until=168h" > /var/log/docker-prune.log 2>&1
+            echo "[INFO] Docker prune completed."
+          EOF
+
+      # ✅ EMAIL NOTIFICATIONS (via dawidd6/action-send-mail)
+      - name: Send success email
+        if: success()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.zeptomail.com
+          server_port: 587
+          secure: false
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "✅ GoGrub Frontend Deployment Successful (branch: ${{ github.ref_name }})"
+          to: ${{ secrets.NOTIFY_EMAIL_TO }}
+          from: GoGrub CI <noreply@scriptdeskng.com>
+          body: |
+            Weekly Docker cleanup completed successfully
+
+            Repository: ${{ github.repository }}
+            Branch: ${{ github.ref_name }}
+            Commit: ${{ github.sha }}
+            Workflow: ${{ github.workflow }}
+            When: ${{ github.event.head_commit.timestamp }}
+
+      - name: Send failure email
+        if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.zeptomail.com
+          server_port: 587
+          secure: false
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "❌ GoGrub Frontend Deployment Failed (branch: ${{ github.ref_name }})"
+          to: ${{ secrets.NOTIFY_EMAIL_TO }}
+          from: GoGrub CI <noreply@scriptdeskng.com>
+          body: |
+            Weekly Docker cleanup  FAILED.
+
+            Repository: ${{ github.repository }}
+            Branch: ${{ github.ref_name }}
+            Commit: ${{ github.sha }}
+            Check the GitHub Actions logs for details.
+
+      

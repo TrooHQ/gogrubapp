@@ -1,0 +1,19 @@
+volumes:
+  node_modules:
+    name: gogrub_app_assets_node_modules
+
+services:
+  assets:
+    image: gogrub-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./:/code/assets
+      - node_modules:/code/assets/node_modules
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
