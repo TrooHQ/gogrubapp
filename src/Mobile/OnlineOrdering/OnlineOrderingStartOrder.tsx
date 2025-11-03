@@ -13,7 +13,8 @@ import {
 import { RootState } from "../../store/store";
 import NotFound from "../NotFound";
 import Logo from "../assets/goGrubLOGO.svg";
-import Bg from "../assets/image_Bck.png";
+import chefHat from "../assets/chef-hat-.png";
+import squiggle from "../assets/squiggly.png";
 import { clearBasket } from "../../slices/BasketSlice";
 
 const OnlineOrderingStartOrder = () => {
@@ -83,51 +84,60 @@ const OnlineOrderingStartOrder = () => {
 
   return (
     <div
-      className={`  relative mt-[20px]`}
+      className={`  relative mt-[20px] p-4`}
       style={{ color: color || "#606060" }}
     >
-      <div className="flex flex-col items-center justify-center ">
-        <div className=" space-y-[8px] mb-[10px]">
-          <p className=" font-[400] font-GeneralSans text-[18px] text-center text-[#000000]">
-            {businessDetails?.business_name}{" "}
-          </p>
-          <div className=" w-[100px] h-[100px] rounded-md overflow-hidden mx-auto flex items-center justify-center drop-shadow-md">
+      <div className="flex flex-col items-center justify-center "
+      // style={{ backgroundImage: `url(${squiggle})`, backgroundSize: 'cover', backgroundPosition: 'bottom' }}
+      >
+        <div className="flex items-center justify-center gap-4 ">
+
+          <div className="flex items-center justify-center mx-auto overflow-hidden rounded-md size-10 drop-shadow-md">
             <img
               src={businessDetails?.business_logo}
               alt=""
               className="flex items-center justify-center object-cover w-full h-full mx-auto"
             />
           </div>
+          <p className="text-sm font-medium text-center text-orange-400 font-GeneralSans">
+            {businessDetails?.business_name}{" "}
+          </p>
         </div>
 
-        <div className="relative flex flex-col items-center w-full h-[360px]"
-          style={{ backgroundImage: `url(${Bg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+
+        <div className="relative flex flex-col items-center w-full"
+        // style={{ backgroundImage: `url(${squiggle})`, backgroundSize: 'cover', backgroundPosition: 'bottom' }}
         >
+          <div className="absolute bottom-[-25%] w-full h-full left-[50%] -z-10 translate-x-[-50%] " style={{ backgroundImage: `url(${squiggle})`, backgroundSize: 'cover', backgroundPosition: 'bottom' }} />
+          <img src={chefHat} alt="" className="w-10/12 mt-4" />
+
           <div className="mt-16">
-            <p className=" capitalize text-xl text-center font-semibold  text-[#FFFFFF] ">
+            <p className=" capitalize text-xl text-center font-semibold  text-[#000] ">
               {businessDetails?.orderingDescription}
             </p>
 
-            <p className=" capitalize text-base font-[400] mt-2 text-center  text-[#FFFFFF] ">
+            <p className=" capitalize text-base font-[400] my-4 text-center  text-[#000] ">
               {businessDetails?.orderingInstruction}
             </p>
           </div>
           {/* <img src={Bg} alt="Bg-Image" className="object-cover w-full" /> */}
         </div>
 
+
+
         <div className="flex flex-col items-center justify-center ">
           <Link
             to={`/demo/${businessDetails?.business_name}/items/online_ordering`}
           >
             <p
-              className="cursor-pointer text-white px-[22px] py-[10px] rounded-[5px] font-[500] inline "
+              className="cursor-pointer text-white px-[22px] py-[10px] rounded-[5px] font-[500] "
               style={{ backgroundColor: color || "#606060" }}
             >
               Start Your Order
             </p>
           </Link>
 
-          <p className=" font-[400] text-center text-[12px] mt-[32px] max-w-[296px] mx-auto">
+          <p className=" font-[400] text-center text-[12px] mt-[32px] mx-auto">
             By clicking “Start Your Order” you agree to our{" "}
             <a href="">
               <span
@@ -141,7 +151,7 @@ const OnlineOrderingStartOrder = () => {
         </div>
       </div>
 
-      <div className="my-[20px] inset-x-0 flex justify-center">
+      <div className="flex justify-center my-3">
         <div className="flex flex-wrap items-center gap-[2px] mt-[32px]">
           <p className="font-[400] text-center text-[12px] text-[#000000]">
             Powered By
