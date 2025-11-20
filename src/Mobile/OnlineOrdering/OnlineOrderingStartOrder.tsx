@@ -99,7 +99,7 @@ const OnlineOrderingStartOrder = () => {
               className="flex items-center justify-center object-cover w-full h-full mx-auto"
             />
           </div>
-          <p className="text-sm font-medium text-center text-orange-400 font-GeneralSans">
+          <p className="text-sm font-medium text-center text-orange-400 font-Inter">
             {businessDetails?.business_name}{" "}
           </p>
         </div>
