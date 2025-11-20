@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        GeneralSans: ["General Sans", "sans-serif"],
+        Inter: ["Inter", "sans-serif"],
       },
       backgroundImage: {
         footer: "url('/src/assets/FooterImage.svg')",
