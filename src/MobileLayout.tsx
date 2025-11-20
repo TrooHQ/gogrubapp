@@ -33,7 +33,6 @@ import RoomSetupForm from "./Mobile/Components/RoomSetupForm";
 
 import OnlineOrderingStartOrder from "./Mobile/OnlineOrdering/OnlineOrderingStartOrder";
 import { OnlineOrderingMenuPage } from "./Mobile/OnlineOrdering/OnlineOrderingMenuPage";
-import { OnlineOrderingCategoryDetails } from "./Mobile/OnlineOrdering/OnlineOrderingCategoryDetails";
 import OnlineOrderingMenuDetails from "./Mobile/OnlineOrdering/OnlineOrderingMenuDetails";
 import { OnlineOrderingBasket } from "./Mobile/OnlineOrdering/OnlineOrderingBasket";
 import { OnlineOrderingTip } from "./Mobile/OnlineOrdering/OnlineOrderingTip";
@@ -43,10 +42,13 @@ import { OnlineOrderingGetReceipt } from "./Mobile/OnlineOrdering/OnlineOrdering
 import ChooseColor from "./Mobile/Components/Settings/ChooseColor";
 import OrderHistory from "./Mobile/Components/OrderHistory";
 import AccountVerified from "./Mobile/Components/AccountVerified";
+import ItemList from "./CustomerFacing/ItemList";
+import ItemDetails from "./CustomerFacing/ItemDetails";
+import OrderSummary from "./CustomerFacing/OrderSummary";
 
 const MobileLayout = () => {
   return (
-    <div className="overflow-hidden font-GeneralSans">
+    <div className="overflow-hidden font-Inter">
       <ToastContainer />
       <Router>
         {/* <ScrollToTop /> */}
@@ -86,13 +88,29 @@ const MobileLayout = () => {
           />
 
           <Route
+            path="demo/:id/items/online_ordering"
+            element={<ItemList />}
+          // element={<OnlineOrderingCategoryDetails />}
+          />
+          {/*  */}
+          <Route
+            path="demo/itemlist"
+            element={<ItemList />}
+          />
+          <Route
+            path="demo/menudetails"
+            element={<ItemDetails />}
+          />
+          <Route
+            path="demo/ordersummary"
+            element={<OrderSummary />}
+          />
+          {/*  */}
+          <Route
             path="/demo/:id/explore-menu/online_ordering"
             element={<OnlineOrderingMenuPage />}
           />
-          <Route
-            path="demo/:id/items/online_ordering"
-            element={<OnlineOrderingCategoryDetails />}
-          />
+
           <Route
             path="/demo/menu-details/:id/online_ordering"
             element={<OnlineOrderingMenuDetails />}

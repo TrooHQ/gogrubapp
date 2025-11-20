@@ -592,7 +592,7 @@ export const OnlineOrderingBasket = () => {
               </div>
 
               <div className="py-[25px] grid gap-[16px]">
-                <p className=" font-[400] text-[12px] text-[#121212] font-GeneralSans">
+                <p className=" font-[400] text-[12px] text-[#121212] font-Inter">
                   You can now schedule your order, your selected time is below
                   and can be modified
                 </p>

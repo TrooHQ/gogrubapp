@@ -27,11 +27,10 @@ const Tabs: React.FC<TabsProps> = ({
           {tabs.map((tab, index) => (
             <p
               key={index}
-              className={` text-[22px] px-3 py-2 font-GeneralSans  cursor-pointer ${
-                index === activeTab
+              className={` text-[22px] px-3 py-2 font-Inter  cursor-pointer ${index === activeTab
                   ? " text-purple500 font-[500] border-b-4 border-b-purple500"
                   : "text-grey300"
-              }`}
+                }`}
               onClick={() => handleTabChange(index)}
             >
               {tab}

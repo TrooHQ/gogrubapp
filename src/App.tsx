@@ -32,7 +32,7 @@ import UpdateCredentials from "./components/authPages/UpdateCredentials.tsx";
 
 export default function App() {
   return (
-    <div className=" font-GeneralSans">
+    <div className=" font-Inter">
       <Router>
         <ToastContainer />
         <ScrollToTop />
