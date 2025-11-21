@@ -5,8 +5,9 @@ import { GoDotFill } from "react-icons/go";
 import { FiPlus as PlusIcon, FiMinus as MinusIcon } from "react-icons/fi";
 import axios from "axios";
 import { SERVER_DOMAIN } from "../Api/Api";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../store/store";
+import { addItemToBasket, updateItemInBasket, type BasketItem, type Option } from "../slices/BasketSlice";
 
 type MenuItem = {
   _id: string;
@@ -33,9 +34,10 @@ export default function ItemDetails() {
   const [searchParams] = useSearchParams();
   const businessDetails = useSelector((state: RootState) => state.business?.businessDetails);
   const businessIdentifier = businessDetails?.uniqueIdentifier;
+  const basketItemsRedux = useSelector((state: RootState) => state.basket.items) as BasketItem[];
+  const dispatch = useDispatch();
 
   const [menuItem, setMenuItem] = useState<MenuItem | null>(null);
-  const basketItems: { id: string; totalPrice: number }[] = [];
 
   const [complimentaryList, setComplimentaryList] = useState<ModifierOption[]>([]);
   const [modifierList, setModifierList] = useState<ModifierOption[]>([]);
@@ -95,6 +97,38 @@ export default function ItemDetails() {
     return base + mods;
   }, [menuItem, selectedModifiers]);
 
+  const isInCart = useMemo(() => {
+    if (!menuItem) return false;
+    return !!basketItemsRedux.find((b) => b.id === menuItem._id);
+  }, [basketItemsRedux, menuItem]);
+
+  const handleAddToBasket = () => {
+    if (!menuItem) return;
+    const selectedOptionsForBasket: Option[] = selectedModifiers.map((m) => ({
+      name: m.name,
+      price: m.price,
+      modifier_name: m.name,
+      modifier_price: m.price,
+    }));
+    const payload: BasketItem = {
+      id: menuItem._id,
+      quantity: 1,
+      selectedOptions: selectedOptionsForBasket,
+      complimentary: selectedComplimentary,
+      totalPrice,
+      name: menuItem.menu_item_name,
+      tableNumber: "",
+    } as BasketItem;
+    const existing = basketItemsRedux.find((b) => b.id === menuItem._id);
+    if (existing) {
+      dispatch(updateItemInBasket({ ...existing, ...payload }));
+    } else {
+      dispatch(addItemToBasket(payload));
+    }
+
+    navigate("/demo/itemlist");
+  };
+
   const handleComplimentaryChange = (name: string) => {
     setSelectedComplimentary([name]);
   };
@@ -120,7 +154,6 @@ export default function ItemDetails() {
     );
   };
 
-  const handleAddToBasket = () => { };
 
   if (loading) {
     return (
@@ -130,7 +163,7 @@ export default function ItemDetails() {
     );
   }
 
-  const isInCart = menuItem && basketItems.some((item) => item.id === menuItem._id);
+
 
   return (
     <div className="relative w-full min-h-screen pb-14">
