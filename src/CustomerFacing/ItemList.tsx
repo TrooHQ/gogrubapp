@@ -27,7 +27,7 @@ const ItemCard = ({ item, business_identifier, inBasket, onAdd, onRemove, }: { i
   return (
     <div className="relative grid w-full grid-cols-3 gap-2 px-4 py-3 border-b-2 border-b-gray-100 min-h-32">
       <Link to={`/demo/menudetails?id=${item._id}&bid=${business_identifier}`} className="absolute z-10 w-full h-full" />
-      <div className="col-span-2">
+      <div className="col-span-2 space-y-2">
         <h4 className="text-base font-semibold text-gray-900">{item.menu_item_name}</h4>
         <p className="my-2 text-sm text-gray-700">{item.description}</p>
         <p className="text-sm font-semibold text-gray-900">₦{Number(item.menu_item_price).toLocaleString()}</p>
@@ -44,9 +44,9 @@ const ItemCard = ({ item, business_identifier, inBasket, onAdd, onRemove, }: { i
         >
           <div className="absolute z-50 bottom-2 right-2">
             {inBasket ? (
-              <FiMinus className="text-xl bg-gray-200 rounded-full p-1" onClick={() => onRemove(item)} />
+              <FiMinus className="text-xl bg-gray-100 rounded-full p-0.5" onClick={() => onRemove(item)} />
             ) : (
-              <FiPlus className="text-xl bg-gray-200 rounded-full p-1" onClick={() => onAdd(item)} />
+              <FiPlus className="text-xl bg-gray-100 rounded-full p-0.5" onClick={() => onAdd(item)} />
             )}
           </div>
         </div>
