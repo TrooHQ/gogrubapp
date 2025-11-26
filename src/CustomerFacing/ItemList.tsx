@@ -11,6 +11,9 @@ import { RootState } from "../store/store";
 import { SERVER_DOMAIN } from "../Api/Api";
 import { addItemToBasket, removeItemFromBasket, type BasketItem } from "../slices/BasketSlice";
 import { FiMinus, FiPlus } from "react-icons/fi";
+import { toast } from "react-toastify";
+import CustomAddToCartToast from "./CustomToast";
+import SearchModal from "./SearchModal";
 
 type MenuItem = {
   _id: string;
@@ -44,9 +47,9 @@ const ItemCard = ({ item, business_identifier, inBasket, onAdd, onRemove, }: { i
         >
           <div className="absolute z-50 bottom-2 right-2">
             {inBasket ? (
-              <FiMinus className="text-xl bg-gray-100 rounded-full p-0.5" onClick={() => onRemove(item)} />
+              <FiMinus className="text-2xl bg-gray-100 rounded-full p-0.5" onClick={() => onRemove(item)} />
             ) : (
-              <FiPlus className="text-xl bg-gray-100 rounded-full p-0.5" onClick={() => onAdd(item)} />
+              <FiPlus className="text-2xl bg-gray-100 rounded-full p-0.5" onClick={() => onAdd(item)} />
             )}
           </div>
         </div>
@@ -63,6 +66,7 @@ export default function ItemList() {
   const user = useSelector((state: RootState) => state.user);
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [showSearch, setShowSearch] = useState<boolean>(false);
   type BusinessDetails = {
     business_name?: string;
     orderingDescription?: string;
@@ -111,6 +115,8 @@ export default function ItemList() {
     }
   };
 
+  localStorage.setItem("gg_h_url", window.location.pathname);
+
   useEffect(() => {
     setLoading(true);
     Promise.all([fetchBusinessDetails(), fetchItems()]).finally(() => setLoading(false));
@@ -126,6 +132,8 @@ export default function ItemList() {
     );
     return ["All Items", ...unique];
   }, [menuItems]);
+
+  const menuItemNames = [...new Set(menuItems.map(item => ({ name: item.menu_item_name, id: item._id })))];
 
   const [activeTab, setActiveTab] = useState<string>(categories[0] || "All Items");
 
@@ -159,9 +167,52 @@ export default function ItemList() {
       tableNumber: "",
     };
     dispatch(addItemToBasket(payload));
+    toast(<CustomAddToCartToast count={1} text="Item added to cart" />, {
+      position: "top-center",
+      className: "p-0 my-0 bg-transparent shadow-none",
+      style: { background: "transparent", boxShadow: "none", padding: 0, margin: "0 auto" },
+      closeButton: false,
+      hideProgressBar: true,
+      icon: false,
+    });
   };
+
   const handleRemoveFromBasket = (item: MenuItem) => {
     dispatch(removeItemFromBasket({ id: item._id }));
+    toast(<CustomAddToCartToast count={1} text="Item removed from cart" />, {
+      position: "top-center",
+      className: "p-0 my-0 bg-transparent shadow-none",
+      style: { background: "transparent", boxShadow: "none", padding: 0, margin: "0 auto" },
+      closeButton: false,
+      hideProgressBar: true,
+      icon: false,
+    });
+  };
+
+  const handleCopyLink = async () => {
+    try {
+      const url = window.location.href;
+      await navigator.clipboard.writeText(url);
+      // toast.success("Link copied to clipboard");
+      toast(<CustomAddToCartToast text="Link Copied to clipboard" />, {
+        position: "top-center",
+        className: "p-0 my-0 bg-transparent shadow-none",
+        style: { background: "transparent", boxShadow: "none", padding: 0, margin: "0 auto" },
+        closeButton: false,
+        hideProgressBar: true,
+        icon: false,
+      });
+    } catch (e) {
+      // toast.error("Unable to copy link. Please try again.");
+      toast(<CustomAddToCartToast text="Unable to copy link. Please try again." />, {
+        position: "top-center",
+        className: "p-0 my-0 bg-transparent shadow-none",
+        style: { background: "transparent", boxShadow: "none", padding: 0, margin: "0 auto" },
+        closeButton: false,
+        hideProgressBar: true,
+        icon: false,
+      });
+    }
   };
 
   if (loading) {
@@ -175,6 +226,8 @@ export default function ItemList() {
   return (
     <div className="w-full min-h-screen">
 
+      {showSearch && (<SearchModal setShowSearch={setShowSearch} allMenuItems={menuItemNames} business_identifier={business_identifier} />)}
+
       <div className="relative w-full h-64 mb-12">
         <img
           src={"/bg-banner.png"}
@@ -183,8 +236,10 @@ export default function ItemList() {
         />
 
         <div className="absolute flex items-center gap-4 top-4 right-4">
-          <RxShare2 className="p-1 text-3xl bg-gray-200 rounded-full bottom-2 right-2" />
-          <IoSearchOutline className="p-1 text-3xl bg-gray-200 rounded-full bottom-2 right-2" />
+          <RxShare2 onClick={handleCopyLink} className="p-1 text-4xl bg-gray-200 rounded-full bottom-2 right-2 cursor-pointer" />
+          <IoSearchOutline
+            onClick={() => setShowSearch(true)}
+            className="p-1 text-4xl bg-gray-200 rounded-full bottom-2 right-2" />
         </div>
 
         <div className="absolute z-10 flex items-center justify-center p-1 overflow-hidden bg-white rounded-full shadow-md -bottom-7 left-4 size-16">
@@ -202,14 +257,14 @@ export default function ItemList() {
 
       <div className="px-4">
         <h2 className="text-base font-semibold text-gray-900">{bizDetails?.business_name || ""}</h2>
-        <p className="my-2 text-xs text-gray-700">{bizDetails?.orderingDescription || ""}</p>
-        <p className="flex items-center gap-2 my-2 text-xs text-gray-700">{bizDetails?.orderingInstruction || ""}
+        <p className="my-2 text-base text-gray-700">{bizDetails?.orderingDescription || ""}</p>
+        <p className="flex items-center gap-2 my-2 text-base text-gray-700">{bizDetails?.orderingInstruction || ""}
           {/* <span className="flex items-center gap-2"> <FaStar className="fill-orange-500" /> 4.5</span> */}
         </p>
         {/* <p className="flex items-center gap-2 my-2 text-xs text-gray-700"><span>Opens 8AM - 8PM</span> <span className="flex items-center gap-2"> <FaStar className="fill-orange-500" /> 4.5</span></p> */}
       </div>
 
-      <div className="flex items-center gap-4 px-4 my-4 overflow-x-auto whitespace-nowrap">
+      <div className="flex items-center gap-4 px-4 my-4 overflow-x-auto whitespace-nowrap no-scrollbar">
         {categories.map((category, index) => <p
           key={index}
           onClick={() => setActiveTab(category)}
