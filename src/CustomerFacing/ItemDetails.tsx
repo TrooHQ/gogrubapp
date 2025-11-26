@@ -2,12 +2,14 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { GoDotFill } from "react-icons/go";
-import { FiPlus as PlusIcon, FiMinus as MinusIcon } from "react-icons/fi";
 import axios from "axios";
 import { SERVER_DOMAIN } from "../Api/Api";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../store/store";
 import { addItemToBasket, updateItemInBasket, type BasketItem, type Option } from "../slices/BasketSlice";
+import ProdCount from "./ProdCount";
+import { toast } from "react-toastify";
+import CustomAddToCartToast from "./CustomToast";
 
 type MenuItem = {
   _id: string;
@@ -122,11 +124,35 @@ export default function ItemDetails() {
     const existing = basketItemsRedux.find((b) => b.id === menuItem._id);
     if (existing) {
       dispatch(updateItemInBasket({ ...existing, ...payload }));
+      toast(<CustomAddToCartToast count={1} text="Item updared in cart" />, {
+        position: "top-center",
+        className: "p-0 my-0 bg-transparent shadow-none",
+        style: { background: "transparent", boxShadow: "none", padding: 0, margin: "0 auto" },
+        closeButton: false,
+        hideProgressBar: true,
+        icon: false,
+      });
     } else {
       dispatch(addItemToBasket(payload));
+      toast(<CustomAddToCartToast count={1} text="Item added to cart" />, {
+        position: "top-center",
+        className: "p-0 my-0 bg-transparent shadow-none",
+        style: { background: "transparent", boxShadow: "none", padding: 0, margin: "0 auto" },
+        closeButton: false,
+        hideProgressBar: true,
+        icon: false,
+      });
     }
 
-    navigate("/demo/itemlist");
+    const homeUrl = localStorage.getItem("gg_h_url") || "/";
+    let dest = homeUrl;
+    try {
+      const u = new URL(homeUrl, window.location.origin);
+      dest = u.pathname;
+    } catch {
+      dest = homeUrl;
+    }
+    navigate(dest);
   };
 
   const handleComplimentaryChange = (name: string) => {
@@ -224,11 +250,12 @@ export default function ItemDetails() {
                     <span className="font-semibold">{opt.modifier_name}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="flex items-center justify-center gap-2 px-3 py-2 border border-gray-100 rounded-2xl">
-                      <MinusIcon className="w-5 cursor-pointer" onClick={() => handleModifierDecrease(opt.modifier_name)} />
-                      <input className="w-12 text-center bg-gray-100 rounded-lg focus:outline-none" value={selectedItem ? selectedItem.quantity : 0} readOnly />
-                      <PlusIcon className="w-5 cursor-pointer" onClick={() => handleModifierIncrease(opt.modifier_name)} />
-                    </div>
+
+                    <ProdCount
+                      handleDecrement={() => handleModifierDecrease(opt.modifier_name)}
+                      handleIncrement={() => handleModifierIncrease(opt.modifier_name)}
+                      quantity={selectedItem ? selectedItem.quantity : 0}
+                    />
                     <span className="text-sm text-gray-500">₦{opt.modifier_price.toLocaleString()}</span>
                   </div>
                 </div>
