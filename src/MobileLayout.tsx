@@ -31,7 +31,7 @@ import VerifyAccount2 from "./Mobile/Components/VerifyAccount2";
 // import { CategoryDetails } from "./Mobile/Customers/CategoryDetails";
 import RoomSetupForm from "./Mobile/Components/RoomSetupForm";
 
-import OnlineOrderingStartOrder from "./Mobile/OnlineOrdering/OnlineOrderingStartOrder";
+// import OnlineOrderingStartOrder from "./Mobile/OnlineOrdering/OnlineOrderingStartOrder";
 import { OnlineOrderingMenuPage } from "./Mobile/OnlineOrdering/OnlineOrderingMenuPage";
 import OnlineOrderingMenuDetails from "./Mobile/OnlineOrdering/OnlineOrderingMenuDetails";
 import { OnlineOrderingBasket } from "./Mobile/OnlineOrdering/OnlineOrderingBasket";
@@ -45,6 +45,7 @@ import AccountVerified from "./Mobile/Components/AccountVerified";
 import ItemList from "./CustomerFacing/ItemList";
 import ItemDetails from "./CustomerFacing/ItemDetails";
 import OrderSummary from "./CustomerFacing/OrderSummary";
+import OrderStatus from "./CustomerFacing/OrderStatus";
 
 const MobileLayout = () => {
   return (
@@ -84,7 +85,8 @@ const MobileLayout = () => {
 
           <Route
             path="demo/online_ordering/:id/:branchId"
-            element={<OnlineOrderingStartOrder />}
+            element={<ItemList />}
+          // element={<OnlineOrderingStartOrder />}
           />
 
           <Route
@@ -104,6 +106,10 @@ const MobileLayout = () => {
           <Route
             path="demo/ordersummary"
             element={<OrderSummary />}
+          />
+          <Route
+            path="demo/order-status"
+            element={<OrderStatus />}
           />
           {/*  */}
           <Route
