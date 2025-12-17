@@ -73,7 +73,7 @@ export const OnlineOrderingSelectPayment = () => {
       } catch (error) {
         setLoading(false);
         console.error("Something went wrong", error);
-        // navigate(`/demo/payment-type/online_ordering/`);
+        // navigate(`/payment-type/online_ordering/`);
       }
     }
 
@@ -101,11 +101,13 @@ export const OnlineOrderingSelectPayment = () => {
 
 
   const [totalDue, setTotalDue] = useState(pricePlusTax);
-  // console.log("totalDue", totalDue);
+  console.log("totalDue", totalDue);
 
   useEffect(() => {
     if (deliveryFee) {
       setTotalDue(parseFloat(pricePlusTax.toString()) + (delOpt === "delivery" ? parseFloat(deliveryFee.toString()) : 0));
+    } else {
+      setTotalDue(pricePlusTax);
     }
   }, [deliveryFee, pricePlusTax, delOpt]);
 
@@ -197,7 +199,7 @@ export const OnlineOrderingSelectPayment = () => {
     } catch (error) {
       console.error("Error confirming payment:", error);
       // toast.error("An error occurred. Please try again.");
-      navigate(`/demo/payment-type/online_ordering/`);
+      navigate(`/payment-type/online_ordering/`);
     } finally {
       setLoading(false);
     }
@@ -242,7 +244,7 @@ export const OnlineOrderingSelectPayment = () => {
       dispatch(clearBasket());
       sessionStorage.removeItem("reference");
       // localStorage.removeItem("order_srjhh");
-      navigate(`/demo/receipt/online_ordering/`);
+      navigate(`/receipt/online_ordering/`);
     } catch (error) {
       console.error("Error occurred:", error);
     } finally {
@@ -265,6 +267,7 @@ export const OnlineOrderingSelectPayment = () => {
       };
 
       localStorage.setItem("order_srjhh", JSON.stringify(payload));
+      const b_id = localStorage.getItem("biz_id");
 
       console.log("payload", payload);
       // return;
@@ -277,14 +280,14 @@ export const OnlineOrderingSelectPayment = () => {
       const response = await axios.post(
         `${PAYMENT_DOMAIN}/transaction/initiate_paystack_transaction/`,
         {
-          business_id: business?.businessDetails?._id,
+          business_id: b_id ? b_id : business?.businessDetails?._id,
           name: basketDetails.customerName || "User",
           platform: "Online",
           // amount: parseInt(pricePlusTax.toString()) + parseInt(deliveryFee ? deliveryFee.toString() : "0"),
           amount: totalDue,
           email: "user@example.com",
           callback_url: window.location.href,
-          // callback_url: window.location.href.includes("netlify.app") ?            "https://gogrub-app.netlify.app/demo/payment-type/online_ordering" : "https://gogrub.shop/demo/payment-type/online_ordering",
+          // callback_url: window.location.href.includes("netlify.app") ?            "https://gogrub-app.netlify.app/payment-type/online_ordering" : "https://gogrub.shop/payment-type/online_ordering",
 
           menu_items: items,
         },

@@ -13,7 +13,7 @@
 
 // const SelfCheckoutLayout = () => {
 //   return (
-//     <div className="overflow-hidden  font-GeneralSans">
+//     <div className="overflow-hidden  font-Inter">
 //       <ToastContainer />
 //       <Router>
 //         <ScrollToTop />

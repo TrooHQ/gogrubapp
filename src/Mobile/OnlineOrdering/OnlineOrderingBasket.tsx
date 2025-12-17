@@ -139,7 +139,7 @@ export const OnlineOrderingBasket = () => {
     {
       deliveryDetails?.canScheduledDelivery
         ? handleCloseDeliveryModal()
-        : navigate("/demo/payment-type/online_ordering");
+        : navigate("/payment-type/online_ordering");
     }
   };
 
@@ -148,7 +148,7 @@ export const OnlineOrderingBasket = () => {
     dispatch(updateDeliveryDetails({ time, date: dayjs(date).format("DD-MM-YYYY") }));
 
     handleCloseDeliveryModal();
-    navigate("/demo/payment-type/online_ordering");
+    navigate("/payment-type/online_ordering");
   };
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -157,7 +157,7 @@ export const OnlineOrderingBasket = () => {
     dispatch(updateCustomerDetails({ name: userName, phone, streetAddress }));
 
     handleCloseDeliveryModal();
-    navigate("/demo/payment-type/online_ordering");
+    navigate("/payment-type/online_ordering");
   };
 
   const handleIncreaseQuantity = (id: string, currentQuantity: number) => {
@@ -592,7 +592,7 @@ export const OnlineOrderingBasket = () => {
               </div>
 
               <div className="py-[25px] grid gap-[16px]">
-                <p className=" font-[400] text-[12px] text-[#121212] font-GeneralSans">
+                <p className=" font-[400] text-[12px] text-[#121212] font-Inter">
                   You can now schedule your order, your selected time is below
                   and can be modified
                 </p>
