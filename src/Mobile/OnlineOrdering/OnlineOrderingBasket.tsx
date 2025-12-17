@@ -139,7 +139,7 @@ export const OnlineOrderingBasket = () => {
     {
       deliveryDetails?.canScheduledDelivery
         ? handleCloseDeliveryModal()
-        : navigate("/demo/payment-type/online_ordering");
+        : navigate("/payment-type/online_ordering");
     }
   };
 
@@ -148,7 +148,7 @@ export const OnlineOrderingBasket = () => {
     dispatch(updateDeliveryDetails({ time, date: dayjs(date).format("DD-MM-YYYY") }));
 
     handleCloseDeliveryModal();
-    navigate("/demo/payment-type/online_ordering");
+    navigate("/payment-type/online_ordering");
   };
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -157,7 +157,7 @@ export const OnlineOrderingBasket = () => {
     dispatch(updateCustomerDetails({ name: userName, phone, streetAddress }));
 
     handleCloseDeliveryModal();
-    navigate("/demo/payment-type/online_ordering");
+    navigate("/payment-type/online_ordering");
   };
 
   const handleIncreaseQuantity = (id: string, currentQuantity: number) => {

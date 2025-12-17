@@ -124,7 +124,7 @@ export default function ItemDetails() {
     const existing = basketItemsRedux.find((b) => b.id === menuItem._id);
     if (existing) {
       dispatch(updateItemInBasket({ ...existing, ...payload }));
-      toast(<CustomAddToCartToast count={1} text="Item updared in cart" />, {
+      toast(<CustomAddToCartToast count={1} text="Item updated in cart" />, {
         position: "top-center",
         className: "p-0 my-0 bg-transparent shadow-none",
         style: { background: "transparent", boxShadow: "none", padding: 0, margin: "0 auto" },

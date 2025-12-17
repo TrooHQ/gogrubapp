@@ -175,7 +175,7 @@ export default function OrderSummary() {
           amount: totalDue,
           email: 'user@example.com',
           // callback_url: window.location.href,
-          callback_url: window.location.origin + "/demo/order-status",
+          callback_url: window.location.origin + "/order-status",
           menu_items: orderItems,
         },
         headers
@@ -184,7 +184,7 @@ export default function OrderSummary() {
       window.location.href = response.data.paystack_data.data.authorization_url;
     } catch (error) {
       console.error('Error initiating payment:', error);
-      window.location.href = '/demo/payment-type/online_ordering/';
+      window.location.href = '/payment-type/online_ordering';
     }
   };
 
@@ -315,7 +315,7 @@ function OrderSummaryCard({ item, onUpdateQuantity, home }: { item: BasketItemSt
   };
 
   const handleEdit = () => {
-    navigate(`/demo/menudetails?id=${item.id}&bid=${businessIdentifier}`);
+    navigate(`/menudetails?id=${item.id}&bid=${businessIdentifier}`);
   };
 
   return (

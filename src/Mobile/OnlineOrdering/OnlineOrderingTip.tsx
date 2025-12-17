@@ -63,7 +63,7 @@ export const OnlineOrderingTip = () => {
     setSelectedTip(null);
     setCustomAmount(null);
     dispatch(setTip(null));
-    navigate("/demo/payment-type/online_ordering");
+    navigate("/payment-type/online_ordering");
   };
 
   useEffect(() => {
@@ -116,7 +116,7 @@ export const OnlineOrderingTip = () => {
           >
             No Tip
           </p>
-          <Link to="/demo/payment-type/online_ordering">
+          <Link to="/payment-type/online_ordering">
             <p className=" inline font-[500] text-[16px] rounded-[5px] text-white bg-grey300 py-[10px] px-[56px]">
               Add Tip
             </p>
