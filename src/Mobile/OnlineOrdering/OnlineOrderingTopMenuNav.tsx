@@ -29,7 +29,7 @@ const OnlineOrderingTopMenuNav: React.FC<TopMenuNavProps> = ({
     "/demo/receipt/online_ordering",
     "/demo/get-receipt/online_ordering",
     "/demo/basket/online_ordering",
-    "/demo/payment-type/online_ordering",
+    "/payment-type/online_ordering",
     "/demo/tip/online_ordering",
   ];
   // const hideCart = hideCartOnPaths.includes(location.pathname);
