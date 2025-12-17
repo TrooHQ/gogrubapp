@@ -15,7 +15,7 @@ import ManageQrCode from "./Mobile/Components/Settings/QrCodeSettings/ManageQrCo
 import EnterPassword from "./Mobile/authPages/EnterPassword";
 import CreatePassword from "./Mobile/authPages/CreatePassword";
 import ListofRestaurants from "./Mobile/Customers/ListofRestaurants";
-import StartOrder from "./Mobile/Customers/StartOrder";
+// import StartOrder from "./Mobile/Customers/StartOrder";
 // import MenuDetails from "./Mobile/Customers/MenuDetails";
 import { MenuPage } from "./Mobile/Customers/MenuPage";
 import "react-toastify/dist/ReactToastify.css";
@@ -58,7 +58,6 @@ const MobileLayout = () => {
 
           <Route path="/restaurants" element={<ListofRestaurants />} />
 
-          <Route path="/:id?" element={<StartOrder />} />
           <Route
             path="/demo/:id/explore-menu/orderandpay"
             element={<MenuPage />}
@@ -83,34 +82,43 @@ const MobileLayout = () => {
             element={<GetReceipt />}
           /> */}
 
-          <Route
-            path="demo/online_ordering/:id/:branchId"
-            element={<ItemList />}
-          // element={<OnlineOrderingStartOrder />}
-          />
+          {/* <Route
+            // path="demo/online_ordering/:id/:branchId"
+            path=":<id>"
+          // element={<ItemList />}
 
-          <Route
+          // element={<OnlineOrderingStartOrder />}
+          /> */}
+
+          {/* <Route
             path="demo/:id/items/online_ordering"
             element={<ItemList />}
           // element={<OnlineOrderingCategoryDetails />}
-          />
+          /> */}
           {/*  */}
-          <Route
+          {/* <Route
             path="demo/itemlist"
             element={<ItemList />}
-          />
+          /> */}
+          <Route path="/:id?" element={<ItemList />} />
           <Route
-            path="demo/menudetails"
+            path="/menudetails"
             element={<ItemDetails />}
           />
           <Route
-            path="demo/ordersummary"
+            path="/ordersummary"
             element={<OrderSummary />}
           />
           <Route
-            path="demo/order-status"
+            path="/order-status"
             element={<OrderStatus />}
           />
+
+          <Route
+            path="/payment-type/online_ordering"
+            element={<OnlineOrderingSelectPayment />}
+          />
+
           {/*  */}
           <Route
             path="/demo/:id/explore-menu/online_ordering"
@@ -129,12 +137,9 @@ const MobileLayout = () => {
             path="/demo/tip/online_ordering"
             element={<OnlineOrderingTip />}
           />
+
           <Route
-            path="/demo/payment-type/online_ordering"
-            element={<OnlineOrderingSelectPayment />}
-          />
-          <Route
-            path="/demo/receipt/online_ordering/:id?"
+            path="/receipt/online_ordering/:id?"
             element={<OnlineOrderingReceipt />}
           />
           <Route

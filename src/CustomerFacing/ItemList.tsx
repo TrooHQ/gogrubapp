@@ -29,7 +29,7 @@ type RemoteMenuItem = MenuItem & { is_frozen?: boolean };
 const ItemCard = ({ item, business_identifier, inBasket, onAdd, onRemove, }: { item: MenuItem; business_identifier: string | null; inBasket: boolean; onAdd: (item: MenuItem) => void; onRemove: (item: MenuItem) => void; accentColor?: string }) => {
   return (
     <div className="relative grid w-full grid-cols-3 gap-2 px-4 py-3 border-b-2 border-b-gray-100 min-h-32">
-      <Link to={`/demo/menudetails?id=${item._id}&bid=${business_identifier}`} className="absolute z-10 w-full h-full" />
+      <Link to={`/menudetails?id=${item._id}&bid=${business_identifier}`} className="absolute z-10 w-full h-full" />
       <div className="col-span-2 space-y-2">
         <h4 className="text-base font-semibold text-gray-900">{item.menu_item_name}</h4>
         <p className="my-2 text-sm text-gray-700">{item.description}</p>
@@ -60,8 +60,44 @@ const ItemCard = ({ item, business_identifier, inBasket, onAdd, onRemove, }: { i
 
 export default function ItemList() {
   const business = useSelector((state: RootState) => state.business);
-  const branchId = business?.branchID;
-  const business_identifier = business?.businessIdentifier || business?.businessDetails?.uniqueIdentifier || null;
+
+
+  const biz_id = window.location.pathname.split("/")[1];
+  console.log(" window.location.pathname", biz_id)
+
+
+  const [biz_uniquesIdentifier, setBiz_uniquesIdentifier] = useState<string>();
+  const [biz_Id, setBiz_Id] = useState<string>();
+  const fetchDataByBizId = async (biz_id: string) => {
+    try {
+      const response = await axios.get(
+        `${SERVER_DOMAIN}/public/storefront/${biz_id}`,
+      );
+
+      console.log("fetchDataByBizId response", response.data.data);
+
+      const details = response.data.data.branches.find((b: {
+        branch_address: string,
+        branch_name: string,
+        _id: string,
+      }) => b.branch_name === biz_id);
+      setBiz_uniquesIdentifier(details?.branch_name);
+      setBiz_Id(details?._id);
+      localStorage.setItem("biz_id", details?._id || "");
+
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching business data:", error);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    fetchDataByBizId(biz_id)
+  }, [biz_id]);
+
+
+
   const basket = useSelector((state: RootState) => state.basket);
   const user = useSelector((state: RootState) => state.user);
 
@@ -89,10 +125,10 @@ export default function ItemList() {
   }, [user?.userData?.token]);
 
   const fetchBusinessDetails = async () => {
-    if (!business_identifier || !branchId) return;
+    // if (!business_identifier || !branchId) return;
     try {
       const response = await axios.get(
-        `${SERVER_DOMAIN}/menu/getGogrubBusinessDetails/?business_identifier=${business_identifier}&branch=${branchId}`,
+        `${SERVER_DOMAIN}/menu/getGogrubBusinessDetails/?business_identifier=${biz_uniquesIdentifier}&branch=${biz_Id}`,
         headers
       );
       setBizDetails(response.data.data || null);
@@ -102,10 +138,10 @@ export default function ItemList() {
   };
 
   const fetchItems = async () => {
-    if (!business_identifier || !branchId) return;
+    // if (!business_identifier || !branchId) return;
     try {
       const response = await axios.get(
-        `${SERVER_DOMAIN}/menu/getAllGogrubMenuItem/?business_identifier=${business_identifier}&branch=${branchId}`,
+        `${SERVER_DOMAIN}/menu/getAllGogrubMenuItem/?business_identifier=${biz_uniquesIdentifier}&branch=${biz_Id}`,
         headers
       );
       const data: RemoteMenuItem[] = response?.data?.data || [];
@@ -119,8 +155,10 @@ export default function ItemList() {
 
   useEffect(() => {
     setLoading(true);
-    Promise.all([fetchBusinessDetails(), fetchItems()]).finally(() => setLoading(false));
-  }, [business_identifier, branchId]);
+    if (biz_Id && biz_uniquesIdentifier) {
+      Promise.all([fetchBusinessDetails(), fetchItems()]).finally(() => setLoading(false));
+    }
+  }, [biz_Id, biz_uniquesIdentifier, headers]);
 
   const categories = useMemo<string[]>(() => {
     const unique = Array.from(
@@ -226,7 +264,7 @@ export default function ItemList() {
   return (
     <div className="w-full min-h-screen">
 
-      {showSearch && (<SearchModal setShowSearch={setShowSearch} allMenuItems={menuItemNames} business_identifier={business_identifier} />)}
+      {showSearch && (<SearchModal setShowSearch={setShowSearch} allMenuItems={menuItemNames} business_identifier={biz_uniquesIdentifier ?? null} />)}
 
       <div className="relative w-full h-64 mb-12">
         <img
@@ -283,7 +321,7 @@ export default function ItemList() {
               <ItemCard
                 key={index}
                 item={item}
-                business_identifier={business_identifier}
+                business_identifier={biz_uniquesIdentifier ?? null}
                 inBasket={isInBasket(item._id)}
                 onAdd={handleAddToBasket}
                 onRemove={handleRemoveFromBasket}
@@ -295,7 +333,7 @@ export default function ItemList() {
       ))}
 
       {basket.items.length > 0 && (
-        <Link to="/demo/ordersummary" className="fixed bottom-0 left-0 right-0 z-50 w-full py-2 bg-white">
+        <Link to="/ordersummary" className="fixed bottom-0 left-0 right-0 z-50 w-full py-2 bg-white">
           <button className="w-[90%] px-4 py-3 mx-auto text-white rounded-full flex items-center justify-between" style={{ backgroundColor: bizDetails?.colour_scheme || "#000" }}>
             <span className="flex items-center">
               Cart <span><GoDotFill className="w-2 mx-2" /></span>{basket.items.length} {basket.items.length === 1 ? "item" : "items"}
