@@ -80,7 +80,8 @@ export default function ItemList() {
         branch_address: string,
         branch_name: string,
         _id: string,
-      }) => b.branch_name === biz_id);
+      }) => b.branch_name === biz_id || b.branch_name.toLowerCase() === biz_id?.split("_").join(" ").toLowerCase());
+      console.log("biz_id", biz_id?.split("_").join(" ").toLowerCase());
       setBiz_uniquesIdentifier(details?.branch_name);
       setBiz_Id(details?._id);
       localStorage.setItem("biz_id", details?._id || "");
