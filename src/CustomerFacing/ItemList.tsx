@@ -80,8 +80,10 @@ export default function ItemList() {
         branch_address: string,
         branch_name: string,
         _id: string,
-      }) => b.branch_name === biz_id);
-      setBiz_uniquesIdentifier(details?.branch_name);
+      }) => b.branch_name === biz_id || b.branch_name.toLowerCase().split(" ").join("") === biz_id?.toLowerCase());
+      console.log("biz_id", response.data.data.branches[0]?.branch_name.toLowerCase().split(" ").join(""));
+      console.log("biz_id", biz_id?.toLowerCase());
+      setBiz_uniquesIdentifier(details?.branch_name?.trim().replace(/\s+/g, "_"));
       setBiz_Id(details?._id);
       localStorage.setItem("biz_id", details?._id || "");
 
@@ -91,6 +93,7 @@ export default function ItemList() {
       return null;
     }
   };
+  console.log("biz_uniquesIdentifier", biz_uniquesIdentifier)
 
   useEffect(() => {
     fetchDataByBizId(biz_id)
@@ -134,6 +137,7 @@ export default function ItemList() {
       setBizDetails(response.data.data || null);
     } catch (error) {
       setBizDetails(business.businessDetails || null);
+      setLoading(false);
     }
   };
 
@@ -148,6 +152,7 @@ export default function ItemList() {
       setMenuItems(data.filter((m) => !m.is_frozen));
     } catch (error) {
       setMenuItems([]);
+      setLoading(false);
     }
   };
 
@@ -155,10 +160,10 @@ export default function ItemList() {
 
   useEffect(() => {
     setLoading(true);
-    if (biz_Id && biz_uniquesIdentifier) {
+    if (biz_Id) {
       Promise.all([fetchBusinessDetails(), fetchItems()]).finally(() => setLoading(false));
     }
-  }, [biz_Id, biz_uniquesIdentifier, headers]);
+  }, [biz_Id, headers]);
 
   const categories = useMemo<string[]>(() => {
     const unique = Array.from(
