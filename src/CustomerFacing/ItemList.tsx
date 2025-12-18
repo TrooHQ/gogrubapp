@@ -66,7 +66,7 @@ export default function ItemList() {
   console.log(" window.location.pathname", biz_id)
 
 
-  // const [_biz_uniquesIdentifier, setBiz_uniquesIdentifier] = useState<string>();
+  const [biz_uniquesIdentifier, setBiz_uniquesIdentifier] = useState<string>();
   const [biz_Id, setBiz_Id] = useState<string>();
   const fetchDataByBizId = async (biz_id: string) => {
     try {
@@ -80,9 +80,10 @@ export default function ItemList() {
         branch_address: string,
         branch_name: string,
         _id: string,
-      }) => b.branch_name === biz_id || b.branch_name.toLowerCase() === biz_id?.split("_").join(" ").toLowerCase());
-      console.log("biz_id", biz_id?.split("_").join(" ").toLowerCase());
-      // setBiz_uniquesIdentifier(details?.branch_name);
+      }) => b.branch_name === biz_id || b.branch_name.toLowerCase().split(" ").join("") === biz_id?.toLowerCase());
+      console.log("biz_id", response.data.data.branches[0]?.branch_name.toLowerCase().split(" ").join(""));
+      console.log("biz_id", biz_id?.toLowerCase());
+      setBiz_uniquesIdentifier(details?.branch_name?.trim().replace(/\s+/g, "_"));
       setBiz_Id(details?._id);
       localStorage.setItem("biz_id", details?._id || "");
 
@@ -92,6 +93,7 @@ export default function ItemList() {
       return null;
     }
   };
+  console.log("biz_uniquesIdentifier", biz_uniquesIdentifier)
 
   useEffect(() => {
     fetchDataByBizId(biz_id)
@@ -129,12 +131,13 @@ export default function ItemList() {
     // if (!business_identifier || !branchId) return;
     try {
       const response = await axios.get(
-        `${SERVER_DOMAIN}/menu/getGogrubBusinessDetails/?business_identifier=${biz_id}&branch=${biz_Id}`,
+        `${SERVER_DOMAIN}/menu/getGogrubBusinessDetails/?business_identifier=${biz_uniquesIdentifier}&branch=${biz_Id}`,
         headers
       );
       setBizDetails(response.data.data || null);
     } catch (error) {
       setBizDetails(business.businessDetails || null);
+      setLoading(false);
     }
   };
 
@@ -142,13 +145,14 @@ export default function ItemList() {
     // if (!business_identifier || !branchId) return;
     try {
       const response = await axios.get(
-        `${SERVER_DOMAIN}/menu/getAllGogrubMenuItem/?business_identifier=${biz_id}&branch=${biz_Id}`,
+        `${SERVER_DOMAIN}/menu/getAllGogrubMenuItem/?business_identifier=${biz_uniquesIdentifier}&branch=${biz_Id}`,
         headers
       );
       const data: RemoteMenuItem[] = response?.data?.data || [];
       setMenuItems(data.filter((m) => !m.is_frozen));
     } catch (error) {
       setMenuItems([]);
+      setLoading(false);
     }
   };
 
@@ -265,7 +269,7 @@ export default function ItemList() {
   return (
     <div className="w-full min-h-screen">
 
-      {showSearch && (<SearchModal setShowSearch={setShowSearch} allMenuItems={menuItemNames} business_identifier={biz_id ?? null} />)}
+      {showSearch && (<SearchModal setShowSearch={setShowSearch} allMenuItems={menuItemNames} business_identifier={biz_uniquesIdentifier ?? null} />)}
 
       <div className="relative w-full h-64 mb-12">
         <img
@@ -322,7 +326,7 @@ export default function ItemList() {
               <ItemCard
                 key={index}
                 item={item}
-                business_identifier={biz_id ?? null}
+                business_identifier={biz_uniquesIdentifier ?? null}
                 inBasket={isInBasket(item._id)}
                 onAdd={handleAddToBasket}
                 onRemove={handleRemoveFromBasket}
