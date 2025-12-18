@@ -66,7 +66,7 @@ export default function ItemList() {
   console.log(" window.location.pathname", biz_id)
 
 
-  const [biz_uniquesIdentifier, setBiz_uniquesIdentifier] = useState<string>();
+  // const [_biz_uniquesIdentifier, setBiz_uniquesIdentifier] = useState<string>();
   const [biz_Id, setBiz_Id] = useState<string>();
   const fetchDataByBizId = async (biz_id: string) => {
     try {
@@ -82,7 +82,7 @@ export default function ItemList() {
         _id: string,
       }) => b.branch_name === biz_id || b.branch_name.toLowerCase() === biz_id?.split("_").join(" ").toLowerCase());
       console.log("biz_id", biz_id?.split("_").join(" ").toLowerCase());
-      setBiz_uniquesIdentifier(details?.branch_name);
+      // setBiz_uniquesIdentifier(details?.branch_name);
       setBiz_Id(details?._id);
       localStorage.setItem("biz_id", details?._id || "");
 
@@ -129,7 +129,7 @@ export default function ItemList() {
     // if (!business_identifier || !branchId) return;
     try {
       const response = await axios.get(
-        `${SERVER_DOMAIN}/menu/getGogrubBusinessDetails/?business_identifier=${biz_uniquesIdentifier}&branch=${biz_Id}`,
+        `${SERVER_DOMAIN}/menu/getGogrubBusinessDetails/?business_identifier=${biz_id}&branch=${biz_Id}`,
         headers
       );
       setBizDetails(response.data.data || null);
@@ -142,7 +142,7 @@ export default function ItemList() {
     // if (!business_identifier || !branchId) return;
     try {
       const response = await axios.get(
-        `${SERVER_DOMAIN}/menu/getAllGogrubMenuItem/?business_identifier=${biz_uniquesIdentifier}&branch=${biz_Id}`,
+        `${SERVER_DOMAIN}/menu/getAllGogrubMenuItem/?business_identifier=${biz_id}&branch=${biz_Id}`,
         headers
       );
       const data: RemoteMenuItem[] = response?.data?.data || [];
@@ -156,10 +156,10 @@ export default function ItemList() {
 
   useEffect(() => {
     setLoading(true);
-    if (biz_Id && biz_uniquesIdentifier) {
+    if (biz_Id) {
       Promise.all([fetchBusinessDetails(), fetchItems()]).finally(() => setLoading(false));
     }
-  }, [biz_Id, biz_uniquesIdentifier, headers]);
+  }, [biz_Id, headers]);
 
   const categories = useMemo<string[]>(() => {
     const unique = Array.from(
@@ -265,7 +265,7 @@ export default function ItemList() {
   return (
     <div className="w-full min-h-screen">
 
-      {showSearch && (<SearchModal setShowSearch={setShowSearch} allMenuItems={menuItemNames} business_identifier={biz_uniquesIdentifier ?? null} />)}
+      {showSearch && (<SearchModal setShowSearch={setShowSearch} allMenuItems={menuItemNames} business_identifier={biz_id ?? null} />)}
 
       <div className="relative w-full h-64 mb-12">
         <img
@@ -322,7 +322,7 @@ export default function ItemList() {
               <ItemCard
                 key={index}
                 item={item}
-                business_identifier={biz_uniquesIdentifier ?? null}
+                business_identifier={biz_id ?? null}
                 inBasket={isInBasket(item._id)}
                 onAdd={handleAddToBasket}
                 onRemove={handleRemoveFromBasket}
