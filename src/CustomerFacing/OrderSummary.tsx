@@ -414,7 +414,7 @@ function UserInfoCard({
     <div className='w-full p-4 bg-white rounded-t-2xl'>
       <div className="w-full mb-2">
         <div className="flex items-center justify-between w-full">
-          <h4 className="font-semibold">{orderType} details</h4>
+          <h4 className="font-semibold">{orderType?.charAt(0).toUpperCase() + orderType?.slice(1)} Details</h4>
           <CloseLineIcon onClick={() => setOrderType(null)} />
         </div>
         <p className='mt-2 text-sm'>{orderType === 'delivery' && 'Your order will be delivered to your address when ready'}</p>
