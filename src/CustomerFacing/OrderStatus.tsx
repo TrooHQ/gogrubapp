@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { SERVER_DOMAIN } from "../Api/Api";
 import { clearBasket } from "../slices/BasketSlice";
 import { Loader } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 // import { SERVER_DOMAIN } from "../../../Api/Api";
 // import Loader from "../../../components/Loader";
 // import { clearBasket } from "../../../slices/BasketSlice";
@@ -65,8 +66,11 @@ export default function OrderStatus() {
 
   console.log("home", home);
 
+  const navigate = useNavigate();
+
   const handleBackHome = () => {
-    window.location.href = home;
+    // window.location.href = home;
+    navigate(home)
     // if (home) {
     // } else {
     //   navigate(-1);
