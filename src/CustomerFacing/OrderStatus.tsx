@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { SERVER_DOMAIN } from "../Api/Api";
 import { clearBasket } from "../slices/BasketSlice";
 import { Loader } from "lucide-react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { SERVER_DOMAIN } from "../../../Api/Api";
 // import Loader from "../../../components/Loader";
 // import { clearBasket } from "../../../slices/BasketSlice";
