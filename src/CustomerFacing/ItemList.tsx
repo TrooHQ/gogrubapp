@@ -162,6 +162,7 @@ export default function ItemList() {
   };
 
   localStorage.setItem("gg_h_id", biz_uniquesIdentifier ?? "");
+  localStorage.setItem("gg_h_branchid", biz_Id ?? "");
   localStorage.setItem("gg_h_url", window.location.pathname);
 
   useEffect(() => {

@@ -134,13 +134,13 @@ export default function OrderStatus() {
 
   if (errorMsg) {
     return (
-      <div className="relative w-full min-h-screen flex items-center justify-center">
-        <div className="text-center px-4">
+      <div className="relative flex items-center justify-center w-full min-h-screen">
+        <div className="px-4 text-center">
           <p className="text-[18px] font-[600] text-[#FF4D4F]">Payment Error</p>
           <p className="mt-2 text-[14px] text-[#FF4D4F]">{errorMsg}</p>
           <button
             onClick={handleBackHome}
-            className="mt-6 inline-flex items-center justify-center px-5 py-2 rounded-full border border-blue-600 text-blue-600 bg-white hover:bg-blue-50"
+            className="inline-flex items-center justify-center px-5 py-2 mt-6 text-blue-600 bg-white border border-blue-600 rounded-full hover:bg-blue-50"
           >
             Back home
           </button>
@@ -151,21 +151,21 @@ export default function OrderStatus() {
 
   if (loading) {
     return (
-      <div className="relative w-full min-h-screen flex items-center justify-center">
+      <div className="relative flex items-center justify-center w-full min-h-screen">
         <Loader />
       </div>
     );
   }
 
   return (
-    <div className="relative w-full min-h-screen flex items-center justify-center">
-      <div className="text-center px-4">
+    <div className="relative flex items-center justify-center w-full min-h-screen">
+      <div className="px-4 text-center">
         <p className="text-[18px] font-[600] text-[#121212]">Order successful!</p>
         <p className="mt-2 text-[14px] text-[#121212]">Your order number is <span className="font-[700]">{formattedOrderNumber}</span>.</p>
         <p className="mt-4 text-[14px] text-[#606060]">We will notify you when your order is ready,<br /> and it will then be delivered to your room.</p>
         <button
           onClick={handleBackHome}
-          className="mt-6 inline-flex items-center justify-center px-5 py-2 rounded-full border border-blue-600 text-blue-600 bg-white hover:bg-blue-50"
+          className="inline-flex items-center justify-center px-5 py-2 mt-6 text-blue-600 bg-white border border-blue-600 rounded-full hover:bg-blue-50"
         >
           Back home
         </button>

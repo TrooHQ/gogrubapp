@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/store';
 import { BiPackage } from "react-icons/bi";
 import { TbPaperBag } from "react-icons/tb";
-import { removeItemFromBasket, type BasketItem as BasketItemStore, type Option } from '../slices/BasketSlice';
+import { clearBasket, removeItemFromBasket, type BasketItem as BasketItemStore, type Option } from '../slices/BasketSlice';
 import CustomAddToCartToast from './CustomToast';
 import { toast } from 'react-toastify';
 
@@ -46,9 +46,11 @@ export default function OrderSummary() {
 
   const basket = useSelector((state: RootState) => state.basket);
   const items = basket.items as BasketItemStore[];
-  const branchId = useSelector((state: RootState) => state.business?.branchID);
+  // const branchId = useSelector((state: RootState) => state.business?.branchID);
   // const businessIdentifier = useSelector((state: RootState) => state.business?.businessIdentifier);
   const businessId = useSelector((state: RootState) => state.business?.businessDetails?._id);
+
+  const branchId = localStorage.getItem("gg_h_branchid") || '';
 
   const subtotal = useMemo(() => items.reduce((sum, item) => sum + item.totalPrice * item.quantity, 0), [items]);
   const [serviceCharge, setServiceCharge] = useState(0);
@@ -59,7 +61,7 @@ export default function OrderSummary() {
   const [totalDue, setTotalDue] = useState(pricePlusTax);
 
   const businessIdentifier = localStorage.getItem("gg_h_id") || '';
-  console.log("from local", businessIdentifier)
+  console.log("from local", branchId)
 
   const storedHome = localStorage.getItem("gg_h_url") || '/';
   let home = storedHome;
@@ -70,7 +72,46 @@ export default function OrderSummary() {
     home = storedHome;
   }
 
+  const param = new URLSearchParams(window.location.search);
+  const reference = param.get('reference') || param.get('trxref') || '';
 
+  useEffect(() => {
+    reference && handleOrderUpload();
+  }, [reference])
+
+  const handleOrderUpload = async () => {
+    try {
+      // setLoading(true);
+
+      const _order = localStorage.getItem("order_srjhh")
+      const branchId = localStorage.getItem("gg_h_branchid") || '';
+
+      const order = _order ? JSON.parse(_order) : null;
+      console.log("order", branchId);
+      // return;
+      const response = await axios.post(
+        `${SERVER_DOMAIN}/order/uploadGogrubBranchUserOrder`,
+        { ...order, transactionRef: reference, businessIdentifier, branch_id: branchId },
+        // payload?.items.length > 0 ? payload : order
+        // payload
+      );
+
+      console.log("Order upload response:", response.data.data);
+      // return;
+      sessionStorage.setItem(
+        "OrderDetails",
+        JSON.stringify(response.data.data)
+      );
+      dispatch(clearBasket());
+      sessionStorage.removeItem("ref");
+      // localStorage.removeItem("order_srjhh");
+      navigate(`/order-status`);
+    } catch (error) {
+      console.error("Error occurred:", error);
+    } finally {
+      // setLoading(false);
+    }
+  };
 
 
   const canCheckout =
@@ -191,7 +232,7 @@ export default function OrderSummary() {
           amount: totalDue,
           email: 'user@example.com',
           // callback_url: window.location.href,
-          callback_url: window.location.origin + "/order-status",
+          callback_url: window.location.origin + "/ordersummary",
           menu_items: orderItems,
         },
         headers
@@ -217,7 +258,7 @@ export default function OrderSummary() {
 
       <div className='px-4'>
         {items.map((item) => (
-          <OrderSummaryCard key={item.id} item={item} onUpdateQuantity={handleQuantityUpdate}  b_id={businessIdentifier} />
+          <OrderSummaryCard key={item.id} item={item} onUpdateQuantity={handleQuantityUpdate} b_id={businessIdentifier} />
         ))}
       </div>
 
@@ -302,7 +343,7 @@ export default function OrderSummary() {
   );
 }
 
-function OrderSummaryCard({ item, onUpdateQuantity,  b_id }: { item: BasketItemStore; onUpdateQuantity: (id: string, quantity: number,) => void; b_id?: string }) {
+function OrderSummaryCard({ item, onUpdateQuantity, b_id }: { item: BasketItemStore; onUpdateQuantity: (id: string, quantity: number,) => void; b_id?: string }) {
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(item.quantity || 1);
 

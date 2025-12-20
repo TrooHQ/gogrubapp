@@ -188,6 +188,7 @@ export const OnlineOrderingSelectPayment = () => {
         `${SERVER_DOMAIN}/order/confirmOrderPayment/`,
         { reference: reference, businessId: uniqueId });
 
+      console.log("resp_status", response.data?.status)
       if (response.data?.status !== false) {
         console.log("Payment verification response:", response);
         handleOrderUpload();
