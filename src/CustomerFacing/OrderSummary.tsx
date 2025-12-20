@@ -52,7 +52,7 @@ export default function OrderSummary() {
   const items = basket.items as BasketItemStore[];
   // const branchId = useSelector((state: RootState) => state.business?.branchID);
   // const businessIdentifier = useSelector((state: RootState) => state.business?.businessIdentifier);
-  const businessId = useSelector((state: RootState) => state.business?.businessDetails?._id);
+  // const businessId = useSelector((state: RootState) => state.business?.businessDetails?._id);
 
   const branchId = localStorage.getItem("gg_h_branchid") || '';
 
@@ -261,7 +261,7 @@ export default function OrderSummary() {
       const response = await axios.post(
         `${PAYMENT_DOMAIN}/transaction/initiate_paystack_transaction/`,
         {
-          business_id: businessId,
+          business_id: businessIdentifier,
           name: customerName || 'User',
           platform: 'Online',
           amount: totalDue,
@@ -276,7 +276,7 @@ export default function OrderSummary() {
       window.location.href = response.data.paystack_data.data.authorization_url;
     } catch (error) {
       console.error('Error initiating payment:', error);
-      window.location.href = '/ordersummary';
+      // window.location.href = '/ordersummary';
     }
   };
 
