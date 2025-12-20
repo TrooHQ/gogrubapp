@@ -9,22 +9,24 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/store';
 import { BiPackage } from "react-icons/bi";
 import { TbPaperBag } from "react-icons/tb";
-import type { BasketItem as BasketItemStore, Option } from '../slices/BasketSlice';
+import { removeItemFromBasket, type BasketItem as BasketItemStore, type Option } from '../slices/BasketSlice';
+import CustomAddToCartToast from './CustomToast';
+import { toast } from 'react-toastify';
 
-function extractBusinessIdentifierFromUrl(inputUrl?: string): string | null {
-  const source = inputUrl ?? (typeof window !== 'undefined' ? window.location.href : '');
-  const tryGet = (p: string): string | null => {
-    const parts = p.split('/').filter(Boolean);
-    const idx = parts.findIndex((s) => s === 'online_ordering');
-    return idx !== -1 && parts[idx + 1] ? decodeURIComponent(parts[idx + 1]) : null;
-  };
-  try {
-    const url = new URL(source, typeof window !== 'undefined' ? window.location.origin : 'http://localhost');
-    return tryGet(url.pathname);
-  } catch {
-    return tryGet(source);
-  }
-}
+// function extractBusinessIdentifierFromUrl(inputUrl?: string): string | null {
+//   const source = inputUrl ?? (typeof window !== 'undefined' ? window.location.href : '');
+//   const tryGet = (p: string): string | null => {
+//     const parts = p.split('/').filter(Boolean);
+//     const idx = parts.findIndex((s) => s === 'online_ordering');
+//     return idx !== -1 && parts[idx + 1] ? decodeURIComponent(parts[idx + 1]) : null;
+//   };
+//   try {
+//     const url = new URL(source, typeof window !== 'undefined' ? window.location.origin : 'http://localhost');
+//     return tryGet(url.pathname);
+//   } catch {
+//     return tryGet(source);
+//   }
+// }
 
 export default function OrderSummary() {
   const navigate = useNavigate();
@@ -45,7 +47,7 @@ export default function OrderSummary() {
   const basket = useSelector((state: RootState) => state.basket);
   const items = basket.items as BasketItemStore[];
   const branchId = useSelector((state: RootState) => state.business?.branchID);
-  const businessIdentifier = useSelector((state: RootState) => state.business?.businessIdentifier);
+  // const businessIdentifier = useSelector((state: RootState) => state.business?.businessIdentifier);
   const businessId = useSelector((state: RootState) => state.business?.businessDetails?._id);
 
   const subtotal = useMemo(() => items.reduce((sum, item) => sum + item.totalPrice * item.quantity, 0), [items]);
@@ -56,6 +58,9 @@ export default function OrderSummary() {
   const deliveryFee = deliveryDetails?.deliveryDetails?.fixedPrice;
   const [totalDue, setTotalDue] = useState(pricePlusTax);
 
+  const businessIdentifier = localStorage.getItem("gg_h_id") || '';
+  console.log("from local", businessIdentifier)
+
   const storedHome = localStorage.getItem("gg_h_url") || '/';
   let home = storedHome;
   try {
@@ -65,11 +70,17 @@ export default function OrderSummary() {
     home = storedHome;
   }
 
+
+
+
   const canCheckout =
     (orderType === 'delivery' && customerName.trim().length > 0 && customerPhone.trim().length > 0 && houseNumber.trim().length > 0 && streetAddress.trim().length > 0 && localGovernment.trim().length > 0 && stateName.trim().length > 0) ||
     (orderType === 'pickup' && customerName.trim().length > 0 && customerPhone.trim().length > 0 && customerEmail.trim().length > 0);
 
   useEffect(() => {
+
+
+
     const calc = async () => {
       if (!subtotal) {
         setServiceCharge(0);
@@ -85,7 +96,12 @@ export default function OrderSummary() {
         setPricePlusTax(subtotal);
       }
     };
-    calc();
+
+    if (items.length > 0) {
+      calc();
+    } else {
+      navigate(home);
+    }
   }, [subtotal]);
 
   useEffect(() => {
@@ -201,7 +217,7 @@ export default function OrderSummary() {
 
       <div className='px-4'>
         {items.map((item) => (
-          <OrderSummaryCard key={item.id} item={item} onUpdateQuantity={handleQuantityUpdate} home={home} />
+          <OrderSummaryCard key={item.id} item={item} onUpdateQuantity={handleQuantityUpdate}  b_id={businessIdentifier} />
         ))}
       </div>
 
@@ -286,11 +302,11 @@ export default function OrderSummary() {
   );
 }
 
-function OrderSummaryCard({ item, onUpdateQuantity, home }: { item: BasketItemStore; onUpdateQuantity: (id: string, quantity: number,) => void; home: string }) {
+function OrderSummaryCard({ item, onUpdateQuantity,  b_id }: { item: BasketItemStore; onUpdateQuantity: (id: string, quantity: number,) => void; b_id?: string }) {
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(item.quantity || 1);
 
-  const businessIdentifier = extractBusinessIdentifierFromUrl(home) || '';
+  const businessIdentifier = b_id || '';
 
   const handleIncrement = () => {
     const newQuantity = quantity + 1;
@@ -314,8 +330,21 @@ function OrderSummaryCard({ item, onUpdateQuantity, home }: { item: BasketItemSt
     }
   };
 
+  const dispatch = useDispatch();
+  console.log("businessIdentifier from store front", businessIdentifier)
   const handleEdit = () => {
     navigate(`/menudetails?id=${item.id}&bid=${businessIdentifier}`);
+  };
+  const handleRemoveFromBasket = (item: string) => {
+    dispatch(removeItemFromBasket({ id: item }));
+    toast(<CustomAddToCartToast count={1} text="Item removed from cart" />, {
+      position: "top-center",
+      className: "p-0 my-0 bg-transparent shadow-none",
+      style: { background: "transparent", boxShadow: "none", padding: 0, margin: "0 auto" },
+      closeButton: false,
+      hideProgressBar: true,
+      icon: false,
+    });
   };
 
   return (
@@ -346,7 +375,7 @@ function OrderSummaryCard({ item, onUpdateQuantity, home }: { item: BasketItemSt
 
         <div className='flex items-center gap-4'>
           <span className='text-sm font-semibold text-blue-500 cursor-pointer hover:text-blue-700' onClick={handleEdit}>Edit</span>
-          <span className='text-sm font-semibold text-red-500 cursor-pointer hover:text-red-700'>Remove</span>
+          <span className='text-sm font-semibold text-red-500 cursor-pointer hover:text-red-700' onClick={() => handleRemoveFromBasket(item.id)}>Remove</span>
         </div>
       </div>
     </div>
@@ -447,7 +476,7 @@ function UserInfoCard({
       )}
 
       <p className='text-xs text-red-500 '>{errorState}</p>
-      <button className='px-4 py-2 mx-auto my-4 text-white bg-black rounded-lg w-full' onClick={handleSaveUserInfo}>Done</button>
+      <button className='w-full px-4 py-2 mx-auto my-4 text-white bg-black rounded-lg' onClick={handleSaveUserInfo}>Done</button>
     </div>
   );
 }
