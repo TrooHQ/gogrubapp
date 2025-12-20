@@ -44,6 +44,10 @@ export default function OrderSummary() {
   const [stateName, setStateName] = useState('');
   const [note, setNote] = useState('');
 
+  const [orderNo, setOrderNo] = useState('');
+  // const [_collectionNo, setCollectionNo] = useState('');
+  const [showStatusModal, setShowStatusModal] = useState(false);
+
   const basket = useSelector((state: RootState) => state.basket);
   const items = basket.items as BasketItemStore[];
   // const branchId = useSelector((state: RootState) => state.business?.branchID);
@@ -63,14 +67,14 @@ export default function OrderSummary() {
   const businessIdentifier = localStorage.getItem("gg_h_id") || '';
   console.log("from local", branchId)
 
-  const storedHome = localStorage.getItem("gg_h_url") || '/';
-  let home = storedHome;
-  try {
-    const u = new URL(storedHome, window.location.origin);
-    home = u.pathname;
-  } catch {
-    home = storedHome;
-  }
+  const home = localStorage.getItem("gg_h_url") ?? "";
+  // let home = storedHome;
+  // try {
+  //   const u = new URL(storedHome, window.location.origin);
+  //   home = u.pathname;
+  // } catch {
+  //   home = storedHome;
+  // }
 
   const param = new URLSearchParams(window.location.search);
   const reference = param.get('reference') || param.get('trxref') || '';
@@ -79,11 +83,37 @@ export default function OrderSummary() {
     reference && handleOrderUpload();
   }, [reference])
 
+  // const verifyPayment = async () => {
+  //   try {
+  //     // setLoading(true);
+  //     const response = await axios.post(
+  //       `${SERVER_DOMAIN}/order/confirmOrderPayment`,
+  //       { reference: reference, businessId: businessIdentifier }
+  //     );
+
+  //     if (response.data?.status !== false) {
+  //       await handleOrderUpload();
+  //       toast.success("Payment Successful!");
+  //       // setErrorMsg(null);
+  //     } else {
+  //       toast.error("Payment could not be verified.");
+  //       // setErrorMsg("Payment could not be verified.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error confirming payment:", error);
+  //     // const msg = getAxiosMessage(error);
+  //     // toast.error(msg);
+  //     // setErrorMsg(msg);
+  //   } finally {
+  //     // setLoading(false);
+  //   }
+  // };
+
   const handleOrderUpload = async () => {
     try {
       // setLoading(true);
 
-      const _order = localStorage.getItem("order_srjhh")
+      const _order = localStorage.getItem("order_sdjgh")
       const branchId = localStorage.getItem("gg_h_branchid") || '';
 
       const order = _order ? JSON.parse(_order) : null;
@@ -102,10 +132,13 @@ export default function OrderSummary() {
         "OrderDetails",
         JSON.stringify(response.data.data)
       );
+      setOrderNo(response.data.data.order_number);
+      // setCollectionNo(response.data.data.collection_string);
       dispatch(clearBasket());
       sessionStorage.removeItem("ref");
       // localStorage.removeItem("order_srjhh");
-      navigate(`/order-status`);
+      // navigate(`/order-status`);
+      setShowStatusModal(true);
     } catch (error) {
       console.error("Error occurred:", error);
     } finally {
@@ -138,10 +171,12 @@ export default function OrderSummary() {
       }
     };
 
-    if (items.length > 0) {
-      calc();
+    if (items.length < 1) {
+      if (!reference) {
+        navigate(home);
+      }
     } else {
-      navigate(home);
+      calc();
     }
   }, [subtotal]);
 
@@ -241,7 +276,7 @@ export default function OrderSummary() {
       window.location.href = response.data.paystack_data.data.authorization_url;
     } catch (error) {
       console.error('Error initiating payment:', error);
-      window.location.href = '/payment-type/online_ordering';
+      window.location.href = '/ordersummary';
     }
   };
 
@@ -339,6 +374,33 @@ export default function OrderSummary() {
           </button>
         </div>
       )}
+
+      {showStatusModal && <div className="fixed top-0 left-0 z-20 flex items-center justify-center w-full min-h-screen bg-white">
+        <div className="relative flex items-center justify-center w-full min-h-screen">
+          <div className="px-4 text-center">
+            <p className="text-[18px] font-[600] text-[#121212]">Order successful!</p>
+            <p className="mt-2 text-[14px] text-[#121212]">Your order number is <span className="font-[700]">{
+              // formattedOrderNumber
+              orderNo
+            }</span>.</p>
+            {/* <p className="mt-2 text-[14px] text-[#121212]">Your order number is <span className="font-[700]">{
+              // formattedOrderNumber
+              orderNo
+            }</span>.</p> */}
+            <p className="mt-4 text-[14px] text-[#606060]">We will notify you when your order is ready,<br /> and it will then be delivered to your room.</p>
+            <button
+              onClick={() => { navigate(home) }
+              }
+              className="inline-flex items-center justify-center px-5 py-2 mt-6 text-blue-600 bg-white border border-blue-600 rounded-full hover:bg-blue-50"
+            >
+              Back home
+            </button>
+          </div>
+        </div>
+      </div>}
+
+
+
     </div>
   );
 }
@@ -518,6 +580,10 @@ function UserInfoCard({
 
       <p className='text-xs text-red-500 '>{errorState}</p>
       <button className='w-full px-4 py-2 mx-auto my-4 text-white bg-black rounded-lg' onClick={handleSaveUserInfo}>Done</button>
+
+
+
+
     </div>
   );
 }
