@@ -76,6 +76,9 @@ export default function ItemList() {
 
       console.log("fetchDataByBizId response", response.data.data);
 
+      // purple_jasmine_cafe, Purple_Jasmine_Cafe, PURPLE_JASMINE_CAFE
+
+      setBiz_uniquesIdentifier(response.data.data.business.business_identifier);
       const details = response.data.data.branches.find((b: {
         branch_address: string,
         branch_name: string,
@@ -83,7 +86,9 @@ export default function ItemList() {
       }) => b.branch_name === biz_id || b.branch_name.toLowerCase().split(" ").join("") === biz_id?.toLowerCase());
       console.log("biz_id", response.data.data.branches[0]?.branch_name.toLowerCase().split(" ").join(""));
       console.log("biz_id", biz_id?.toLowerCase());
-      setBiz_uniquesIdentifier(details?.branch_name?.trim().replace(/\s+/g, "_"));
+      // setBiz_uniquesIdentifier(biz_id);
+      // setBiz_uniquesIdentifier(details?.branch_name?.trim().replace(/\s+/g, "_").toLowerCase());
+      // setBiz_uniquesIdentifier(details?.branch_name?.trim().replace(/\s+/g, "_"));
       setBiz_Id(details?._id);
       localStorage.setItem("biz_id", details?._id || "");
 
@@ -136,7 +141,7 @@ export default function ItemList() {
       );
       setBizDetails(response.data.data || null);
     } catch (error) {
-      setBizDetails(business.businessDetails || null);
+      setBizDetails(null);
       setLoading(false);
     }
   };
@@ -156,6 +161,7 @@ export default function ItemList() {
     }
   };
 
+  localStorage.setItem("gg_h_id", biz_uniquesIdentifier ?? "");
   localStorage.setItem("gg_h_url", window.location.pathname);
 
   useEffect(() => {
@@ -279,7 +285,7 @@ export default function ItemList() {
         />
 
         <div className="absolute flex items-center gap-4 top-4 right-4">
-          <RxShare2 onClick={handleCopyLink} className="p-1 text-4xl bg-gray-200 rounded-full bottom-2 right-2 cursor-pointer" />
+          <RxShare2 onClick={handleCopyLink} className="p-1 text-4xl bg-gray-200 rounded-full cursor-pointer bottom-2 right-2" />
           <IoSearchOutline
             onClick={() => setShowSearch(true)}
             className="p-1 text-4xl bg-gray-200 rounded-full bottom-2 right-2" />
@@ -291,7 +297,7 @@ export default function ItemList() {
               <img
                 src={bizDetails?.business_logo}
                 alt="business-logo"
-                className="w-full h-full object-cover object-center rounded-full"
+                className="object-cover object-center w-full h-full rounded-full"
               />
             ) : <TiWaves className="w-full h-full text-orange-400 bg-orange-200 rounded-full" />
           }
