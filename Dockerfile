@@ -1,6 +1,8 @@
 # --- build stage ---
 FROM node:latest AS builder
 WORKDIR /app
+# Install xsel for clipboard operations
+RUN apt-get update && apt-get install -y xsel && rm -rf /var/lib/apt/lists/*
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 COPY . .
