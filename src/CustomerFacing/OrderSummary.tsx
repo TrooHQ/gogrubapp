@@ -276,7 +276,7 @@ export default function OrderSummary() {
       window.location.href = response.data.paystack_data.data.authorization_url;
     } catch (error) {
       console.error('Error initiating payment:', error);
-      window.location.href = '/payment-type/online_ordering';
+      window.location.href = '/ordersummary';
     }
   };
 
