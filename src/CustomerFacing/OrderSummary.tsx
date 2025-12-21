@@ -331,7 +331,7 @@ export default function OrderSummary() {
           <p className='font-semibold'>₦{subtotal.toLocaleString()}</p>
         </div>
         <div className='flex items-center justify-between py-2'>
-          <p className='text-sm font-medium'>Service Charge</p>
+          <p className='text-sm font-medium'>Processing Fee</p>
           <p className='font-semibold'>₦{serviceCharge.toLocaleString()}</p>
         </div>
       </div>
