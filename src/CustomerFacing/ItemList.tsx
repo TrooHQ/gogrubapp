@@ -14,6 +14,7 @@ import { FiMinus, FiPlus } from "react-icons/fi";
 import { toast } from "react-toastify";
 import CustomAddToCartToast from "./CustomToast";
 import SearchModal from "./SearchModal";
+import { normalizeGoogleDriveImageUrl } from "../utils/imageToBase64";
 
 type MenuItem = {
   _id: string;
@@ -27,6 +28,12 @@ type MenuItem = {
 type RemoteMenuItem = MenuItem & { is_frozen?: boolean };
 
 const ItemCard = ({ item, business_identifier, inBasket, onAdd, onRemove, }: { item: MenuItem; business_identifier: string | null; inBasket: boolean; onAdd: (item: MenuItem) => void; onRemove: (item: MenuItem) => void; accentColor?: string }) => {
+
+
+
+
+
+
   return (
     <div className="relative grid w-full grid-cols-3 gap-2 px-4 py-3 border-b-2 border-b-gray-100 min-h-32">
       <Link to={`/menudetails?id=${item._id}&bid=${business_identifier}`} className="absolute z-10 w-full h-full" />
@@ -38,13 +45,15 @@ const ItemCard = ({ item, business_identifier, inBasket, onAdd, onRemove, }: { i
       <div className="relative w-full col-span-1">
         <div
           className="relative w-full overflow-hidden rounded-lg h-28"
-          style={{
-            background: `url(${item.menu_item_image ?? "/bg-banner.png"})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
+        // style={{
+        //   background: `url(${item?.menu_item_image})`,
+        //   backgroundSize: "cover",
+        //   backgroundPosition: "center",
+        //   backgroundRepeat: "no-repeat",
+        // }}
         >
+          <img src={normalizeGoogleDriveImageUrl(item.menu_item_image || "")} alt="" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+          {/* <img src={item?.menu_item_image} alt="" className="w-full h-full object-cover" /> */}
           <div className="absolute z-50 bottom-2 right-2">
             {inBasket ? (
               <FiMinus className="text-2xl bg-gray-100 rounded-full p-0.5" onClick={() => onRemove(item)} />
