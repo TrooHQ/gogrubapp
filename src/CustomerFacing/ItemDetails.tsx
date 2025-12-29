@@ -10,6 +10,7 @@ import { addItemToBasket, updateItemInBasket, type BasketItem, type Option } fro
 import ProdCount from "./ProdCount";
 import { toast } from "react-toastify";
 import CustomAddToCartToast from "./CustomToast";
+import { normalizeGoogleDriveImageUrl } from "../utils/imageToBase64";
 
 type MenuItem = {
   _id: string;
@@ -195,7 +196,8 @@ export default function ItemDetails() {
     <div className="relative w-full min-h-screen pb-14">
       <div className="relative w-full h-64">
         <img
-          src={menuItem?.menu_item_image ?? "/bg-banner.png"}
+          // src={menuItem?.menu_item_image ?? "/bg-banner.png"}
+          src={normalizeGoogleDriveImageUrl(menuItem?.menu_item_image ?? "")}
           alt="menu-item"
           className="object-cover object-center w-full h-64 mb-10"
         />
